@@ -19,3 +19,6 @@ int main(int argc, char const *argv[])
 	printf("");
 	return 0;
 }
+
+
+//this is the main func
