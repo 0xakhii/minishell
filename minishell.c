@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 08:24:55 by ojamal            #+#    #+#             */
-/*   Updated: 2023/02/23 08:25:23 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/02/23 08:47:10 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,7 @@
 int main(int argc, char const *argv[])
 {
 	printf("Hello World!\n");
+
+	printf("");
 	return 0;
 }
