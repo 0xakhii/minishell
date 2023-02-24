@@ -4,7 +4,7 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
-LIBS = -lreadline
+LIBS = -lreadline -L libft -lft
 
 SRCS = minishell.c
 

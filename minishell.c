@@ -6,18 +6,29 @@
 /*   By: ojamal <ojamal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 08:24:55 by ojamal            #+#    #+#             */
-/*   Updated: 2023/02/24 09:07:18 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/02/24 09:48:26 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+#include "minishell.h"
 
-int main() {
-    char *input = readline("/User/ojamal/Desktop/minishell$> ");
-    printf("You entered: %s\n", input);
-    free(input);
+int main(int ac, char **av)
+{
+	(void)ac;
+	(void)av;
+	while (1)
+	{
+		char cwd[1024];
+		int	i = 0;
+    	if (getcwd(cwd, sizeof(cwd)) != NULL)
+    	{
+			i = ft_strlen(cwd);
+			cwd[i] = '$';
+			cwd[i + 1] = '>';
+			readline(cwd);
+		}
+		else
+        	perror("getcwd() error");
+	}
     return 0;
 }
