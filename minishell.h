@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ojamal <ojamal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/23 08:24:55 by ojamal            #+#    #+#             */
-/*   Updated: 2023/02/24 09:07:18 by ojamal           ###   ########.fr       */
+/*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
+/*   Updated: 2023/02/24 09:12:53 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
-int main() {
-    char *input = readline("/User/ojamal/Desktop/minishell$> ");
-    printf("You entered: %s\n", input);
-    free(input);
-    return 0;
-}
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+
+#endif
