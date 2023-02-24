@@ -6,7 +6,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 LIBS = -lreadline -L libft -lft
 
-SRCS = minishell.c
+SRCS = minishell.c utils.c
 
 OBJS = $(SRCS:.c=.o)
 
