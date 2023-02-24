@@ -1,0 +1,4 @@
+# files ignored by git
+*.swp
+*.out
+*.o
