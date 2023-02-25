@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 08:24:55 by ojamal            #+#    #+#             */
-/*   Updated: 2023/02/24 10:14:38 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/02/25 02:27:51 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,11 @@ void	put_minishell()
 	ft_putstr_fd("\033[1;32m╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝\n\033[0m", 1);
 }
 
-int main()
+int main(int ac, char **av, char **env)
 {
+	(void)ac;
+	(void)av;
+	(void)env;
 	put_minishell();
 	get_cmd();
     return 0;
