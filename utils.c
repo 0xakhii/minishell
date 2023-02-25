@@ -12,21 +12,21 @@
 
 #include "minishell.h"
 
-char	*cmd_parsing(char *input)
-{
-	t_cmd	*cmd;
-	int		i;
-	int		j;
+// char	*cmd_parsing(char *input)
+// {
+// 	t_cmd	*cmd;
+// 	int		i;
+// 	int		j;
 
-	i = 0;
-	j = 0;
-	cmd = malloc(sizeof(t_cmd));
-	cmd->args = ft_split(input, ' ');
-	while (cmd->args[i])
-	{
+// 	i = 0;
+// 	j = 0;
+// 	cmd = malloc(sizeof(t_cmd));
+// 	cmd->args = ft_split(input, ' ');
+// 	while (cmd->args[i])
+// 	{
 		
-	}
-}
+// 	}
+// }
 
 char	*get_prompt()
 {
@@ -36,11 +36,11 @@ char	*get_prompt()
 
 	while (1)
 	{
-		signal(SIGQUIT, SIG_IGN);
+		// signal(SIGQUIT, SIG_IGN);
     	cwd = getcwd(NULL, sizeof(cwd));
 		cwd = ft_strjoin(cwd, "$>");
 		input = readline(cwd);
-		cmd_parsing(input);
+		// cmd_parsing(input);
 		add_history(input);
 	}
 	// ft_putendl_fd("minishell: Invalid command (still working on it)", 2);
@@ -50,7 +50,6 @@ char	*get_prompt()
 
 int	get_cmd()
 {
-	char	*cmd;
-	cmd = get_prompt();
+	get_prompt();
 	return 0;
 }
