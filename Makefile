@@ -2,11 +2,11 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 
 LIBS = -lreadline -L libft -lft
 
-SRCS = minishell.c utils.c
+SRCS = minishell.c utils.c prompt.c
 
 OBJS = $(SRCS:.c=.o)
 

@@ -6,50 +6,50 @@
 /*   By: ojamal <ojamal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:09:16 by ojamal            #+#    #+#             */
-/*   Updated: 2023/02/25 03:14:43 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/02/25 09:37:26 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// char	*cmd_parsing(char *input)
-// {
-// 	t_cmd	*cmd;
-// 	int		i;
-// 	int		j;
-
-// 	i = 0;
-// 	j = 0;
-// 	cmd = malloc(sizeof(t_cmd));
-// 	cmd->args = ft_split(input, ' ');
-// 	while (cmd->args[i])
-// 	{
-		
-// 	}
-// }
-
-char	*get_prompt()
+int	ft_isquote(char c)
 {
-	char	*cwd;
-	char	*input;
-	// int	i = 0;
-
-	while (1)
-	{
-		// signal(SIGQUIT, SIG_IGN);
-    	cwd = getcwd(NULL, sizeof(cwd));
-		cwd = ft_strjoin(cwd, "$>");
-		input = readline(cwd);
-		// cmd_parsing(input);
-		add_history(input);
-	}
-	// ft_putendl_fd("minishell: Invalid command (still working on it)", 2);
-	return (input);
+	if (c == D_QUOTE || c == S_QUOTE)
+		return (1);
+	return (0);
 }
 
-
-int	get_cmd()
+int	ft_isredir(char c)
 {
-	get_prompt();
-	return 0;
+	if (c == REDIR_IN || c == REDIR_OUT || c == APPEND)
+		return (1);
+	return (0);
+}
+
+int	ft_ispipe(char c)
+{
+	if (c == PIPE)
+		return (1);
+	return (0);
+}
+
+int	check_all(char *input)
+{
+	int	i;
+	int	quote;
+
+	i = 0;
+	quote = 0;
+	while (input[i])
+	{
+		if (ft_isquote(input[i]))
+			quote++;
+		i++;
+	}
+	if (quote % 2 != 0)
+	{
+		printf("Error: Unmatched quotes\n");
+		return (0);
+	}
+	return (1);
 }
