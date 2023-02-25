@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/02/24 10:15:16 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/02/25 09:36:01 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,32 @@
 # include <fcntl.h>
 # include "libft/libft.h"
 
+
+typedef struct cmd
+{
+	char	*cmd;
+	char	**args;
+}				t_cmd;
+
+typedef struct node
+{
+	t_cmd	*cmd;
+	struct node	*next;
+}				t_node;
+
+#define D_QUOTE 34
+#define S_QUOTE 39
+#define B_SLASH 92
+#define SPACE 32
+#define TAB 9
+#define PIPE 124
+#define SEMICOLON 59
+#define REDIR_IN 60
+#define REDIR_OUT 62
+#define APPEND 62
+
+
 int	get_cmd();
+int	check_all(char *input);
 
 #endif
