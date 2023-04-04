@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/02/26 13:59:09 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/04/04 20:15:58 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,14 @@ typedef struct node
 	struct node	*next;
 }				t_node;
 
-#define D_QUOTE 34
-#define S_QUOTE 39
-#define B_SLASH 92
-#define SPACE 32
-#define TAB 9
-#define PIPE 124
-#define SEMICOLON 59
-#define REDIR_IN 60
-#define REDIR_OUT 62
-#define APPEND 62
+#define D_QUOTE "\""
+#define S_QUOTE "\'"
+#define B_SLASH "\\"
+#define PIPE "|"
+#define AND "&"
+#define SEMICOLON ";"
+#define REDIR_IN ">"
+#define REDIR_OUT "<"
 
 
 int	get_cmd();

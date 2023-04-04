@@ -6,35 +6,11 @@
 /*   By: ojamal <ojamal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 09:28:52 by ojamal            #+#    #+#             */
-/*   Updated: 2023/02/26 14:04:12 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/04/04 01:28:27 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// void	lexic(char *input)
-// {
-// 	int		i;
-// 	int		j;
-// 	int		quote;
-// 	char	*cmd;
-
-// 	i = 0;
-// 	j = 0;
-// 	quote = 0;
-// 	while (input[i])
-// 	{
-// 		if (ft_isquote(input[i]))
-// 			quote++;
-// 		if (quote % 2 == 0 && (ft_isredir(input[i]) || ft_ispipe(input[i])))
-// 		{
-// 			cmd = ft_substr(input, j, i - j);
-// 			printf("cmd: %s\n", cmd);
-// 			j = i + 1;
-// 		}
-// 		i++;
-// 	}
-// }
 
 char	*get_prompt()
 {
@@ -47,7 +23,10 @@ char	*get_prompt()
     	cwd = getcwd(NULL, sizeof(cwd));
 		cwd = ft_strjoin(cwd, "$>");
 		input = readline(cwd);
-		// lexic(input);
+		check_all(input);
+		char **out = ft_split(input, ' ');
+		for(int i = 0; out[i]; i++)
+			printf("%s\n", out[i]);
 		add_history(input);
 		if (ft_strcmp(input, "exit") == 0)
 			exit(0);
