@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:09:16 by ojamal            #+#    #+#             */
-/*   Updated: 2023/04/04 20:13:48 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/04/05 07:29:14 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,57 +53,6 @@ int	check_all(char *input)
 	{
 		if (ft_isquote(input[i]))
 			quote++;
-		if (ft_isredir(input[i]))
-		{
-			if (input[i + 1] == input[i])
-			{
-				i++;
-				if (input[i + 1] == ' ' || !input[i + 1])
-				{
-					printf("Error: Syntax Error\n");
-					return (0);
-				}
-			}
-			else if (input[i + 1] == ' ' || !input[i + 1])
-			{
-				printf("Error: Syntax Error\n");
-				return (0);
-			}
-		}
-		if (ft_ispipe(input[i]))
-		{
-			if (input[i + 1] == input[i])
-			{
-				i++;
-				if (input[i + 1] == ' ' || !input[i + 1])
-				{
-					printf("Error: Syntax Error\n");
-					return (0);
-				}
-			}
-			else if (input[i + 1] == ' ' || !input[i + 1])
-			{
-				printf("Error: Syntax Error\n");
-				return (0);
-			}
-		}
-		if (ft_isand(input[i]))
-		{
-			if (input[i] == input[i + 1])
-			{
-				i++;
-				if (input[i + 1] == ' ' || !input[i + 1])
-				{
-					printf("Error: Syntax Error\n");
-					return (0);
-				}
-			}
-			else if (input[i + 1] == ' ' || !input[i + 1])
-			{
-				printf("Error: Syntax Error\n");
-				return (0);
-			}
-		}
 		i++;
 	}
 	if (quote % 2 != 0)

@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/04/04 20:15:58 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/04/05 07:17:07 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	check_all(char *input);
 int	ft_isquote(char c);
 int	ft_isredir(char c);
 int	ft_ispipe(char c);
+int	ft_isand(char c);
 
 
 #endif
