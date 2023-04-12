@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:09:16 by ojamal            #+#    #+#             */
-/*   Updated: 2023/04/07 01:16:10 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/04/12 21:22:42 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 int	check_quote(char *str)
 {
-	int	i = 0;
+	int	i;
+
+	i = 0;
 	while (str[i])
 	{
 		if (str[i] == '\'')
@@ -31,7 +33,7 @@ int	check_quote(char *str)
 			while (str[i] && str[i] != '\"')
 				i++;
 			if (str[i] == '\0')
-				return 1;
+				return (1);
 		}
 		i++;
 	}

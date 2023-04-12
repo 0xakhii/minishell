@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/04/07 01:27:17 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/04/12 22:00:17 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,16 @@ typedef struct s_tokens
 		T_APP,
 		T_OEF
 	} types;
+	struct s_tokens *next;
 }	t_tokens;
 
 
-int	get_cmd();
-int	check_quote(char *input);
-int	ft_isquote(char c);
-int	ft_isredir(char c);
-int	ft_ispipe(char c);
-int	ft_isand(char c);
-
+int		get_cmd();
+int		check_quote(char *input);
+int		ft_isquote(char c);
+int		ft_isredir(char c);
+int		ft_ispipe(char c);
+int		ft_isand(char c);
+void	get_tokens(char *input);
 
 #endif
