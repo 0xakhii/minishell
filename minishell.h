@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/04/12 22:00:17 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/04/16 00:08:04 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct cmd
 typedef struct node
 {
 	t_cmd	*cmd;
-	struct node	*next;
+	struct node	*next;   
 }				t_node;
 
 typedef struct s_tokens
@@ -57,5 +57,7 @@ int		ft_isredir(char c);
 int		ft_ispipe(char c);
 int		ft_isand(char c);
 void	get_tokens(char *input);
+char	*get_prompt();
+t_tokens *creat_tokens(char *val, int type);
 
 #endif
