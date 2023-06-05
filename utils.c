@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 23:29:33 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/03 12:08:20 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/05 22:02:18 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ void	printing(t_tokens *lexer)
 {
 	while (lexer)
 	{
-		printf("%s %d\n", lexer->val, lexer->types);
+		printf("\033[1;32mInput:\033[0;m %s \n\033[1;32mType:\033[0m %d\n", lexer->val, lexer->types);
+		if (lexer->next)
+			printf("\n");
 		lexer = lexer->next;
 	}
 }

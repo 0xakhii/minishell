@@ -6,13 +6,13 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 12:07:55 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/05 20:10:26 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/05 21:29:29 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_env_node *create_env_node(const char *key, const char *value)
+t_env_node *create_env_node(char *key, char *value)
 {
     t_env_node *new_node = malloc(sizeof(t_env_node));
     new_node->key = ft_strdup(key);

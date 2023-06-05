@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/03 22:22:09 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/05 21:53:52 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@
 
 typedef struct s_cmd
 {
-	int					argc;
-	char				**argv;
-	struct s_cmd		*next;
+	char				*command;
+	char				**arguments;
+	char				*input_file;
+	char				*output_file;
 }						t_cmd;
 
 typedef struct s_quote
@@ -37,11 +38,11 @@ typedef struct s_quote
 
 typedef struct s_helper
 {
-	int key_len;
-	char *equal_sign;
-	char *value_start;
-	int i;
-}	t_helper;
+	int					key_len;
+	char				*equal_sign;
+	char				*value_start;
+	int					i;
+}						t_helper;
 
 typedef struct s_env_node
 {
