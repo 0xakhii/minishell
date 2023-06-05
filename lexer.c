@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 12:08:55 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/03 17:05:47 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/05 21:22:17 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,11 @@ t_tokens	*lexer_init(char *in)
 			if (in[i] == ' ' || in[i] == '\t')
 				i++;
 			str = NULL;
-			if (ft_isalpha(in[i]) || in[i] == ' ' || in[i] == '\t' || in[i] == '$')
+			if (ft_isalpha(in[i]) || in[i] == ' ' || in[i] == '\t'
+				|| in[i] == '$' || in[i] == '.')
 			{
 				while (in[i] && (ft_isalpha(in[i]) || in[i] == ' '
-						|| in[i] == '\t' || in[i] == '$'))
+						|| in[i] == '\t' || in[i] == '$' || in[i] == '.'))
 				{
 					str = add_characters(str, in[i]);
 					i++;

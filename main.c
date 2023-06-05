@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/03 22:29:32 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/05 21:20:44 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,13 @@ int	main(int ac, char **av, char **env)
 		in = readline("minishell$>");
 		if (in)
 			add_history(in);
+		if (!ft_strcmp(in, "exit"))
+			exit(0);
 		lexer = lexer_init(in);
 		syntax_check(lexer);
 		token_check(lexer);
 		env_list = create_env_list(env);
-		printing2(env_list);
+		// printing2(env_list);
 		expand_command(lexer, env_list);
 		printing(lexer);
 	}
