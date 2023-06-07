@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 12:08:55 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/07 04:03:25 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/07 23:22:31 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,22 +75,61 @@ t_tokens	*ft_norm2(char *str, t_tokens *lexer, int type)
 	return (lexer);
 }
 
-// void	redir_in(char *in ,int *i, char *str, t_tokens *lexer)
-// {
-// 	if (in[*i + 1] == '<')
-// 	{
-// 		str = ft_norm(str, '<', 1);
-// 		(*i) += 2;
-// 		lexer = ft_norm2(str, lexer, T_HERD);
-// 	}
-// 	else
-// 	{
-// 		str = ft_norm(str, '<', 0);
-// 		(*i) += 1;
-// 		lexer = ft_norm2(str, lexer, T_IN_RD);
-// 	}
-	
-// }
+void	process_token(char *str, int type, t_tokens **lexer)
+{
+	t_tokens	*node;
+
+	node = ft_norm2(str, *lexer, type);
+	*lexer = node;
+}
+
+void	process_special_token(char *in, int *i, t_tokens **lexer)
+{
+	char	*str;
+
+	if (in[*i] == '<')
+	{
+		if (in[*i + 1] == '<')
+		{
+			str = ft_norm(NULL, '<', 1);
+			*i += 2;
+			process_token(str, T_HERD, lexer);
+		}
+		else
+		{
+			str = ft_norm(NULL, '<', 0);
+			(*i) += 1;
+			process_token(str, T_IN_RD, lexer);
+		}
+	}
+	else if (in[*i] == '>')
+	{
+		if (in[*i + 1] == '>')
+		{
+			str = ft_norm(NULL, '>', 1);
+			*i += 2;
+			process_token(str, T_APP, lexer);
+		}
+		else
+		{
+			str = ft_norm(NULL, '>', 0);
+			(*i)++;
+			process_token(str, T_OUT_RD, lexer);
+		}
+	}
+	else if (in[*i] == '|')
+	{
+		str = ft_norm(NULL, '|', 0);
+		(*i)++;
+		process_token(str, T_PIPE, lexer);
+	}
+	else
+	{
+		str = ft_norm(NULL, in[*i], 0);
+		(*i)++;
+		process_token(str, T_STR, lexer);
+	}
+}
 
 t_tokens	*lexer_init(char *in)
 {
@@ -119,55 +158,12 @@ t_tokens	*lexer_init(char *in)
 					str = add_characters(str, in[i]);
 					i++;
 				}
-				lexer = ft_norm2(str, lexer, T_STR);
+				process_token(str, T_STR, &lexer);
 			}
 			else
-			{
-				if (in[i] == '<')
-				{
-					if (in[i + 1] == '<')
-					{
-						str = ft_norm(str, '<', 1);
-						(i) += 2;
-						lexer = ft_norm2(str, lexer, T_HERD);
-					}
-					else
-					{
-						str = ft_norm(str, '<', 0);
-						(i) += 1;
-						lexer = ft_norm2(str, lexer, T_IN_RD);
-					}
-					// redir_in(in, &i, str, lexer);
-				}
-				else if (in[i] == '>')
-				{
-					if (in[i + 1] == '>')
-					{
-						str = ft_norm(str, '>', 1);
-						i += 2;
-						lexer = ft_norm2(str, lexer, T_APP);
-					}
-					else
-					{
-						str = ft_norm(str, '>', 0);
-						i++;
-						lexer = ft_norm2(str, lexer, T_OUT_RD);
-					}
-				}
-				else if (in[i] == '|')
-				{
-					str = ft_norm(str, '|', 0);
-					i++;
-					lexer = ft_norm2(str, lexer, T_PIPE);
-				}
-				else
-				{
-					str = ft_norm(str, in[i], 0);
-					i++;
-					lexer = ft_norm2(str, lexer, T_STR);
-				}
-			}
+				process_special_token(in, &i, &lexer);
 		}
 	}
-	return (lexer = ft_norm2(NULL, lexer, T_EOF), lexer);
+	process_token(NULL, T_EOF, &lexer);
+	return lexer;
 }

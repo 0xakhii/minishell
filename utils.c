@@ -16,9 +16,7 @@ void	printing(t_tokens *lexer)
 {
 	while (lexer)
 	{
-		printf("\033[1;32mInput:\033[0;m %s \n\033[1;32mType:\033[0m %d\n", lexer->val, lexer->types);
-		if (lexer->next)
-			printf("\n");
+		printf("%s %d\n", lexer->val, lexer->types);
 		lexer = lexer->next;
 	}
 }

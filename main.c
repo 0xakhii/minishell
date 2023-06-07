@@ -35,7 +35,7 @@ int	main(int ac, char **av, char **env)
 		syntax_check(lexer);
 		token_check(lexer);
 		env_list = create_env_list(env);
-		printing2(env_list);
+		// printing2(env_list);
 		expand_command(lexer, env_list);
 		printing(lexer);
 	}
