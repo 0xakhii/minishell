@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 23:29:33 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/05 22:02:18 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/10 00:12:54 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@ void	printing(t_tokens *lexer)
 {
 	while (lexer)
 	{
-		printf("%s %d\n", lexer->val, lexer->types);
+		printf("%s %d\n", lexer->val, lexer->e_types);
 		lexer = lexer->next;
 	}
 }
+
 void	printing2(t_env_node *lexer)
 {
 	while (lexer)
@@ -45,14 +46,14 @@ t_tokens	*create_token(char *val, int type)
 	{
 		node = malloc(sizeof(t_tokens));
 		node->val = NULL;
-		node->types = type;
+		node->e_types = type;
 		node->next = NULL;
 	}
 	else
 	{
 		node = malloc(sizeof(t_tokens));
 		node->val = val;
-		node->types = type;
+		node->e_types = type;
 		node->next = NULL;
 	}
 	return (node);

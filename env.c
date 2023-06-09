@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expander.c                                         :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 12:07:55 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/07 04:57:42 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/10 00:15:28 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,28 +47,26 @@ void	append_to_list(t_env_node **head, t_env_node **tail,
 		*tail = new_node;
 	}
 }
+
 void	fill_env_list(char **env, t_env_node **head, t_env_node **tail)
 {
-	int			i;
-	char		*equal_sign;
-	size_t		key_len;
-	char		*value_start;
-	char		*key;
+	t_helper	*helper;
 	t_env_node	*new_node;
 
-	i = 0;
-	while (env[i] != NULL)
+	helper = malloc(sizeof(helper));
+	helper->i = 0;
+	while (env[helper->i] != NULL)
 	{
-		equal_sign = ft_strchr(env[i], '=');
-		if (equal_sign != NULL)
+		helper->equal_sign = ft_strchr(env[helper->i], '=');
+		if (helper->equal_sign != NULL)
 		{
-			key_len = equal_sign - env[i];
-			value_start = equal_sign + 1;
-			key = create_key(env[i], key_len);
-			new_node = create_env_node(key, value_start);
+			helper->key_len = helper->equal_sign - env[helper->i];
+			helper->value_start = helper->equal_sign + 1;
+			helper->key = create_key(env[helper->i], helper->key_len);
+			new_node = create_env_node(helper->key, helper->value_start);
 			append_to_list(head, tail, new_node);
 		}
-		i++;
+		helper->i++;
 	}
 }
 

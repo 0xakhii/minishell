@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 19:17:20 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/03 17:02:15 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/10 00:13:16 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,30 +35,30 @@ void	pop_quote(t_quote **stack)
 
 int	token_check(t_tokens *lexer)
 {
-	if (lexer->types != 1)
+	if (lexer->e_types != 1)
 	{
-		if (lexer->types == 0)
+		if (lexer->e_types == 0)
 			return (msg_er("syntax error near unexpected token `|'"));
-		if (lexer->types == 2 && lexer->next && lexer->next->types != 1)
+		if (lexer->e_types == 2 && lexer->next && lexer->next->e_types != 1)
 			return (msg_er("syntax error near unexpected token `newline'"));
-		if (lexer->types == 3 && lexer->next && lexer->next->types != 1)
+		if (lexer->e_types == 3 && lexer->next && lexer->next->e_types != 1)
 			return (msg_er("syntax error near unexpected token `newline'"));
-		if (lexer->types == 4 && lexer->next && lexer->next->types != 1)
+		if (lexer->e_types == 4 && lexer->next && lexer->next->e_types != 1)
 			return (msg_er("syntax error near unexpected token `newline'"));
-		if (lexer->types == 5 && lexer->next && lexer->next->types != 1)
+		if (lexer->e_types == 5 && lexer->next && lexer->next->e_types != 1)
 			return (msg_er("syntax error near unexpected token `newline'"));
 	}
 	while (lexer)
 	{
-		if (lexer->types == 0 && lexer->next && lexer->next->types != 1)
+		if (lexer->e_types == 0 && lexer->next && lexer->next->e_types != 1)
 			return (msg_er("syntax error near unexpected token `|'"));
-		if (lexer->types == 2 && lexer->next && lexer->next->types != 1)
+		if (lexer->e_types == 2 && lexer->next && lexer->next->e_types != 1)
 			return (msg_er("syntax error near unexpected token `newline'"));
-		if (lexer->types == 3 && lexer->next && lexer->next->types != 1)
+		if (lexer->e_types == 3 && lexer->next && lexer->next->e_types != 1)
 			return (msg_er("syntax error near unexpected token `newline'"));
-		if (lexer->types == 4 && lexer->next && lexer->next->types != 1)
+		if (lexer->e_types == 4 && lexer->next && lexer->next->e_types != 1)
 			return (msg_er("syntax error near unexpected token `newline'"));
-		if (lexer->types == 5 && lexer->next && lexer->next->types != 1)
+		if (lexer->e_types == 5 && lexer->next && lexer->next->e_types != 1)
 			return (msg_er("syntax error near unexpected token `newline'"));
 		lexer = lexer->next;
 	}

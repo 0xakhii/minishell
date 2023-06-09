@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/07 04:40:27 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/10 00:21:52 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
-	(void)env;
 	lexer = NULL;
 	while (1)
 	{

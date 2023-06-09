@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/07 04:48:54 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/10 00:11:39 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,11 @@ typedef struct s_quote
 
 typedef struct s_helper
 {
-	int					key_len;
-	char				*equal_sign;
-	char				*value_start;
 	int					i;
+	char				*equal_sign;
+	size_t				key_len;
+	char				*value_start;
+	char				*key;
 }						t_helper;
 
 typedef struct s_env_node
@@ -63,11 +64,18 @@ typedef struct s_tokens
 		T_HERD,
 		T_APP,
 		T_EOF
-	} types;
+	} e_types;
 	struct s_tokens		*next;
 }						t_tokens;
 
 void					printing(t_tokens *lexer);
+char					*add_characters(char *str, char x);
+int						ft_isspecial(char c);
+t_tokens				*ft_norm2(char *str, t_tokens *lexer, int type);
+void					process_all(char *in, t_tokens **lexer);
+void					process_special_token(char *in, char *str, int *i,
+							t_tokens **lexer);
+void					process_token(char *str, int type, t_tokens **lexer);
 t_tokens				*lexer_init(char *in);
 int						msg_er(char *str);
 void					printing2(t_env_node *lexer);
@@ -82,7 +90,3 @@ char					*get_prompt(void);
 t_tokens				*create_token(char *val, int type);
 void					add_token(t_tokens **lexer, t_tokens *node);
 #endif
-
-
-
-
