@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 12:07:55 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/10 00:15:28 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/10 02:10:14 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,23 +50,22 @@ void	append_to_list(t_env_node **head, t_env_node **tail,
 
 void	fill_env_list(char **env, t_env_node **head, t_env_node **tail)
 {
-	t_helper	*helper;
+	t_helper	helper;
 	t_env_node	*new_node;
 
-	helper = malloc(sizeof(helper));
-	helper->i = 0;
-	while (env[helper->i] != NULL)
+	helper.i = 0;
+	while (env[helper.i] != NULL)
 	{
-		helper->equal_sign = ft_strchr(env[helper->i], '=');
-		if (helper->equal_sign != NULL)
+		helper.equal_sign = ft_strchr(env[helper.i], '=');
+		if (helper.equal_sign != NULL)
 		{
-			helper->key_len = helper->equal_sign - env[helper->i];
-			helper->value_start = helper->equal_sign + 1;
-			helper->key = create_key(env[helper->i], helper->key_len);
-			new_node = create_env_node(helper->key, helper->value_start);
+			helper.key_len = helper.equal_sign - env[helper.i];
+			helper.value_start = helper.equal_sign + 1;
+			helper.key = create_key(env[helper.i], helper.key_len);
+			new_node = create_env_node(helper.key, helper.value_start);
 			append_to_list(head, tail, new_node);
 		}
-		helper->i++;
+		helper.i++;
 	}
 }
 
