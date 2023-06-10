@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/10 00:11:39 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/10 04:41:32 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ typedef struct s_tokens
 }						t_tokens;
 
 void					printing(t_tokens *lexer);
+void					push_quote(t_quote **stack, char quote);
+void					pop_quote(t_quote **stack);
 char					*add_characters(char *str, char x);
 int						ft_isspecial(char c);
 t_tokens				*ft_norm2(char *str, t_tokens *lexer, int type);
@@ -80,7 +82,6 @@ t_tokens				*lexer_init(char *in);
 int						msg_er(char *str);
 void					printing2(t_env_node *lexer);
 int						syntax_check(t_tokens *lexer);
-void					quote_check(t_tokens *lexer);
 int						get_cmd(void);
 t_tokens				*expand_command(t_tokens *lexer, t_env_node *env_list);
 t_env_node				*create_env_list(char **env);
