@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/10 04:41:32 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/14 03:46:50 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,9 @@
 
 typedef struct s_cmd
 {
-	char				*command;
-	char				**arguments;
-	char				*input_file;
-	char				*output_file;
+	char				**cmd;
+	char				*in_file;
+	char				*out_file;
 }						t_cmd;
 
 typedef struct s_quote
@@ -90,4 +89,5 @@ int						token_check(t_tokens *lexer);
 char					*get_prompt(void);
 t_tokens				*create_token(char *val, int type);
 void					add_token(t_tokens **lexer, t_tokens *node);
+t_cmd	*create_command_table(t_tokens *lexer);
 #endif

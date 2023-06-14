@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/10 04:41:47 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/14 17:33:37 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,14 @@ int	main(int ac, char **av, char **env)
 {
 	t_tokens	*lexer;
 	t_env_node	*env_list;
+	t_cmd *cmd_table;
 	char		*in;
 
 	(void)ac;
 	(void)av;
 	lexer = NULL;
+	cmd_table = NULL;
+	env_list = create_env_list(env);
 	while (1)
 	{
 		in = readline("minishell$>");
@@ -33,9 +36,10 @@ int	main(int ac, char **av, char **env)
 		lexer = lexer_init(in);
 		syntax_check(lexer);
 		token_check(lexer);
-		env_list = create_env_list(env);
 		expand_command(lexer, env_list);
-		printing(lexer);
+		cmd_table = create_command_table(lexer);
+		printf("%s\n", cmd_table->cmd[0]);
+		//printing(lexer);
 	}
 }
 

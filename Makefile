@@ -2,13 +2,13 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3
 
 LIBS = -lreadline -L libft -lft
 
 SRCS = main.c utils.c syntax_check.c expanding.c \
 		lexer.c env.c  lexer_utils.c syntax_utils.c \
-		
+		command_table.c \
 
 OBJS = $(SRCS:.c=.o)
 
