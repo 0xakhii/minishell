@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 12:07:55 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/10 02:10:14 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/15 19:51:07 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	fill_env_list(char **env, t_env_node **head, t_env_node **tail)
 			helper.key = create_key(env[helper.i], helper.key_len);
 			new_node = create_env_node(helper.key, helper.value_start);
 			append_to_list(head, tail, new_node);
+			free(helper.key);
 		}
 		helper.i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/14 17:52:12 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/15 19:34:45 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ int	main(int ac, char **av, char **env)
 		else if (!ft_strcmp(in, "clear"))
 			system("clear");
 		lexer = lexer_init(in);
-		syntax_check(lexer);
-		token_check(lexer);
+		// syntax_check(lexer);
+		// token_check(lexer);
 		expand_command(lexer, env_list);
-		create_command_table(lexer);
-		//printing(lexer);
+		// create_command_table(lexer);
+		printing(lexer);
 	}
 }
 

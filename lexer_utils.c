@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 23:32:43 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/10 00:26:43 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/15 19:39:55 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*add_characters(char *str, char x)
 
 int	ft_isspecial(char c)
 {
-	if (c == ' ' || c == '\t' || c == '$' || c == '_')
+	if (c == ' ' || c == '\t' || c == '$' || c == '_' || c == '/' || c == '.')
 		return (1);
 	return (0);
 }
@@ -75,6 +75,7 @@ void	process_all(char *in, t_tokens **lexer)
 			else
 				process_special_token(in, str, &i, lexer);
 		}
+		free(str);
 	}
 }
 

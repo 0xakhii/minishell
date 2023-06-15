@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 23:13:04 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/10 04:16:25 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/15 19:40:37 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	expander_help(t_tokens *lexer, t_env_node *env_list, t_tokens *lexerv1,
 	bool		in_single_quotes;
 
 	env_node = env_list;
-	in_single_quotes = false;
 	quote_token = lexerv1;
+	in_single_quotes = false;
 	in_single_quotes = check_squote(quote_token, lexer, in_single_quotes);
 	if (!in_single_quotes)
 	{
