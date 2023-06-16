@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 19:17:20 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/10 04:41:06 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/16 00:23:05 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	check_start(t_tokens *lexer)
 
 int	token_check(t_tokens *lexer)
 {
-	if (!check_start(lexer))
+	if (check_start(lexer))
 		return (1);
 	while (lexer)
 	{

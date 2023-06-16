@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 23:32:43 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/15 19:39:55 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/16 02:03:25 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,23 @@ void	process_all(char *in, t_tokens **lexer)
 			break ;
 		while (in[i])
 		{
-			if (in[i] == ' ' || in[i] == '\t')
-				i++;
 			str = NULL;
-			if (ft_isalpha(in[i]) || ft_isspecial(in[i]))
+			while (in[i] == ' ' || in[i] == '\t')
+				i++;
+			if ((ft_isalpha(in[i]) || ft_isspecial(in[i])) && (in[i] != ' '
+					|| in[i] != '\t'))
+			{	
 				process_alnum(in, str, &i, lexer);
+				free(str);
+			}
 			else
+			{
 				process_special_token(in, str, &i, lexer);
+				free(str);
+			}
 		}
-		free(str);
 	}
-}
+ }
 
 t_tokens	*ft_norm2(char *str, t_tokens *lexer, int type)
 {
