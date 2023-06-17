@@ -9,6 +9,7 @@ LIBS = -lreadline -L libft -lft
 SRCS = main.c utils.c syntax_check.c expanding.c \
 		lexer.c env.c  lexer_utils.c syntax_utils.c \
 		command_table.c \
+		#Leak_Hunter/leak_hunter.c Leak_Hunter/list_tools.c
 
 OBJS = $(SRCS:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/14 17:51:19 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/17 01:57:28 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ typedef struct s_cmd
 	char				**cmd;
 	char				*in_file;
 	char				*out_file;
-	int 				pipe;
-	struct s_cmd *next;
+	int					pipe;
+	struct s_cmd		*next;
 }						t_cmd;
 
 typedef struct s_quote

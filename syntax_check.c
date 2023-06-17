@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 19:17:20 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/16 00:23:05 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/17 01:57:52 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	token_check(t_tokens *lexer)
 		return (1);
 	while (lexer)
 	{
-		if (lexer->e_types == 0 && lexer->next && lexer->next->e_types != 1)
+		if (lexer->e_types == 0 && lexer->next)
 			return (msg_er("syntax error near unexpected token `|'"));
 		if (lexer->e_types == 2 && lexer->next && lexer->next->e_types != 1)
 			return (msg_er("syntax error near unexpected token `newline'"));
@@ -105,8 +105,14 @@ int	syntax_check(t_tokens *lexer)
 		lexer = lexer->next;
 	}
 	if (stack_single != NULL)
+	{
+		free(stack_single);
 		return (msg_er("Unclosed single quote: '\n"));
+	}
 	if (stack_double != NULL)
+	{
+		free(stack_double);
 		return (msg_er("Unclosed double quote: \"\n"));
+	}
 	return (0);
 }

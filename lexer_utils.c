@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 23:32:43 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/16 02:03:25 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/17 01:52:04 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,15 @@ char	*add_characters(char *str, char x)
 		}
 		new_str[i] = x;
 		new_str[i + 1] = '\0';
+		free(str);
 	}
 	return (new_str);
 }
 
 int	ft_isspecial(char c)
 {
-	if (c == ' ' || c == '\t' || c == '$' || c == '_' || c == '/' || c == '.')
+	if (c == ' ' || c == '\t' || c == '$' || c == '_' || c == '/' || c == '.'
+		|| c == '\"' || c == '\'')
 		return (1);
 	return (0);
 }
@@ -68,22 +70,20 @@ void	process_all(char *in, t_tokens **lexer)
 		while (in[i])
 		{
 			str = NULL;
-			while (in[i] == ' ' || in[i] == '\t')
+			while (in[i] == ' ' || in[i] == '\t' || in[i] == '\v')
 				i++;
 			if ((ft_isalpha(in[i]) || ft_isspecial(in[i])) && (in[i] != ' '
 					|| in[i] != '\t'))
-			{	
+			{
 				process_alnum(in, str, &i, lexer);
-				free(str);
 			}
 			else
 			{
 				process_special_token(in, str, &i, lexer);
-				free(str);
 			}
 		}
 	}
- }
+}
 
 t_tokens	*ft_norm2(char *str, t_tokens *lexer, int type)
 {
