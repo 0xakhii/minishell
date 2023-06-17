@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 23:32:43 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/17 01:52:04 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/18 00:48:34 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,28 @@ char	*add_characters(char *str, char x)
 
 int	ft_isspecial(char c)
 {
-	if (c == ' ' || c == '\t' || c == '$' || c == '_' || c == '/' || c == '.'
-		|| c == '\"' || c == '\'')
+	if (c == '|' || c == '<' || c == '>')
 		return (1);
 	return (0);
 }
 
-void	process_alnum(char *in, char *str, int *i, t_tokens **lexer)
+int	process_alnum(char *in, char *str, int *i, t_tokens **lexer)
 {
-	while (in[*i] && (ft_isalpha(in[*i]) || ft_isspecial(in[*i])))
+	char c = 0;
+	while (in[*i])
 	{
+		if (c == 0 && (in[*i] == '\'' || in[*i] == '\"'))
+			c = in[*i];
+		else if (in[*i] == c)
+			c = 0;
+		if (c == 0 && (ft_isspecial(in[*i]) || in[*i] == ' ' || in[*i] == '\t' || in[*i] == '\v'))
+			break;
 		str = add_characters(str, in[*i]);
 		(*i)++;
 	}
-	process_token(str, T_STR, lexer);
+	if (str)
+		process_token(str, T_STR, lexer);
+	return (str == NULL);
 }
 
 void	process_all(char *in, t_tokens **lexer)
@@ -67,21 +75,11 @@ void	process_all(char *in, t_tokens **lexer)
 	{
 		if (in[i] == '\0' || in[i] == '\n')
 			break ;
-		while (in[i])
-		{
-			str = NULL;
-			while (in[i] == ' ' || in[i] == '\t' || in[i] == '\v')
-				i++;
-			if ((ft_isalpha(in[i]) || ft_isspecial(in[i])) && (in[i] != ' '
-					|| in[i] != '\t'))
-			{
-				process_alnum(in, str, &i, lexer);
-			}
-			else
-			{
-				process_special_token(in, str, &i, lexer);
-			}
-		}
+		while (in[i] == ' ' || in[i] == '\t' || in[i] == '\v')
+			i++;
+		str = NULL;
+		if (process_alnum(in, str, &i, lexer))
+			process_special_token(in, str, &i, lexer);
 	}
 }
 

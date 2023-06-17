@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 12:08:55 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/15 00:46:19 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/18 00:29:04 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,14 +79,6 @@ void	process_special_token(char *in, char *str, int *i, t_tokens **lexer)
 		str[1] = '\0';
 		(*i)++;
 		process_token(str, T_PIPE, lexer);
-	}
-	else
-	{
-		str = malloc(2);
-		str[0] = in[*i];
-		str[1] = '\0';
-		(*i)++;
-		process_token(str, T_STR, lexer);
 	}
 }
 
