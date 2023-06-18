@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/18 00:51:01 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/18 03:27:13 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,27 @@ void	free_tokens(t_tokens **t)
 	}
 }
 
-void	print_cmd_table(t_cmd *cmd_t)
+void print_cmd_table(t_cmd *cmd_t)
 {
-	t_cmd *cmd = cmd_t;
-	while(cmd)
-	{
-		if(cmd->e_types == T_CMD)
-			for(int i = 0; cmd->cmd[i]; i++)
-				printf("command: %s\n", cmd->cmd[i]);
-		if (cmd->e_types == T_IN_FILE)
-			printf("in file: %s	its type: %d\n", cmd->in_file, cmd->e_types);
-		if (cmd->e_types == T_OUT_FILE)
-			printf("out file: %s	its type: %d\n", cmd->out_file, cmd->e_types);
-		cmd = cmd->next;
-	}
+    t_cmd *cmd = cmd_t;
+
+    while (cmd)
+    {
+		int i = 0;
+		while (cmd->cmd && cmd->cmd[i])
+		{
+			printf("Command: %s\n", cmd->cmd[i]);
+			i++;
+		}
+		printf("Input file: %s\n", cmd->in_file);
+		printf("Output file: %s\n", cmd->out_file);
+		printf("Append file: %s\n", cmd->out_file);
+		printf("Heredoc file: %s\n", cmd->in_file);
+        cmd = cmd->next;
+    }
 }
+
+
 
 int	main(int ac, char **av, char **env)
 {
@@ -48,6 +54,7 @@ int	main(int ac, char **av, char **env)
 	t_env_node	*env_list;
 	t_cmd *cmd_table;
 	char		*in;
+	int		exit_stat;
 
 	(void)ac;
 	(void)av;
@@ -64,11 +71,12 @@ int	main(int ac, char **av, char **env)
 		else if (!ft_strcmp(in, "clear"))
 			system("clear");
 		lexer = lexer_init(in);
-		token_check(lexer);
-		syntax_check(lexer);
+		if (token_check(lexer))
+			exit_stat = 1;
+		if (syntax_check(lexer))
+			exit_stat = 127;
 		expand_command(lexer, env_list);
-		printing(lexer);
-		// cmd_table = create_command_table(lexer);
+		cmd_table = create_command_table(lexer);
 		// print_cmd_table(cmd_table);
 		free_tokens(&lexer);
 		free(in);

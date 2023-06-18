@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 17:28:27 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/18 00:50:43 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/18 03:40:58 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,53 +14,77 @@
 
 t_cmd	*create_command_table(t_tokens *lexer)
 {
-	t_cmd		*cmd_table = NULL;
-	t_cmd *head = NULL;
+	t_cmd		*cmd_table;
+	t_cmd		*current_cmd;
 	t_tokens	*current_token;
-	cmd_table = ft_calloc(sizeof(t_cmd), 1);
-	head = cmd_table;
+	t_cmd		*new_cmd;
+
+	cmd_table = NULL;
+	current_cmd = NULL;
 	current_token = lexer;
 	while (current_token)
 	{
+		new_cmd = malloc(sizeof(t_cmd));
+		new_cmd->next = NULL;
+		new_cmd->cmd = NULL;
+		new_cmd->in_file = NULL;
+		new_cmd->out_file = NULL;
 		if (current_token->e_types == T_STR)
 		{
-			cmd_table->cmd = ft_split(current_token->val, ' ');
-			cmd_table->e_types = T_CMD;
-			current_token = current_token->next;
+			new_cmd->cmd = ft_split(current_token->val, ' ');
+			new_cmd->e_types = T_CMD;
+            // for(int i = 0; new_cmd->cmd && new_cmd->cmd[i]; i++)
+            //     printf("--->%s\n", new_cmd->cmd[i]);
 		}
 		else if (current_token->e_types == T_IN_RD
-			|| current_token->e_types == T_HERD)
+				|| current_token->e_types == T_HERD)
 		{
-			if (current_token->e_types == T_IN_RD)
+			if (current_token->next)
 			{
-				current_token = current_token->next;
-				cmd_table->in_file = ft_strdup(current_token->val);
-				cmd_table->e_types = T_IN_FILE;
-			}
-			else
-			{
-				current_token = current_token->next;
-				cmd_table->in_file = ft_strdup(current_token->val);
-				cmd_table->e_types = T_HERD_FILE;
+				if (current_token->e_types == T_IN_RD)
+				{
+					current_token = current_token->next;
+					new_cmd->in_file = ft_strdup(current_token->val);
+					new_cmd->e_types = T_IN_FILE;
+				}
+				else
+				{
+					current_token = current_token->next;
+					new_cmd->in_file = ft_strdup(current_token->val);
+					new_cmd->e_types = T_HERD;
+				}
 			}
 		}
 		else if (current_token->e_types == T_OUT_RD
-			|| current_token->e_types == T_APP)
+				|| current_token->e_types == T_APP)
 		{
-			if (current_token->e_types == T_OUT_RD)
+			if (current_token->next)
 			{
-				current_token = current_token->next;
-				cmd_table->out_file = ft_strdup(current_token->val);
-				cmd_table->e_types = T_OUT_FILE;
+				if (current_token->e_types == T_OUT_RD)
+				{
+					current_token = current_token->next;
+					new_cmd->in_file = ft_strdup(current_token->val);
+					new_cmd->e_types = T_IN_FILE;
+				}
+				else
+				{
+					current_token = current_token->next;
+					new_cmd->in_file = ft_strdup(current_token->val);
+					new_cmd->e_types = T_APP;
+				}
 			}
-			else
-			{
-				current_token = current_token->next;
-				cmd_table->out_file = ft_strdup(current_token->val);
-				cmd_table->e_types = T_APP_FILE;
-			}
+		}
+		if (!cmd_table)
+		{
+			cmd_table = new_cmd;
+			current_cmd = cmd_table;
+		}
+		else
+		{
+			current_cmd->next = new_cmd;
+			current_cmd = current_cmd->next;
 		}
 		current_token = current_token->next;
 	}
-	return (head);
+	return (cmd_table);
 }
