@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/18 03:27:13 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/18 06:26:55 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,23 @@ void print_cmd_table(t_cmd *cmd_t)
     while (cmd)
     {
 		int i = 0;
-		while (cmd->cmd && cmd->cmd[i])
-		{
-			printf("Command: %s\n", cmd->cmd[i]);
-			i++;
-		}
-		printf("Input file: %s\n", cmd->in_file);
-		printf("Output file: %s\n", cmd->out_file);
-		printf("Append file: %s\n", cmd->out_file);
-		printf("Heredoc file: %s\n", cmd->in_file);
-        cmd = cmd->next;
+		if (cmd->e_types == T_CMD)
+			while (cmd->cmd && cmd->cmd[i])
+			{
+				printf("Command: %s\n", cmd->cmd[i]);
+				i++;
+			}
+		if (cmd->e_types == T_IN_FILE)
+			printf("Input file: %s\n", cmd->in_file);
+		if (cmd->e_types == T_OUT_FILE)
+			printf("Output file: %s\n", cmd->out_file);
+		if (cmd->e_types == T_APP_FILE)
+			printf("Append file: %s\n", cmd->out_file);
+		if (cmd->e_types == T_HERD_FILE)
+			printf("Heredoc file: %s\n", cmd->in_file);
+        if (cmd->pipe)
+			printf("is piped\n");
+		cmd = cmd->next;
     }
 }
 
@@ -77,7 +84,7 @@ int	main(int ac, char **av, char **env)
 			exit_stat = 127;
 		expand_command(lexer, env_list);
 		cmd_table = create_command_table(lexer);
-		// print_cmd_table(cmd_table);
+		print_cmd_table(cmd_table);
 		free_tokens(&lexer);
 		free(in);
 	}
