@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 23:32:43 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/18 00:48:34 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/19 04:25:27 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,18 @@ int	ft_isspecial(char c)
 
 int	process_alnum(char *in, char *str, int *i, t_tokens **lexer)
 {
-	char c = 0;
+	char	c;
+
+	c = 0;
 	while (in[*i])
 	{
 		if (c == 0 && (in[*i] == '\'' || in[*i] == '\"'))
 			c = in[*i];
 		else if (in[*i] == c)
 			c = 0;
-		if (c == 0 && (ft_isspecial(in[*i]) || in[*i] == ' ' || in[*i] == '\t' || in[*i] == '\v'))
-			break;
+		if (c == 0 && (ft_isspecial(in[*i]) || in[*i] == ' ' || in[*i] == '\t'
+				|| in[*i] == '\v'))
+			break ;
 		str = add_characters(str, in[*i]);
 		(*i)++;
 	}

@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 19:17:20 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/17 20:24:33 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/19 04:22:44 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,12 @@ int	syntax_check(t_tokens *lexer)
 	if (stack_single != NULL)
 	{
 		free(stack_single);
-		return (msg_er("Unclosed single quote: '\n"));
+		return (msg_er("Unclosed single quote: '"));
 	}
 	if (stack_double != NULL)
 	{
 		free(stack_double);
-		return (msg_er("Unclosed double quote: \"\n"));
+		return (msg_er("Unclosed double quote: \""));
 	}
 	return (0);
 }

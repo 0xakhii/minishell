@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/18 06:26:55 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/19 04:23:48 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,15 @@ void	free_tokens(t_tokens **t)
 	}
 }
 
-void print_cmd_table(t_cmd *cmd_t)
+void	print_cmd_table(t_cmd *cmd_t)
 {
-    t_cmd *cmd = cmd_t;
+	t_cmd	*cmd;
+	int		i;
 
-    while (cmd)
-    {
-		int i = 0;
+	cmd = cmd_t;
+	while (cmd)
+	{
+		i = 0;
 		if (cmd->e_types == T_CMD)
 			while (cmd->cmd && cmd->cmd[i])
 			{
@@ -47,21 +49,18 @@ void print_cmd_table(t_cmd *cmd_t)
 			printf("Append file: %s\n", cmd->out_file);
 		if (cmd->e_types == T_HERD_FILE)
 			printf("Heredoc file: %s\n", cmd->in_file);
-        if (cmd->pipe)
+		if (cmd->pipe)
 			printf("is piped\n");
 		cmd = cmd->next;
-    }
+	}
 }
-
-
 
 int	main(int ac, char **av, char **env)
 {
 	t_tokens	*lexer;
 	t_env_node	*env_list;
-	t_cmd *cmd_table;
+	t_cmd		*cmd_table;
 	char		*in;
-	int		exit_stat;
 
 	(void)ac;
 	(void)av;
@@ -75,17 +74,14 @@ int	main(int ac, char **av, char **env)
 			add_history(in);
 		if (!ft_strcmp(in, "exit"))
 			exit(0);
-		else if (!ft_strcmp(in, "clear"))
-			system("clear");
 		lexer = lexer_init(in);
-		if (token_check(lexer))
-			exit_stat = 1;
-		if (syntax_check(lexer))
-			exit_stat = 127;
+		free(in);
+		token_check(lexer);
+		syntax_check(lexer);
 		expand_command(lexer, env_list);
 		cmd_table = create_command_table(lexer);
-		print_cmd_table(cmd_table);
 		free_tokens(&lexer);
-		free(in);
 	}
 }
+
+// print_cmd_table(cmd_table);
