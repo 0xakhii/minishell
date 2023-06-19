@@ -3,3 +3,5 @@
 *.out
 *.o
 *.a
+.vscode
+minishell

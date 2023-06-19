@@ -1,17 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ojamal <ojamal@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2022/11/01 23:15:52 by ojamal           ###   ########.fr       */
+/*   Created: 2023/06/05 20:07:18 by ojamal            #+#    #+#             */
+/*   Updated: 2023/06/10 00:05:38 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	main(void)
+char	*ft_strcpy(char *dest, char *src)
 {
+	int	a;
+
+	a = 0;
+	while (src[a] != '\0')
+	{
+		dest[a] = src[a];
+		a++;
+	}
+	dest[a] = '\0';
+	return (dest);
 }

@@ -3,53 +3,73 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ojamal <ojamal@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/24 10:09:16 by ojamal            #+#    #+#             */
-/*   Updated: 2023/02/25 09:37:26 by ojamal           ###   ########.fr       */
+/*   Created: 2023/05/24 23:29:33 by ojamal            #+#    #+#             */
+/*   Updated: 2023/06/14 17:51:07 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_isquote(char c)
+void	printing(t_tokens *lexer)
 {
-	if (c == D_QUOTE || c == S_QUOTE)
-		return (1);
-	return (0);
-}
-
-int	ft_isredir(char c)
-{
-	if (c == REDIR_IN || c == REDIR_OUT || c == APPEND)
-		return (1);
-	return (0);
-}
-
-int	ft_ispipe(char c)
-{
-	if (c == PIPE)
-		return (1);
-	return (0);
-}
-
-int	check_all(char *input)
-{
-	int	i;
-	int	quote;
-
-	i = 0;
-	quote = 0;
-	while (input[i])
+	while (lexer)
 	{
-		if (ft_isquote(input[i]))
-			quote++;
-		i++;
+		printf("%s %d\n", lexer->val, lexer->e_types);
+		lexer = lexer->next;
 	}
-	if (quote % 2 != 0)
+}
+
+void	printing2(t_env_node *lexer)
+{
+	while (lexer)
 	{
-		printf("Error: Unmatched quotes\n");
-		return (0);
+		printf("key:%s \nvalue:%s\n", lexer->key, lexer->value);
+		lexer = lexer->next;
 	}
+}
+
+int	msg_er(char *str)
+{
+	ft_putstr_fd("\033[1;31m[Minishell]\033[0m:", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd("\n", 2);
 	return (1);
+}
+
+t_tokens	*create_token(char *val, int type)
+{
+	t_tokens	*node;
+
+	if (val == NULL)
+	{
+		node = malloc(sizeof(t_tokens));
+		node->val = NULL;
+		node->e_types = type;
+		node->next = NULL;
+	}
+	else
+	{
+		node = malloc(sizeof(t_tokens));
+		node->val = val;
+		node->e_types = type;
+		node->next = NULL;
+	}
+	return (node);
+}
+
+void	add_token(t_tokens **lexer, t_tokens *node)
+{
+	t_tokens	*current;
+
+	if (*lexer == NULL)
+		*lexer = node;
+	else
+	{
+		current = *lexer;
+		while (current->next != NULL)
+			current = current->next;
+		current->next = node;
+	}
 }
