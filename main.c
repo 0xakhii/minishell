@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/19 04:23:48 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/20 01:35:03 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int	main(int ac, char **av, char **env)
 		syntax_check(lexer);
 		expand_command(lexer, env_list);
 		cmd_table = create_command_table(lexer);
+		execute_builtins(cmd_table);
 		free_tokens(&lexer);
 	}
 }
