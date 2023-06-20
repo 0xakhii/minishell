@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/25 10:03:14 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/20 00:50:38 by ymenyoub         ###   ########.fr       */
+/*   Created: 2023/05/24 01:15:54 by ymenyoub          #+#    #+#             */
+/*   Updated: 2023/06/20 01:37:12 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
-int main(int ac, char **av)
+void	pwd_cmd(void)
 {
-	// int fd[3][2];
-	// int pid1;
-	// int pid2;
-	// int pid3;
-	// int i = 0;
+	char *tmp;
+	//Get path name of the working directory
+	tmp = getcwd(0, 0); //success;
+	if (!tmp)
+		return ;
+	else
+		printf("%s\n", tmp);
+	free(tmp);
 }
