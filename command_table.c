@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 17:28:27 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/20 06:06:15 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/20 06:10:09 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ char **ft_arrjoin(char **ptr, char *s)
 	ptr[1] = NULL;
 	return ptr;	
 }
-
-
 
 t_cmd	*create_command_table(t_tokens *lexer)
 {
