@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/20 06:44:01 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/20 10:50:07 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,18 +79,18 @@ int	main(int ac, char **av, char **env)
 			return (0);
 		if (in)
 			add_history(in);
-		if (!ft_strcmp(in, "exit"))
-			exit(0);
+		// if (!ft_strcmp(in, "exit"))
+		// 	exit(0);
 		lexer = lexer_init(in);
 		if (lexer && lexer->e_types != 6 && !token_check(lexer)
 			&& !syntax_check(lexer))
 		{
 			expand_command(lexer, env_list);
 			cmd_table = create_command_table(lexer);
-			execute_builtins(cmd_table);
+			execute_builtins(cmd_table, env_list);
 		}
 		// printing(lexer);
-		print_cmd_table(cmd_table);
+		// print_cmd_table(cmd_table);
 		cmd_table = NULL;
 		free_tokens(&lexer);
 		free(in);

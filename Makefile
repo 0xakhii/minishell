@@ -10,6 +10,7 @@ SRCS = main.c utils.c syntax_check.c expanding.c \
 		lexer.c env.c  lexer_utils.c syntax_utils.c \
 		command_table.c exec/builtins/pwd.c \
 		exec/builtins/utils_builtins.c exec/builtins/echo.c\
+		exec/builtins/env.c exec/builtins/exit.c \
 		#Leak_Hunter/leak_hunter.c Leak_Hunter/list_tools.c
 
 OBJS = $(SRCS:.c=.o)

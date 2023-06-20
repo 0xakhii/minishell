@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:17:10 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/20 00:21:24 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/20 10:59:06 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,25 +47,31 @@ int	is_digit(char *str)
 // 	return (0);
 // }
 
-void	my_exit(int ac, char **av)
+void	my_exit(t_cmd *cmd)
 {
 	char	*nextarg;
 
 	// Check if the next argument is a digit
-	nextarg = *av[2];
-	while (*nextarg) 
+	if (cmd->cmd[1])
 	{
-		if (!is_digit(*nextarg)) 
+		nextarg = cmd->cmd[1];
+		while (*nextarg)
 		{
-			printf("exit: numeric argument required!\n");
-			exit(1);
+			if (!is_digit(nextarg)) 
+			{
+				printf("exit\n");
+				printf("exit: %s: numeric argument required\n", nextarg);
+				exit(1);
+			}
+			nextarg++;
 		}
-		nextarg++;
+		if (cmd->cmd[2]) 
+		{
+			printf("exit\n");
+			printf("Exit: too many arguments!\n");
+			//exit(1);
+		}
 	}
-	if (ac > 3) 
-	{
-		printf("Exit: too many arguments!\n");
-		//exit(1);
-	}
+	printf("exit\n");
 	exit(0);
 }

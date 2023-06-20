@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:15:59 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/20 06:34:05 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/20 10:32:21 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 int	check_option(char *s)
 {
-	int i;
+	// int i;
 
-	i = 0;
-	if (s[i] == '-' && s[i + 1] == 'n')
-		i++;
+	// i = 0;
+	if (s[0] == '-' && s[1] == 'n')
+		return (0); //option
 	else
 		return (1); //no_option
-	while (s[i])
-	{
-		if (s[i] != 'n') //no_option
-			return (1);
-	}
+	// while (s[i])
+	// {
+	// 	if (s[i] != 'n') //no_option
+	// 		return (1);
+	// }
 	return (0);
 }
 void	echo_cmd(char **str)
@@ -40,16 +40,14 @@ void	echo_cmd(char **str)
 	{
 		while (str[i])
 		{
-			printf("%s\n", str[i]);
+			printf("%s ", str[i]);
 			i++;
 		}
+		printf("\n");
 	}
 	else
 	{
-		while (str[i])
-		{
-			printf("%s", str[i]);
-			i++;
-		}
+		while (str[++i])
+			printf("%s ", str[i]);
 	}
 }

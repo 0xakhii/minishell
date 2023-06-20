@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 17:28:27 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/20 06:59:28 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/20 10:22:19 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,10 @@ char	**ft_arrjoin(char **split, char *str)
 t_cmd	*create_command_table(t_tokens *lexer)
 {
 	t_cmd		*cmd_table;
-	t_cmd		*current_cmd;
 	t_tokens	*current_token;
 	t_cmd		*new_cmd;
 
 	cmd_table = NULL;
-	current_cmd = NULL;
 	current_token = lexer;
 	new_cmd = table_init();
 	cmd_table = new_cmd;

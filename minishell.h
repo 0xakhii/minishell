@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/20 01:32:44 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/20 10:47:54 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ t_cmd					*create_command_table(t_tokens *lexer);
 //-----------------------------------------------
 void	echo_cmd(char **str);
 void	print_env(char **cmd, t_env_node *env);
-void	my_exit(int ac, char **av);
+void	my_exit(t_cmd *cmd);
 void	pwd_cmd(void);
-void	execute_builtins(t_cmd *cmd);
+void	execute_builtins(t_cmd *cmd, t_env_node *env);
 #endif
