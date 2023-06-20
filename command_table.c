@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 17:28:27 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/20 06:10:09 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/20 06:59:28 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	files_process(t_cmd **new_cmd, t_tokens *current_token)
 		}
 	}
 	else if (current_token->e_types == T_OUT_RD
-		|| current_token->e_types == T_APP)
+			|| current_token->e_types == T_APP)
 	{
 		if (current_token->next)
 		{
@@ -47,29 +47,40 @@ void	files_process(t_cmd **new_cmd, t_tokens *current_token)
 		}
 	}
 	else if (current_token->e_types == T_PIPE)
-		(*new_cmd)->pipe = 1;
+	{
+		(*new_cmd)->pipe++;
+		(*new_cmd)->next = table_init();
+		(*new_cmd) = (*new_cmd)->next;
+	}
 }
 
-void	get_table(t_cmd **current_cmd, t_cmd **cmd_table, t_cmd *new_cmd)
+char	**ft_arrjoin(char **split, char *str)
 {
-	if (!*cmd_table)
+	char	**new_split;
+	int		i;
+
+	i = 0;
+	if (split == NULL)
 	{
-		*cmd_table = new_cmd;
-		*current_cmd = *cmd_table;
+		new_split = malloc(2 * sizeof(char *));
+		new_split[0] = ft_strdup(str);
+		new_split[1] = NULL;
 	}
 	else
 	{
-		(*current_cmd)->next = new_cmd;
-		(*current_cmd) = (*current_cmd)->next;
+		while (split[i])
+			i++;
+		new_split = malloc((i + 2) * sizeof(char *));
+		i = 0;
+		while (split[i])
+		{
+			new_split[i] = ft_strdup(split[i]);
+			i++;
+		}
+		new_split[i] = ft_strdup(str);
+		new_split[i + 1] = NULL;
 	}
-}
-
-
-char **ft_arrjoin(char **ptr, char *s)
-{
-	ptr[0] = ft_strdup(s);
-	ptr[1] = NULL;
-	return ptr;	
+	return (new_split);
 }
 
 t_cmd	*create_command_table(t_tokens *lexer)
@@ -82,16 +93,16 @@ t_cmd	*create_command_table(t_tokens *lexer)
 	cmd_table = NULL;
 	current_cmd = NULL;
 	current_token = lexer;
+	new_cmd = table_init();
+	cmd_table = new_cmd;
 	while (current_token)
 	{
-		new_cmd = table_init();
 		if (current_token->e_types == T_STR)
 		{
-			new_cmd->cmd = ft_split(current_token->val, ' ');
+			new_cmd->cmd = ft_arrjoin(new_cmd->cmd, current_token->val);
 			new_cmd->e_types = T_CMD;
 		}
 		files_process(&new_cmd, current_token);
-		get_table(&current_cmd, &cmd_table, new_cmd);
 		current_token = current_token->next;
 	}
 	return (cmd_table);

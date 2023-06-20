@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/20 06:05:46 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/20 06:44:01 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,16 @@ void	print_cmd_table(t_cmd *cmd_t)
 	cmd = cmd_t;
 	while (cmd)
 	{
-		i = 0;
+		i = 1;
 		if (cmd->e_types == T_CMD)
-			while (cmd->cmd && cmd->cmd[i])
+		{	
+			printf("Command: %s\n", cmd->cmd[0]);
+			while (cmd->cmd && cmd->cmd[i - 1] && cmd->cmd[i])
 			{
-				printf("Command: %s\n", cmd->cmd[i]);
+				printf("args: %s\n", cmd->cmd[i]);
 				i++;
 			}
+		}
 		if (cmd->e_types == T_IN_FILE)
 			printf("Input file: %s\n", cmd->in_file);
 		if (cmd->e_types == T_OUT_FILE)
@@ -55,8 +58,7 @@ void	print_cmd_table(t_cmd *cmd_t)
 	}
 }
 
-
-char **new_expand(char *str, char **env);
+char	**new_expand(char *str, char **env);
 
 int	main(int ac, char **av, char **env)
 {
@@ -74,22 +76,23 @@ int	main(int ac, char **av, char **env)
 	{
 		in = readline("minishell$>");
 		if (!in)
-			return(0);
+			return (0);
 		if (in)
 			add_history(in);
 		if (!ft_strcmp(in, "exit"))
 			exit(0);
 		lexer = lexer_init(in);
-		if (lexer && lexer->e_types != 6 && !token_check(lexer) && !syntax_check(lexer))
+		if (lexer && lexer->e_types != 6 && !token_check(lexer)
+			&& !syntax_check(lexer))
 		{
 			expand_command(lexer, env_list);
 			cmd_table = create_command_table(lexer);
 			execute_builtins(cmd_table);
 		}
-		printing(lexer);
+		// printing(lexer);
+		print_cmd_table(cmd_table);
+		cmd_table = NULL;
 		free_tokens(&lexer);
 		free(in);
 	}
 }
-
-// print_cmd_table(cmd_table);
