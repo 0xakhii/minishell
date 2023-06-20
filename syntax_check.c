@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 19:17:20 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/19 04:22:44 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/20 05:41:15 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,6 @@ int	check_start(t_tokens *lexer)
 	{
 		if (lexer->e_types == 0)
 			return (msg_er("syntax error near unexpected token `|'"));
-		if (lexer->e_types == 2 && lexer->next && lexer->next->e_types != 1)
-			return (msg_er("syntax error near unexpected token `newline'"));
-		if (lexer->e_types == 3 && lexer->next && lexer->next->e_types != 1)
-			return (msg_er("syntax error near unexpected token `newline'"));
-		if (lexer->e_types == 4 && lexer->next && lexer->next->e_types != 1)
-			return (msg_er("syntax error near unexpected token `newline'"));
-		if (lexer->e_types == 5 && lexer->next && lexer->next->e_types != 1)
-			return (msg_er("syntax error near unexpected token `newline'"));
 	}
 	return (0);
 }
@@ -36,7 +28,8 @@ int	token_check(t_tokens *lexer)
 		return (1);
 	while (lexer)
 	{
-		if (lexer->e_types == 0 && lexer->next && lexer->next->e_types != 1)
+		if (lexer->e_types == 0 && lexer->next && (lexer->next->e_types == 6
+				|| lexer->next->e_types == 0))
 			return (msg_er("syntax error near unexpected token `|'"));
 		if (lexer->e_types == 2 && lexer->next && lexer->next->e_types != 1)
 			return (msg_er("syntax error near unexpected token `newline'"));

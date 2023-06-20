@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 17:28:27 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/19 04:24:36 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/20 06:06:15 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,16 @@ void	get_table(t_cmd **current_cmd, t_cmd **cmd_table, t_cmd *new_cmd)
 		(*current_cmd) = (*current_cmd)->next;
 	}
 }
+
+
+char **ft_arrjoin(char **ptr, char *s)
+{
+	ptr[0] = ft_strdup(s);
+	ptr[1] = NULL;
+	return ptr;	
+}
+
+
 
 t_cmd	*create_command_table(t_tokens *lexer)
 {

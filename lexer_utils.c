@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 23:32:43 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/19 04:25:27 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/20 05:32:06 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,10 @@ void	process_all(char *in, t_tokens **lexer)
 	i = 0;
 	while (1)
 	{
-		if (in[i] == '\0' || in[i] == '\n')
-			break ;
 		while (in[i] == ' ' || in[i] == '\t' || in[i] == '\v')
 			i++;
+		if (in[i] == '\0' || in[i] == '\n')
+			break ;
 		str = NULL;
 		if (process_alnum(in, str, &i, lexer))
 			process_special_token(in, str, &i, lexer);
