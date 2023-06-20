@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:15:59 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/20 10:32:21 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/20 11:22:44 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ void	echo_cmd(char **str)
 	{
 		while (str[i])
 		{
-			printf("%s ", str[i]);
+			printf("%s", str[i]);
+			if (str[i + 1])
+				printf(" ");
 			i++;
 		}
 		printf("\n");
@@ -48,6 +50,10 @@ void	echo_cmd(char **str)
 	else
 	{
 		while (str[++i])
-			printf("%s ", str[i]);
+		{
+			printf("%s", str[i]);
+			if (str[i + 1])
+				printf(" ");
+		}
 	}
 }
