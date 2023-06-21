@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:13:46 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/21 03:40:44 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/21 03:52:46 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void    cd_cmd(t_cmd *cmd, t_env_node *env)
         {
             if (!ft_strcmp(tmp->key, "HOME"))
                 chdir(tmp->value);
+			else 
+				return (printf("HOME NOT SET"));
             tmp = tmp->next;
         }
     }
@@ -45,6 +47,8 @@ void    cd_cmd(t_cmd *cmd, t_env_node *env)
         {
             if (!ft_strcmp(tmp->key, "OLDPWD"))
                 chdir(tmp->value);
+			else
+				return (printf("OLDPWD not set"));
             tmp = tmp->next;
         }
     }
