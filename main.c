@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/21 08:55:23 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/21 10:56:52 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,20 @@ void	free_tokens(t_tokens **t)
 		tmp = (*t)->next;
 		free((*t));
 		(*t) = tmp;
+	}
+}
+
+void free_cmd(t_cmd **cmd)
+{
+	t_cmd *tmp;
+	while(*cmd)
+	{
+		ft_free((*cmd)->cmd);
+		free((*cmd)->in_file);
+		free((*cmd)->out_file);
+		tmp = (*cmd)->next;
+		free(*cmd);
+		(*cmd) = tmp;
 	}
 }
 
@@ -58,6 +72,7 @@ void	print_cmd_table(t_cmd *cmd_t)
 	}
 }
 
+
 int	main(int ac, char **av, char **env)
 {
 	t_tokens	*lexer;
@@ -87,6 +102,7 @@ int	main(int ac, char **av, char **env)
 		}
 		// printing(lexer);
 		// print_cmd_table(cmd_table);
+		free_cmd(&cmd_table);
 		cmd_table = NULL;
 		free_tokens(&lexer);
 		free(in);
