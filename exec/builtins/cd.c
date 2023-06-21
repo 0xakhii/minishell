@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:13:46 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/21 07:32:20 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/21 11:11:01 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 void    cd_cmd(t_cmd *cmd, t_env_node *env)
 {
     t_env_node *tmp = env;
-    if (cmd->cmd[1] && (cmd->cmd[1][0] == '~'))
+    if (cmd->cmd[1] && (cmd->cmd[1][0] == '~' && !cmd->cmd[1][1]))
     {
         while(tmp)
         {
@@ -40,7 +40,7 @@ void    cd_cmd(t_cmd *cmd, t_env_node *env)
             tmp = tmp->next;
         }
     }
-    else if (cmd->cmd[1] && cmd->cmd[1][0] == '-')
+    else if (cmd->cmd[1] && cmd->cmd[1][0] == '-' && !cmd->cmd[1][1])
     {
         tmp = env;
         while(tmp)
