@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:13:46 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/21 03:37:09 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/21 03:40:44 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,16 @@ void    cd_cmd(t_cmd *cmd, t_env_node *env)
         while(tmp)
         {
             if (!ft_strcmp(tmp->key, "HOME"))
+                chdir(tmp->value);
+            tmp = tmp->next;
+        }
+    }
+    else if (cmd->cmd[1] && cmd->cmd[1][0] == '-')
+    {
+        tmp = env;
+        while(tmp)
+        {
+            if (!ft_strcmp(tmp->key, "OLDPWD"))
                 chdir(tmp->value);
             tmp = tmp->next;
         }
