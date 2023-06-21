@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 00:10:21 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/20 10:48:15 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/20 22:22:00 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	execute_builtins(t_cmd *cmd, t_env_node *env)
 		print_env(cmd->cmd, env);
 	else if (!ft_strcmp(cmd->cmd[0], "exit"))
 		my_exit(cmd);
-	
 	if (!ft_strcmp(cmd->cmd[0], "pwd"))
 		pwd_cmd();
 	// else if (!ft_strcmp(cmd, "cd"))

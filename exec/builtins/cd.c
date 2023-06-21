@@ -6,9 +6,14 @@
 /*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:13:46 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/05/24 01:14:51 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/21 03:13:03 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
+// cd av[1] ==  - == OLDPWD(env) == 0 chdir("oldpwd")  !=0 OLDPWD NOT SET
+
+// cd ||  cd~ chdir("HOME")
+
+ 
