@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/21 03:31:56 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/21 08:44:35 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_cmd
 		T_OUT_FILE,
 		T_APP_FILE,
 		T_HERD_FILE
-	}e_types;
+	} e_types;
 	struct s_cmd		*next;
 }						t_cmd;
 
@@ -101,13 +101,18 @@ int						token_check(t_tokens *lexer);
 char					*get_prompt(void);
 t_tokens				*create_token(char *val, int type);
 void					add_token(t_tokens **lexer, t_tokens *node);
-t_cmd					*create_command_table(t_tokens *lexer);
+t_cmd					*create_command_table(t_tokens *lexer, t_env_node *env);
+char					*get_env_val(t_env_node *env, char *str);
+char					**new_expand(char *str, t_env_node *env);
 
 //-----------------------------------------------
-void	echo_cmd(char **str);
-void	print_env(char **cmd, t_env_node *env);
-void	my_exit(t_cmd *cmd);
-void	pwd_cmd(void);
-void    cd_cmd(t_cmd *cmd, t_env_node *env);
-void	execute_builtins(t_cmd *cmd, t_env_node *env);
+void					echo_cmd(char **str);
+void					print_env(char **cmd, t_env_node *env);
+void					my_exit(t_cmd *cmd);
+void					pwd_cmd(void);
+void					cd_cmd(t_cmd *cmd, t_env_node *env);
+void					execute_builtins(t_cmd *cmd, t_env_node *env);
+char	**ft_arrjoin(char **split, char *str);
+
+
 #endif

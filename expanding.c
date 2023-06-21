@@ -6,66 +6,120 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 23:13:04 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/20 06:04:04 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/21 08:54:26 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	check_squote(t_tokens *quote_token, t_tokens *lexer,
-		bool in_single_quotes)
+char	*get_env_val(t_env_node *env, char *str)
 {
-	while (quote_token != lexer)
+	char	*val;
+
+	val = NULL;
+	while (env)
 	{
-		if (quote_token->val[0] == '\'' && quote_token->e_types == T_STR)
-			in_single_quotes = !in_single_quotes;
-		quote_token = quote_token->next;
+		if (!ft_strcmp(env->key, str))
+			val = env->value;
+		env = env->next;
 	}
-	return (in_single_quotes);
+	if (val == NULL)
+		val = "";
+	free(str);
+	return (ft_strdup(val));
 }
 
-void	expander_help(t_tokens *lexer, t_env_node *env_list, t_tokens *lexerv1,
-		char *env_name)
+char	*get_value(char *res, char *str, int *i, t_env_node *env)
 {
-	t_env_node	*env_node;
-	t_tokens	*quote_token;
-	bool		in_single_quotes;
+	char	*id;
 
-	env_node = env_list;
-	quote_token = lexerv1;
-	in_single_quotes = false;
-	in_single_quotes = check_squote(quote_token, lexer, in_single_quotes);
-	if (!in_single_quotes)
+	id = NULL;
+	(*i)++;
+	if (str[*i] == '?')
 	{
-		while (env_node != NULL)
-		{
-			if (ft_strcmp(env_node->key, env_name) == 0)
-			{
-				free(lexer->val);
-				lexer->val = ft_strdup(env_node->value);
-				break ;
-			}
-			env_node = env_node->next;
-		}
+		(*i)++;
+		res = ft_strjoin(res, "[exit_status]");
 	}
+	else if (ft_isalpha(str[*i]) || str[*i] == '_')
+	{
+		while (ft_isalnum(str[*i]) || str[*i] == '_')
+			id = add_characters(id, str[(*i)++]);
+		id = get_env_val(env, id);
+		res = ft_strjoin(res, id);
+		free(id);
+	}
+	else
+		res = add_characters(res, '$');
+	return (res);
 }
 
-t_tokens	*expand_command(t_tokens *lexer, t_env_node *env_list)
+char	*replace_value(char *str, t_env_node *env, int flag)
 {
-	t_tokens	*current_token;
-	char		*token_value;
-	char		*env_name;
+	int		i;
+	char	*res;
+	char	c;
 
-	current_token = lexer;
-	while (current_token)
+	i = 0;
+	res = NULL;
+	c = 0;
+	if (flag == 0)
+		return (str);
+	while (str[i])
 	{
-		token_value = current_token->val;
-		if (token_value && token_value[0] == '$')
-		{
-			env_name = token_value + 1;
-			expander_help(current_token, env_list, lexer, env_name);
-		}
-		current_token = current_token->next;
+		if (c == 0 && (str[i] == '\"' || str[i] == '\''))
+			c = str[i];
+		else if (c == str[i])
+			c = 0;
+		if (c != '\'' && str[i] == '$')
+			res = get_value(res, str, &i, env);
+		else
+			res = add_characters(res, str[i++]);
 	}
-	return (lexer);
+	if (flag == 1)
+		free(str);
+	return (res);
+}
+
+char	*split_var(char *str, int *i)
+{
+	char	*res;
+	char	c;
+
+	res = NULL;
+	c = 0;
+	while (str[*i] == ' ' || str[*i] == '\t' || str[*i] == '\v')
+		(*i)++;
+	while (str[*i])
+	{
+		if (c == 0 && (str[*i] == ' ' || str[*i] == '\t' || str[*i] == '\v'))
+			return (res);
+		if (c == 0 && (str[*i] == '\'' || str[*i] == '\"'))
+			c = str[*i];
+		else if (str[*i] == c)
+			c = 0;
+		else
+			res = add_characters(res, str[*i]);
+		(*i)++;
+	}
+	return (res);
+}
+
+char	**new_expand(char *str, t_env_node *env)
+{
+	int i = 0;
+	char **split = NULL;
+	char **save = NULL;
+	char *tmp;
+	char *res = replace_value(str, env, 2);
+	while (res[i])
+	{
+		tmp = split_var(res, &i);
+		if (!tmp)
+			break;
+		save = split;
+		split = ft_arrjoin(split, tmp);
+		free(save);
+		free(tmp);
+	}
+	return (split);
 }

@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 17:28:27 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/20 10:22:19 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/21 08:49:16 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char	**ft_arrjoin(char **split, char *str)
 	return (new_split);
 }
 
-t_cmd	*create_command_table(t_tokens *lexer)
+t_cmd	*create_command_table(t_tokens *lexer, t_env_node *env)
 {
 	t_cmd		*cmd_table;
 	t_tokens	*current_token;
@@ -97,7 +97,14 @@ t_cmd	*create_command_table(t_tokens *lexer)
 	{
 		if (current_token->e_types == T_STR)
 		{
-			new_cmd->cmd = ft_arrjoin(new_cmd->cmd, current_token->val);
+			int i = 0;
+			char **str = new_expand(current_token->val, env);
+			while (str && str[i])
+			{
+				new_cmd->cmd = ft_arrjoin(new_cmd->cmd, str[i]);
+				free(str[i++]);
+			}
+			free(str);
 			new_cmd->e_types = T_CMD;
 		}
 		files_process(&new_cmd, current_token);
