@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/20 22:40:24 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/21 03:31:56 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,6 @@ void	echo_cmd(char **str);
 void	print_env(char **cmd, t_env_node *env);
 void	my_exit(t_cmd *cmd);
 void	pwd_cmd(void);
+void    cd_cmd(t_cmd *cmd, t_env_node *env);
 void	execute_builtins(t_cmd *cmd, t_env_node *env);
 #endif
