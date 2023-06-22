@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/22 19:48:35 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/22 21:44:40 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ t_env_node				*create_env_list(char **env);
 void					get_tokens(char *input);
 int						token_check(t_tokens *lexer);
 char					*get_prompt(void);
-int	open_files(t_cmd *cmd);
+int						open_files(t_cmd *cmd);
 t_tokens				*create_token(char *val, int type);
 void					add_token(t_tokens **lexer, t_tokens *node);
 t_cmd					*create_command_table(t_tokens *lexer, t_env_node *env);

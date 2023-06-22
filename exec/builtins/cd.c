@@ -6,12 +6,27 @@
 /*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:13:46 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/22 03:10:45 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/23 00:29:07 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
+void set_env_value(t_env_node **env, const char *key, const char *value)
+{
+	t_env_node *tmp = *env;
+	while (tmp)
+	{
+		if (!ft_strcmp(tmp->key, key))
+		{
+			free(tmp->value);
+			tmp->value = strdup(value);
+			return;
+		}
+		tmp = tmp->next;
+	}
+}
+	
 int cd_cmd(t_cmd *cmd, t_env_node *env)
 {
 	t_env_node *tmp = env;
@@ -53,13 +68,48 @@ int cd_cmd(t_cmd *cmd, t_env_node *env)
 		printf("HOME not set\n");
 		return 0; // Return 0 if HOME is not set
 	}
-	else if (cmd->cmd[1] && cmd->cmd[1][0] == '-' && !cmd->cmd[1][1]) 
+	// else if (cmd->cmd[1] && cmd->cmd[1][0] == '-' && !cmd->cmd[1][1]) 
+	// {
+	// 	while (tmp) 
+	// 	{
+	// 		if (!ft_strcmp(tmp->key, "OLDPWD")) 
+	// 		{
+	// 			if (tmp->value) 
+	// 			{
+	// 				if (chdir(tmp->value) != 0)
+	// 				{
+	// 					perror("chdir");
+	// 					return 0;
+	// 				}
+	// 				oldpwd = getcwd(NULL, 0);
+	// 				if (!oldpwd) 
+	// 				{
+	// 					perror("getcwd");
+	// 					return 0;
+	// 				}
+	// 				//printf("[%s]", oldpwd);	
+	// 				// return (printf("cd: OLDPWD not set\n"));
+	// 				free(oldpwd);
+	// 				return 1;
+	// 			}
+	// 			else
+	// 			{
+	// 				printf("cd: OLDPWD not set22\n");
+	// 				return 0;
+	// 			}
+	// 		}
+	// 		tmp = tmp->next;
+	// 	}
+	// 	printf("OLDPWD not set33\n");
+	// 	return 0;
+	// }
+	if (cmd->cmd[1] && cmd->cmd[1][0] == '-' && !cmd->cmd[1][1])
 	{
-		while (tmp) 
+		while (tmp)
 		{
-			if (!ft_strcmp(tmp->key, "OLDPWD")) 
+			if (!ft_strcmp(tmp->key, "OLDPWD"))
 			{
-				if (tmp->value) 
+				if (tmp->value)
 				{
 					if (chdir(tmp->value) != 0)
 					{
@@ -67,25 +117,24 @@ int cd_cmd(t_cmd *cmd, t_env_node *env)
 						return 0;
 					}
 					oldpwd = getcwd(NULL, 0);
-					if (!oldpwd) 
+					if (!oldpwd)
 					{
 						perror("getcwd");
 						return 0;
 					}
-					//printf("[%s]", oldpwd);	
-					return (printf("cd: OLDPWD not set\n"));
+					set_env_value(&env, "OLDPWD", oldpwd);  // Update OLDPWD in env
 					free(oldpwd);
 					return 1;
 				}
 				else
 				{
-					printf("cd: OLDPWD not set22\n");
+					printf("cd: OLDPWD not set\n");
 					return 0;
 				}
 			}
 			tmp = tmp->next;
 		}
-		printf("OLDPWD not set33\n");
+		printf("OLDPWD not set\n");
 		return 0;
 	}
 	else
@@ -107,4 +156,3 @@ int cd_cmd(t_cmd *cmd, t_env_node *env)
 		return 0; // Return 0 if the directory is not found
 	}
 }
-
