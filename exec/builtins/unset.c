@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:16:49 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/23 00:45:10 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/23 00:54:06 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	check_input(char *str)
 	while(str[i])
 	{
 		if (!((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z')
-			|| (str[i] >= '0' && str[i] <= '9')	|| str[i] == '_') || !check_empty(str))
+		|| str[i] == '_') || !check_empty(str))
 		{
 			printf("unset: not a valid identifier\n");
 			return (0);
@@ -45,8 +45,8 @@ void delete_node(t_env_node **head, const char *key)
 	t_env_node *current = *head;
 	t_env_node *prev = NULL;
 
-	if (*head == NULL)
-		return;
+	// if (*head == NULL)
+	// 	*head = current->next;
 	// Check if the head node has the key
 	if (current != NULL && ft_strcmp(current->key, key) == 0)
 	{
