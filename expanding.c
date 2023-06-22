@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 23:13:04 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/21 10:59:04 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/22 06:42:34 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ char	*split_var(char *str, int *i)
 void	ft_free(char **str)
 {
 	int i = 0;
-	while(str[i])
+	while(str && str[i])
 		free(str[i++]);
 	free(str);
 }

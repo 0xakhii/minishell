@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/22 05:54:07 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/22 06:24:38 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void					execute_builtins(t_cmd *cmd, t_env_node *env);
 int						is_builtins(t_cmd *cmd);
 void					execute(t_cmd *cmd, t_env_node *env);
 char	*ft_get_path(t_cmd *cmd, t_env_node *env);
-void	my_unset(char *key, t_env_node *env);
+void	my_unset(t_cmd *cmd, t_env_node *env);
 
 
 #endif

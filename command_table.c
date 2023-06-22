@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 17:28:27 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/21 11:22:27 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/22 06:47:52 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,23 @@ t_cmd	*table_init(void)
 	return (new_cmd);
 }
 
-void	files_process(t_cmd **new_cmd, t_tokens *current_token)
+t_tokens*	files_process(t_cmd **new_cmd, t_tokens *current_token)
 {
 	if (current_token->e_types == T_IN_RD || current_token->e_types == T_HERD)
 	{
 		if (current_token->next)
 		{
 			if (current_token->e_types == T_IN_RD)
-			{	
-			current_token = current_token->next;
-			(*new_cmd)->in_file = ft_strdup(current_token->val);
-			(*new_cmd)->e_types = T_IN_FILE;
+			{
+				current_token = current_token->next;
+				(*new_cmd)->in_file = ft_strdup(current_token->val);
+				(*new_cmd)->e_types = T_IN_FILE;
 			}
 			else
-			{	
-			current_token = current_token->next;
-			(*new_cmd)->in_file = ft_strdup(current_token->val);
-			(*new_cmd)->e_types = T_HERD_FILE;
+			{
+				current_token = current_token->next;
+				(*new_cmd)->in_file = ft_strdup(current_token->val);
+				(*new_cmd)->e_types = T_HERD_FILE;
 			}
 		}
 	}
@@ -51,16 +51,16 @@ void	files_process(t_cmd **new_cmd, t_tokens *current_token)
 		if (current_token->next)
 		{
 			if (current_token->e_types == T_OUT_RD)
-			{	
-			current_token = current_token->next;
-			(*new_cmd)->in_file = ft_strdup(current_token->val);
-			(*new_cmd)->e_types = T_OUT_FILE;
+			{
+				current_token = current_token->next;
+				(*new_cmd)->out_file = ft_strdup(current_token->val);
+				(*new_cmd)->e_types = T_OUT_FILE;
 			}
 			else
-			{	
-			current_token = current_token->next;
-			(*new_cmd)->in_file = ft_strdup(current_token->val);
-			(*new_cmd)->e_types = T_APP_FILE;
+			{
+				current_token = current_token->next;
+				(*new_cmd)->out_file = ft_strdup(current_token->val);
+				(*new_cmd)->e_types = T_APP_FILE;
 			}
 		}
 	}
@@ -70,6 +70,7 @@ void	files_process(t_cmd **new_cmd, t_tokens *current_token)
 		(*new_cmd)->next = table_init();
 		(*new_cmd) = (*new_cmd)->next;
 	}
+	return current_token;
 }
 
 char	**ft_arrjoin(char **split, char *str)
@@ -103,19 +104,21 @@ char	**ft_arrjoin(char **split, char *str)
 
 void	cmd_process(t_tokens *current_token, t_cmd **new_cmd, t_env_node *env)
 {
-		if (current_token->e_types == T_STR)
-{
-	
-	int i = 0;
-	char **str = new_expand(current_token->val, env);
-	while (str && str[i])
+	int		i;
+	char	**str;
+
+	if (current_token->e_types == T_STR)
 	{
-		(*new_cmd)->cmd = ft_arrjoin((*new_cmd)->cmd, str[i]);
-		free(str[i++]);
+		i = 0;
+		str = new_expand(current_token->val, env);
+		while (str && str[i])
+		{
+			(*new_cmd)->cmd = ft_arrjoin((*new_cmd)->cmd, str[i]);
+			free(str[i++]);
+		}
+		free(str);
+		(*new_cmd)->e_types = T_CMD;
 	}
-	free(str);
-	(*new_cmd)->e_types = T_CMD;
-}
 }
 
 t_cmd	*create_command_table(t_tokens *lexer, t_env_node *env)
@@ -131,7 +134,7 @@ t_cmd	*create_command_table(t_tokens *lexer, t_env_node *env)
 	while (current_token)
 	{
 		cmd_process(current_token, &new_cmd, env);
-		files_process(&new_cmd, current_token);
+		current_token = files_process(&new_cmd, current_token);
 		current_token = current_token->next;
 	}
 	return (cmd_table);

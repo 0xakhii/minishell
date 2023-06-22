@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/21 23:43:53 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/22 06:50:13 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	print_cmd_table(t_cmd *cmd_t)
 	while (cmd)
 	{
 		i = 1;
-		if (cmd->e_types == T_CMD)
+		if (cmd && cmd->cmd)//->e_types == T_CMD)
 		{	
 			printf("Command: %s\n", cmd->cmd[0]);
 			while (cmd->cmd && cmd->cmd[i - 1] && cmd->cmd[i])
@@ -58,14 +58,14 @@ void	print_cmd_table(t_cmd *cmd_t)
 				i++;
 			}
 		}
-		if (cmd->e_types == T_IN_FILE)
+		// if (cmd->e_types == T_IN_FILE)
 			printf("Input file: %s\n", cmd->in_file);
-		if (cmd->e_types == T_OUT_FILE)
+		// if (cmd->e_types == T_OUT_FILE)
 			printf("Output file: %s\n", cmd->out_file);
-		if (cmd->e_types == T_APP_FILE)
-			printf("Append file: %s\n", cmd->out_file);
-		if (cmd->e_types == T_HERD_FILE)
-			printf("Heredoc file: %s\n", cmd->in_file);
+		// if (cmd->e_types == T_APP_FILE)
+			// printf("Append file: %s\n", cmd->out_file);
+		// if (cmd->e_types == T_HERD_FILE)
+			// printf("Heredoc file: %s\n", cmd->in_file);
 		if (cmd->pipe)
 			printf("is piped\n");
 		cmd = cmd->next;
@@ -102,7 +102,7 @@ int	main(int ac, char **av, char **env)
 			// execute_first_command(cmd_table, env, env_list);
 		}
 		// printing(lexer);
-		//print_cmd_table(cmd_table);
+		// print_cmd_table(cmd_table);
 		free_cmd(&cmd_table);
 		cmd_table = NULL;
 		free_tokens(&lexer);

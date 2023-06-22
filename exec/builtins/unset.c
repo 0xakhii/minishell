@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:16:49 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/22 05:54:34 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/22 06:56:50 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,16 @@ int check_empty(char *str)
 
 int	check_input(char *str)
 {
-
-	if (!((str[0] >= 'a' && str[0] <= 'z') || (str[0] >= 'A' && str[0] <= 'Z')
-			|| str[0] == '_') || !check_empty(str))
+	int i = 0;
+	while(str[i])
 	{
-		printf("unset: not a valid identifier\n");
-		return (0);
+		if (!((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z')
+			|| (str[i] >= '0' && str[i] <= '9')	|| str[i] == '_') || !check_empty(str))
+		{
+			printf("unset: not a valid identifier\n");
+			return (0);
+		}
+		i++;
 	}
 	return (1);
 }
@@ -77,19 +81,16 @@ int loop_env(t_env_node *head, char *key)
 			return 1;
 		tmp = tmp->next;
 	}
+	// if (!tmp)
+	// 	printf("unset: not a valid identifier\n");
 	return 0;
 }
-void	my_unset(char *key, t_env_node *env)
+void	my_unset(t_cmd *cmd, t_env_node *env)
 {
-	// int	i;
-
-	// i = 1;
-	// while (args[i])
-	// {
-		if (!check_input(key))
-			return ;
-		if (loop_env(env, key))
-			delete_node(&env, key);
-	// 	i++;
-	// }
+	if (!cmd->cmd[1])
+		return ;
+	if (!check_input(cmd->cmd[1]))
+		return ;
+	if (loop_env(env, cmd->cmd[1]))
+		delete_node(&env, cmd->cmd[1]);
 }
