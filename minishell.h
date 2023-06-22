@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/21 11:33:54 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/22 04:52:47 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ typedef struct s_cmd
 	} e_types;
 	struct s_cmd		*next;
 }						t_cmd;
-
-// cmd->e_types == T_IN
 
 typedef struct s_quote
 {
@@ -106,15 +104,19 @@ void					add_token(t_tokens **lexer, t_tokens *node);
 t_cmd					*create_command_table(t_tokens *lexer, t_env_node *env);
 char					*get_env_val(t_env_node *env, char *str);
 char					**new_expand(char *str, t_env_node *env);
+char					**ft_arrjoin(char **split, char *str);
 
-//-----------------------------------------------
+//------------------------------exec----------------//
 void					echo_cmd(char **str);
 void					print_env(char **cmd, t_env_node *env);
 void					my_exit(t_cmd *cmd);
 void					pwd_cmd(void);
-void					cd_cmd(t_cmd *cmd, t_env_node *env);
+int					cd_cmd(t_cmd *cmd, t_env_node *env);
 void					execute_builtins(t_cmd *cmd, t_env_node *env);
-char	**ft_arrjoin(char **split, char *str);
+int						is_builtins(t_cmd *cmd);
+void					execute(t_cmd *cmd, t_env_node *env);
+char	*ft_get_path(t_cmd *cmd, t_env_node *env);
+void	my_unset(char **args, char *env);
 
 
 #endif

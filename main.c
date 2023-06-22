@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/21 11:34:06 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/21 23:43:53 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,11 @@ int	main(int ac, char **av, char **env)
 		{
 			add_history(in);
 			cmd_table = create_command_table(lexer, env_list);
-			execute_builtins(cmd_table, env_list);
-			execute_first_command(cmd_table, env, env_list);
+			execute(cmd_table, env_list);
+			// execute_first_command(cmd_table, env, env_list);
 		}
 		// printing(lexer);
-		// print_cmd_table(cmd_table);
+		//print_cmd_table(cmd_table);
 		free_cmd(&cmd_table);
 		cmd_table = NULL;
 		free_tokens(&lexer);
