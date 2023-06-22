@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 17:28:27 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/22 06:47:52 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/22 07:58:36 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_cmd	*table_init(void)
 	new_cmd->in_file = NULL;
 	new_cmd->out_file = NULL;
 	new_cmd->pipe = 0;
+	new_cmd->fd = 0;
 	return (new_cmd);
 }
 

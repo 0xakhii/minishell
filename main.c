@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/22 06:50:13 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/22 08:22:27 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void free_cmd(t_cmd **cmd)
 		free(*cmd);
 		(*cmd) = tmp;
 	}
+	(*cmd) = NULL;
 }
 
 void	print_cmd_table(t_cmd *cmd_t)
@@ -49,7 +50,7 @@ void	print_cmd_table(t_cmd *cmd_t)
 	while (cmd)
 	{
 		i = 1;
-		if (cmd && cmd->cmd)//->e_types == T_CMD)
+		if (cmd && cmd->cmd)
 		{	
 			printf("Command: %s\n", cmd->cmd[0]);
 			while (cmd->cmd && cmd->cmd[i - 1] && cmd->cmd[i])
@@ -58,14 +59,15 @@ void	print_cmd_table(t_cmd *cmd_t)
 				i++;
 			}
 		}
-		// if (cmd->e_types == T_IN_FILE)
+		if (cmd->e_types == T_IN_FILE)
 			printf("Input file: %s\n", cmd->in_file);
-		// if (cmd->e_types == T_OUT_FILE)
+		else if (cmd->e_types == T_OUT_FILE)
 			printf("Output file: %s\n", cmd->out_file);
-		// if (cmd->e_types == T_APP_FILE)
-			// printf("Append file: %s\n", cmd->out_file);
-		// if (cmd->e_types == T_HERD_FILE)
-			// printf("Heredoc file: %s\n", cmd->in_file);
+		else if (cmd->e_types == T_APP_FILE)
+			printf("Append file: %s\n", cmd->out_file);
+		else if (cmd->e_types == T_HERD_FILE)
+			printf("Heredoc file: %s\n", cmd->in_file);
+		printf("fd: %d\n", cmd->fd);
 		if (cmd->pipe)
 			printf("is piped\n");
 		cmd = cmd->next;
@@ -90,21 +92,19 @@ int	main(int ac, char **av, char **env)
 		in = readline("minishell$>");
 		if (!in)
 			return (0);
-		// if (!ft_strcmp(in, "exit"))
-		// 	exit(0);
 		lexer = lexer_init(in);
 		if (lexer && lexer->e_types != 6 && !token_check(lexer)
 			&& !syntax_check(lexer))
 		{
 			add_history(in);
 			cmd_table = create_command_table(lexer, env_list);
-			execute(cmd_table, env_list);
-			// execute_first_command(cmd_table, env, env_list);
+			if (cmd_table->e_types == T_CMD)
+				execute(cmd_table, env_list);
+			else if (cmd_table->in_file || cmd_table->out_file)
+				cmd_table->fd = open_files(cmd_table);
 		}
-		// printing(lexer);
-		// print_cmd_table(cmd_table);
+		print_cmd_table(cmd_table);
 		free_cmd(&cmd_table);
-		cmd_table = NULL;
 		free_tokens(&lexer);
 		free(in);
 	}
