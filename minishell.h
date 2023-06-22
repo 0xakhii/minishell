@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/22 07:58:04 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/22 08:43:45 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,11 @@ typedef struct s_cmd
 	char				*in_file;
 	char				*out_file;
 	int					pipe;
-	int					fd;
+	int					in_fd;
+	int					out_fd;
 	enum
 	{
 		T_CMD,
-		T_IN_FILE,
-		T_OUT_FILE,
-		T_APP_FILE,
 		T_HERD_FILE
 	} e_types;
 	struct s_cmd		*next;

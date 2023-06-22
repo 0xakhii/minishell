@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/22 08:22:27 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/22 08:41:23 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void	print_cmd_table(t_cmd *cmd_t)
 			printf("Append file: %s\n", cmd->out_file);
 		else if (cmd->e_types == T_HERD_FILE)
 			printf("Heredoc file: %s\n", cmd->in_file);
-		printf("fd: %d\n", cmd->fd);
 		if (cmd->pipe)
 			printf("is piped\n");
 		cmd = cmd->next;
@@ -98,10 +97,7 @@ int	main(int ac, char **av, char **env)
 		{
 			add_history(in);
 			cmd_table = create_command_table(lexer, env_list);
-			if (cmd_table->e_types == T_CMD)
-				execute(cmd_table, env_list);
-			else if (cmd_table->in_file || cmd_table->out_file)
-				cmd_table->fd = open_files(cmd_table);
+			execute(cmd_table, env_list);
 		}
 		print_cmd_table(cmd_table);
 		free_cmd(&cmd_table);
