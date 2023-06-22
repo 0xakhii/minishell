@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:36:53 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/22 11:42:14 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/22 19:51:19 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,13 @@ void	execute(t_cmd *cmd, t_env_node *env)
 		char	*path = NULL;
 if (cmd->cmd[0])
 {
-	path = ft_get_path(cmd->cmd[0], env);
+	if (cmd->cmd[0][0] == '.' && cmd->cmd[0][1] == '/')
+	{
+		if (access(cmd->cmd[0], F_OK) == 0)
+			path = ft_strjoin(path, cmd->cmd[0] + 2);
+	}
+	else
+		path = ft_get_path(cmd->cmd[0], env);
 	int pid = fork();
 	if (pid == 0)
 	{

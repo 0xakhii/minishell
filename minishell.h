@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/22 16:07:43 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/22 19:48:35 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_helper
 	char				*key;
 	int					exit_status;
 }						t_helper;
-t_helper g_helper;
+// t_helper g_helper;
 
 typedef struct s_env_node
 {

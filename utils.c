@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 23:29:33 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/22 16:11:06 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/22 19:47:10 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	msg_er(char *str)
 	ft_putstr_fd("\033[1;31m[Minishell]\033[0m:", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd("\n", 2);
-	g_helper.exit_status = 258;
+	// g_helper.exit_status = 258;
 	return (1);
 }
 

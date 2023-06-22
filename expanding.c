@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 23:13:04 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/22 16:11:38 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/22 19:48:09 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ char	*get_value(char *res, char *str, int *i, t_env_node *env)
 	if (str[*i] == '?')
 	{
 		(*i)++;
-		res = ft_strjoin(res, ft_itoa(g_helper.exit_status));
+		res = ft_strjoin(res, "[exit_status]");
+		// res = ft_strjoin(res, ft_itoa(g_helper.exit_status));
 	}
 	else if (ft_isalpha(str[*i]) || str[*i] == '_')
 	{
