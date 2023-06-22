@@ -6,7 +6,7 @@
 /*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:16:49 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/22 04:53:18 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/22 05:54:34 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,17 +79,17 @@ int loop_env(t_env_node *head, char *key)
 	}
 	return 0;
 }
-void	my_unset(char **args, char *env)
+void	my_unset(char *key, t_env_node *env)
 {
-	int	i;
+	// int	i;
 
-	i = 1;
-	while (args[i])
-	{
-		if (!check_input(args[i]))
+	// i = 1;
+	// while (args[i])
+	// {
+		if (!check_input(key))
 			return ;
-		if (loop_env(args[i], env))
-			delete_node(args[i], env);
-		i++;
-	}
+		if (loop_env(env, key))
+			delete_node(&env, key);
+	// 	i++;
+	// }
 }

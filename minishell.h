@@ -6,7 +6,7 @@
 /*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/22 04:52:47 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/22 05:54:07 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void					execute_builtins(t_cmd *cmd, t_env_node *env);
 int						is_builtins(t_cmd *cmd);
 void					execute(t_cmd *cmd, t_env_node *env);
 char	*ft_get_path(t_cmd *cmd, t_env_node *env);
-void	my_unset(char **args, char *env);
+void	my_unset(char *key, t_env_node *env);
 
 
 #endif
