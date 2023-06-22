@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/22 08:41:23 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/22 11:47:30 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ void	print_cmd_table(t_cmd *cmd_t)
 				i++;
 			}
 		}
-		if (cmd->e_types == T_IN_FILE)
+		// if (cmd->e_types == T_IN_FILE)
 			printf("Input file: %s\n", cmd->in_file);
-		else if (cmd->e_types == T_OUT_FILE)
+		// else if (cmd->e_types == T_OUT_FILE)
 			printf("Output file: %s\n", cmd->out_file);
-		else if (cmd->e_types == T_APP_FILE)
+		// else if (cmd->e_types == T_APP_FILE)
 			printf("Append file: %s\n", cmd->out_file);
-		else if (cmd->e_types == T_HERD_FILE)
+		// else if (cmd->e_types == T_HERD_FILE)
 			printf("Heredoc file: %s\n", cmd->in_file);
 		if (cmd->pipe)
 			printf("is piped\n");
@@ -99,7 +99,7 @@ int	main(int ac, char **av, char **env)
 			cmd_table = create_command_table(lexer, env_list);
 			execute(cmd_table, env_list);
 		}
-		print_cmd_table(cmd_table);
+		// print_cmd_table(cmd_table);
 		free_cmd(&cmd_table);
 		free_tokens(&lexer);
 		free(in);

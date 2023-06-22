@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 23:13:04 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/22 06:42:34 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/22 11:23:44 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ char	*get_env_val(t_env_node *env, char *str)
 	}
 	if (val == NULL)
 		val = "";
-	free(str);
 	return (ft_strdup(val));
 }
 
@@ -104,7 +103,7 @@ char	*split_var(char *str, int *i)
 	return (res);
 }
 
-void	ft_free(char **str)
+void	my_free(char **str)
 {
 	int i = 0;
 	while(str && str[i])

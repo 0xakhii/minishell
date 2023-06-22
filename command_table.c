@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 17:28:27 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/22 08:43:41 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/22 10:52:47 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_cmd	*table_init(void)
 	return (new_cmd);
 }
 
-t_tokens	*files_process(t_cmd **new_cmd, t_tokens *current_token)
+t_tokens	*in_files(t_cmd **new_cmd, t_tokens *current_token)
 {
 	if (current_token->next && current_token->e_types == T_IN_RD)
 	{
@@ -39,16 +39,29 @@ t_tokens	*files_process(t_cmd **new_cmd, t_tokens *current_token)
 		current_token = current_token->next;
 		(*new_cmd)->in_file = ft_strdup(current_token->val);
 	}
-	else if (current_token->next && current_token->e_types == T_OUT_RD)
+	return current_token;
+}
+
+t_tokens	*out_files(t_cmd **new_cmd, t_tokens *current_token)
+{
+	if (current_token->next && current_token->e_types == T_OUT_RD)
 	{
 		current_token = current_token->next;
 		(*new_cmd)->out_fd = open(current_token->val, O_WRONLY | O_CREAT, 0644);
 	}
 	else if (current_token->next && current_token->e_types == T_APP)
 	{
+		current_token = current_token->next;
 		(*new_cmd)->out_fd = open(current_token->val, O_RDWR | O_APPEND, 0644);
 	}
-	else if (current_token->e_types == T_PIPE)
+	return current_token;
+}
+
+t_tokens	*files_process(t_cmd **new_cmd, t_tokens *current_token)
+{
+	current_token = in_files(new_cmd, current_token);
+	current_token = out_files(new_cmd, current_token);
+	if (current_token->e_types == T_PIPE)
 	{
 		(*new_cmd)->pipe++;
 		(*new_cmd)->next = table_init();

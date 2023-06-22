@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/22 08:43:45 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/22 11:41:40 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <sys/wait.h>
+# include <sys/types.h>
 
 typedef struct s_cmd
 {
@@ -115,7 +117,7 @@ int					cd_cmd(t_cmd *cmd, t_env_node *env);
 void					execute_builtins(t_cmd *cmd, t_env_node *env);
 int						is_builtins(t_cmd *cmd);
 void					execute(t_cmd *cmd, t_env_node *env);
-char	*ft_get_path(t_cmd *cmd, t_env_node *env);
+char	*ft_get_path(char *cmd, t_env_node *env);
 void	my_unset(t_cmd *cmd, t_env_node *env);
 
 
