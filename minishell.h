@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/22 11:41:40 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/22 16:07:43 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <unistd.h>
 # include <sys/wait.h>
 # include <sys/types.h>
+
 
 typedef struct s_cmd
 {
@@ -53,7 +54,9 @@ typedef struct s_helper
 	size_t				key_len;
 	char				*value_start;
 	char				*key;
+	int					exit_status;
 }						t_helper;
+t_helper g_helper;
 
 typedef struct s_env_node
 {

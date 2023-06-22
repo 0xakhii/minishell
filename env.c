@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 12:07:55 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/21 11:00:42 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/22 16:10:52 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,23 +50,23 @@ void	append_to_list(t_env_node **head, t_env_node **tail,
 
 void	fill_env_list(char **env, t_env_node **head, t_env_node **tail)
 {
-	t_helper	helper;
 	t_env_node	*new_node;
-
-	helper.i = 0;
-	while (env[helper.i] != NULL)
+	
+	g_helper.exit_status = 0;
+	g_helper.i = 0;
+	while (env[g_helper.i] != NULL)
 	{
-		helper.equal_sign = ft_strchr(env[helper.i], '=');
-		if (helper.equal_sign != NULL)
+		g_helper.equal_sign = ft_strchr(env[g_helper.i], '=');
+		if (g_helper.equal_sign != NULL)
 		{
-			helper.key_len = helper.equal_sign - env[helper.i];
-			helper.value_start = helper.equal_sign + 1;
-			helper.key = create_key(env[helper.i], helper.key_len);
-			new_node = create_env_node(helper.key, helper.value_start);
+			g_helper.key_len = g_helper.equal_sign - env[g_helper.i];
+			g_helper.value_start = g_helper.equal_sign + 1;
+			g_helper.key = create_key(env[g_helper.i], g_helper.key_len);
+			new_node = create_env_node(g_helper.key, g_helper.value_start);
 			append_to_list(head, tail, new_node);
-			free(helper.key);
+			free(g_helper.key);
 		}
-		helper.i++;
+		g_helper.i++;
 	}
 }
 
@@ -77,6 +77,7 @@ t_env_node	*create_env_list(char **env)
 
 	head = NULL;
 	tail = NULL;
+	
 	fill_env_list(env, &head, &tail);
 	return (head);
 }

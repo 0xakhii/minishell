@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 17:28:27 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/22 10:52:47 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/22 16:00:55 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_cmd	*table_init(void)
 	new_cmd->pipe = 0;
 	new_cmd->in_fd = 0;
 	new_cmd->out_fd = 1;
+	//new_cmd->exit_status=0;
 	return (new_cmd);
 }
 
@@ -34,11 +35,11 @@ t_tokens	*in_files(t_cmd **new_cmd, t_tokens *current_token)
 		current_token = current_token->next;
 		(*new_cmd)->in_fd = open(current_token->val, O_RDONLY , 0644);
 	}
-	else if (current_token->next && current_token->e_types == T_HERD)
-	{
-		current_token = current_token->next;
-		(*new_cmd)->in_file = ft_strdup(current_token->val);
-	}
+	// else if (current_token->next && current_token->e_types == T_HERD)
+	// {
+	// 	current_token = current_token->next;
+	// 	(*new_cmd)->in_file = ft_strdup(current_token->val);
+	// }
 	return current_token;
 }
 
