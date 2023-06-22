@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 00:10:21 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/22 06:41:57 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/23 00:44:49 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	execute_builtins(t_cmd *cmd, t_env_node *env)
 		cd_cmd(cmd, env);
 	// else if (!ft_strcmp(cmd, "export"))
 	else if (!ft_strcmp(cmd->cmd[0], "unset"))
-		my_unset(cmd, env);
+		my_unset(cmd, &env);
 	else
 		EXIT_FAILURE;
 }

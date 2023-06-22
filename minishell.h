@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/22 19:48:35 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/23 00:44:37 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,9 @@
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <unistd.h>
-# include <sys/wait.h>
 # include <sys/types.h>
-
+# include <sys/wait.h>
+# include <unistd.h>
 
 typedef struct s_cmd
 {
@@ -82,8 +81,9 @@ typedef struct s_tokens
 }						t_tokens;
 
 void					printing(t_tokens *lexer);
-void	ft_free(char **str);
-void execute_first_command(t_cmd *cmd, char **env, t_env_node *env_node);
+void					ft_free(char **str);
+void					execute_first_command(t_cmd *cmd, char **env,
+							t_env_node *env_node);
 void					push_quote(t_quote **stack, char quote);
 void					pop_quote(t_quote **stack);
 char					*add_characters(char *str, char x);
@@ -103,7 +103,7 @@ t_env_node				*create_env_list(char **env);
 void					get_tokens(char *input);
 int						token_check(t_tokens *lexer);
 char					*get_prompt(void);
-int	open_files(t_cmd *cmd);
+int						open_files(t_cmd *cmd);
 t_tokens				*create_token(char *val, int type);
 void					add_token(t_tokens **lexer, t_tokens *node);
 t_cmd					*create_command_table(t_tokens *lexer, t_env_node *env);
@@ -116,12 +116,11 @@ void					echo_cmd(char **str);
 void					print_env(char **cmd, t_env_node *env);
 void					my_exit(t_cmd *cmd);
 void					pwd_cmd(void);
-int					cd_cmd(t_cmd *cmd, t_env_node *env);
+int						cd_cmd(t_cmd *cmd, t_env_node *env);
 void					execute_builtins(t_cmd *cmd, t_env_node *env);
 int						is_builtins(t_cmd *cmd);
-void					execute(t_cmd *cmd, t_env_node *env);
-char	*ft_get_path(char *cmd, t_env_node *env);
-void	my_unset(t_cmd *cmd, t_env_node *env);
-
+void					execute(t_cmd *cmd, t_env_node *env_list, char **env);
+char					*ft_get_path(char *cmd, t_env_node *env);
+void					my_unset(t_cmd *cmd, t_env_node **env);
 
 #endif

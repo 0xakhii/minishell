@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:16:49 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/22 06:56:50 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/23 00:45:10 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,12 @@ int loop_env(t_env_node *head, char *key)
 	// 	printf("unset: not a valid identifier\n");
 	return 0;
 }
-void	my_unset(t_cmd *cmd, t_env_node *env)
+void	my_unset(t_cmd *cmd, t_env_node **env)
 {
 	if (!cmd->cmd[1])
 		return ;
 	if (!check_input(cmd->cmd[1]))
 		return ;
-	if (loop_env(env, cmd->cmd[1]))
-		delete_node(&env, cmd->cmd[1]);
+	if (loop_env(*env, cmd->cmd[1]))
+		delete_node(env, cmd->cmd[1]);
 }
