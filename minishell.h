@@ -6,7 +6,7 @@
 /*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/22 21:44:40 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/23 02:28:41 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <unistd.h>
 # include <sys/wait.h>
 # include <sys/types.h>
+# include <limits.h>
 
 
 typedef struct s_cmd
@@ -122,6 +123,7 @@ int						is_builtins(t_cmd *cmd);
 void					execute(t_cmd *cmd, t_env_node *env);
 char	*ft_get_path(char *cmd, t_env_node *env);
 void	my_unset(t_cmd *cmd, t_env_node *env);
+void export_variable(t_cmd *cmd, t_env_node **env);
 
 
 #endif
