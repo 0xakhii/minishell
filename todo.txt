@@ -10,4 +10,4 @@ if (env dose not exit have show message error)
 ===> when deleting a dir ure inside of it pwd does not show up the pwd;
 ==> ./minishell ()==> have to entre insdie minishell
 ===> minishell   ()====> commande not found 
-===>  unset OLDPWD //cd - OLDPWD;
+===>  
