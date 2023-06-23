@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/23 01:35:16 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/23 23:39:08 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/types.h>
-# include <sys/wait.h>
-# include <unistd.h>
+# include <limits.h>
+
 
 typedef struct s_cmd
 {
@@ -119,8 +119,10 @@ void					pwd_cmd(void);
 int						cd_cmd(t_cmd *cmd, t_env_node *env);
 void					execute_builtins(t_cmd *cmd, t_env_node *env);
 int						is_builtins(t_cmd *cmd);
-void					execute(t_cmd *cmd, t_env_node *env_list, char **env);
-char					*ft_get_path(char *cmd, t_env_node *env);
-void					my_unset(t_cmd *cmd, t_env_node *env);
+void	execute(t_cmd *cmd, t_env_node *env_list, char **env);
+char	*ft_get_path(char *cmd, t_env_node *env);
+void	my_unset(t_cmd *cmd, t_env_node *env);
+void export_variable(t_cmd *cmd, t_env_node **env);
+
 
 #endif

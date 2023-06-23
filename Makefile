@@ -13,6 +13,7 @@ SRCS = main.c utils.c syntax_check.c expanding.c \
 		exec/builtins/env.c exec/builtins/exit.c exec/builtins/cd.c\
 		exec/utils.c exec/execution.c exec/builtins/unset.c \
 		open_files.c \
+		exec/builtins/export.c\
 
 OBJS = $(SRCS:.c=.o)
 

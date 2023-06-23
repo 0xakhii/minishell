@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:13:46 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/23 01:34:35 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/23 23:39:40 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int cd_cmd(t_cmd *cmd, t_env_node *env)
 		printf("HOME not set\n");
 		return (0); // Return 0 if HOME is not set
 	}
-	else if (cmd->cmd[1] && cmd->cmd[1][0] == '-' && !cmd->cmd[1][1]) 
+	if (cmd->cmd[1] && cmd->cmd[1][0] == '-' && !cmd->cmd[1][1])
 	{
 		while (tmp)
 		{
