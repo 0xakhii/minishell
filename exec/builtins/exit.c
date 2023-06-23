@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:17:10 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/23 00:10:03 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/23 01:04:55 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	my_exit(t_cmd *cmd)
 		nextarg = cmd->cmd[1];
 		while (*nextarg)
 		{
-			if (!is_digit(nextarg)) 
+			if (!is_digit(nextarg))
 			{
 				printf("exit\n");
 				printf("exit: %s: numeric argument required\n", nextarg);
@@ -62,10 +62,10 @@ void	my_exit(t_cmd *cmd)
 			}
 		}
 	}
-	if (cmd->cmd[2]) 
+	if (cmd->cmd[2])
 	{
 		nextarg = cmd->cmd[1];
-		if (!is_digit(nextarg)) 
+		if (!is_digit(nextarg))
 		{
 			printf("exit\n");
 			printf("exit: %s: numeric argument required\n", nextarg);

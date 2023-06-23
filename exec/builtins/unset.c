@@ -6,15 +6,17 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:16:49 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/23 00:54:06 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/23 01:04:45 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int check_empty(char *str)
+int	check_empty(char *str)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (str[i])
 	{
 		if (str[i] != ' ' && str[i] != '\t')
@@ -26,11 +28,13 @@ int check_empty(char *str)
 
 int	check_input(char *str)
 {
-	int i = 0;
-	while(str[i])
+	int	i;
+
+	i = 0;
+	while (str[i])
 	{
-		if (!((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z')
-		|| str[i] == '_') || !check_empty(str))
+		if (!((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A'
+					&& str[i] <= 'Z') || str[i] == '_') || !check_empty(str))
 		{
 			printf("unset: not a valid identifier\n");
 			return (0);
@@ -40,11 +44,13 @@ int	check_input(char *str)
 	return (1);
 }
 
-void delete_node(t_env_node **head, const char *key)
+void	delete_node(t_env_node **head, const char *key)
 {
-	t_env_node *current = *head;
-	t_env_node *prev = NULL;
+	t_env_node	*current;
+	t_env_node	*prev;
 
+	current = *head;
+	prev = NULL;
 	// if (*head == NULL)
 	// 	*head = current->next;
 	// Check if the head node has the key
@@ -54,7 +60,7 @@ void delete_node(t_env_node **head, const char *key)
 		free(current->key);
 		free(current->value);
 		free(current);
-		return;
+		return ;
 	}
 	// Search for the node with the key
 	while (current != NULL && ft_strcmp(current->key, key) != 0)
@@ -64,33 +70,34 @@ void delete_node(t_env_node **head, const char *key)
 	}
 	//If key was not found in the list
 	if (current == NULL)
-		return;
+		return ;
 	prev->next = current->next;
 	free(current->key);
 	free(current->value);
 	free(current);
 }
 
-int loop_env(t_env_node *head, char *key)
+int	loop_env(t_env_node *head, char *key)
 {
-	t_env_node *tmp = head;
+	t_env_node	*tmp;
 
+	tmp = head;
 	while (tmp)
 	{
 		if (ft_strcmp(tmp->key, key) == 0)
-			return 1;
+			return (1);
 		tmp = tmp->next;
 	}
 	// if (!tmp)
 	// 	printf("unset: not a valid identifier\n");
-	return 0;
+	return (0);
 }
-void	my_unset(t_cmd *cmd, t_env_node **env)
+void	my_unset(t_cmd *cmd, t_env_node *env)
 {
 	if (!cmd->cmd[1])
 		return ;
 	if (!check_input(cmd->cmd[1]))
 		return ;
-	if (loop_env(*env, cmd->cmd[1]))
-		delete_node(env, cmd->cmd[1]);
+	if (loop_env(env, cmd->cmd[1]))
+		delete_node(&env, cmd->cmd[1]);
 }
