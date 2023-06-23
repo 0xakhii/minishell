@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/23 01:32:18 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/23 01:35:16 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ t_env_node				*create_env_list(char **env);
 void					get_tokens(char *input);
 int						token_check(t_tokens *lexer);
 char					*get_prompt(void);
-int	open_files(t_cmd *cmd);
+int						open_files(t_cmd *cmd);
 t_tokens				*create_token(char *val, int type);
 void					add_token(t_tokens **lexer, t_tokens *node);
 t_cmd					*create_command_table(t_tokens *lexer, t_env_node *env);
