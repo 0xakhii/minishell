@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:36:53 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/22 19:51:19 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/23 03:26:32 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ if (cmd->cmd[0])
 	}
 	else if (pid > 0) 
 	{
-        int status;
-        waitpid(pid, &status, 0);
+		int status;
+		waitpid(pid, &status, 0);
 	}
 	}
 		// while (tmp)
