@@ -6,7 +6,7 @@
 /*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:16:05 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/24 03:24:13 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/24 06:12:59 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void export_variable(t_cmd *cmd, t_env_node **env)
 	{
 		while (tmp)
 		{
-			printf("check\n");
+			// printf("check\n");
 			if (tmp->key)
 			{
 				ft_putstr_fd("declare -x ", 1);
