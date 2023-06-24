@@ -6,7 +6,7 @@
 /*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:17:53 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/24 02:50:44 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/24 08:46:31 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ void	print_env(char **cmd, t_env_node *env)
 			if (tmp->key && ft_strcmp(tmp->value, "\0"))
 			{
 				ft_putstr_fd(tmp->key, 1);
+				//printf("--%d--\n", ft_strcmp(tmp->value, "\"\""));
 				ft_putchar_fd('=', 1);
-				ft_putstr_fd(tmp->value, 1);
+				if (ft_strcmp(tmp->value, "\"\""))
+					ft_putstr_fd(tmp->value, 1);
 				ft_putchar_fd('\n', 1);
 			}
 			tmp = tmp->next;

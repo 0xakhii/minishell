@@ -6,7 +6,7 @@
 /*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:16:49 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/23 00:44:09 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/24 07:13:38 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,22 @@ void delete_node(t_env_node **head, const char *key)
 	{
 		*head = current->next;
 		free(current->key);
-		free(current->value);
-		free(current);
-		return;
+		if (current->value)
+			free(current->value);
+		if (current)
+			free(current);
+		// printf("HELL NAH\n");
+		// (*head) = (*head)->next;
+		// return;
 	}
 	// Search for the node with the key
 	while (current != NULL && ft_strcmp(current->key, key) != 0)
 	{
+		printf("[%s]\n", current->key);
 		prev = current;
 		current = current->next;
 	}
+	printf("[[[%s]]]\n", prev->key);
 	//If key was not found in the list
 	if (current == NULL)
 		return;
