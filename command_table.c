@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 17:28:27 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/22 16:00:55 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/24 08:04:06 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char	**ft_arrjoin(char **split, char *str)
 	return (new_split);
 }
 
-void	cmd_process(t_tokens *current_token, t_cmd **new_cmd, t_env_node *env)
+void	cmd_process(t_tokens *current_token, t_cmd **new_cmd, t_env_node *env, int flag)
 {
 	int		i;
 	char	**str;
@@ -108,7 +108,7 @@ void	cmd_process(t_tokens *current_token, t_cmd **new_cmd, t_env_node *env)
 	if (current_token->e_types == T_STR)
 	{
 		i = 0;
-		str = new_expand(current_token->val, env);
+		str = new_expand(current_token->val, env, flag);
 		while (str && str[i])
 		{
 			(*new_cmd)->cmd = ft_arrjoin((*new_cmd)->cmd, str[i]);
@@ -131,7 +131,7 @@ t_cmd	*create_command_table(t_tokens *lexer, t_env_node *env)
 	cmd_table = new_cmd;
 	while (current_token)
 	{
-		cmd_process(current_token, &new_cmd, env);
+		cmd_process(current_token, &new_cmd, env, 2);
 		current_token = files_process(&new_cmd, current_token);
 		current_token = current_token->next;
 	}

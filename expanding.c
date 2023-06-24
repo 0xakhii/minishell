@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 23:13:04 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/22 19:48:09 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/24 07:57:17 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,13 +112,13 @@ void	my_free(char **str)
 	free(str);
 }
 
-char	**new_expand(char *str, t_env_node *env)
+char	**new_expand(char *str, t_env_node *env, int flag)
 {
 	int i = 0;
 	char **split = NULL;
 	char **save = NULL;
 	char *tmp;
-	char *res = replace_value(str, env, 2);
+	char *res = replace_value(str, env, flag);
 	while (res[i])
 	{
 		tmp = split_var(res, &i);

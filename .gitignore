@@ -1,7 +1,5 @@
-# files ignored by git
 *.swp
-*.out
+.vscode
 *.o
 *.a
-.vscode
 minishell
