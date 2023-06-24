@@ -6,7 +6,7 @@
 /*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:16:05 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/23 02:13:14 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/24 03:24:13 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,48 +62,64 @@ void add_node(t_env_node **env, char *key, char *value)
 	}
 }
 
+t_env_node	*create_export_node(char *key, char *value)
+{
+	t_env_node	*new_node;
+
+	new_node = malloc(sizeof(t_env_node));
+	new_node->key = ft_strdup(key);
+	new_node->value = ft_strdup(value);
+	new_node->next = NULL;
+	return (new_node);
+}
 void export_variable(t_cmd *cmd, t_env_node **env)
 {
-	// if (check_inputt(cmd->cmd[1]))
-	// {
-		// Check if there is a key-value pair separated by '='
-		char *equal_sign = ft_strchr(cmd->cmd[1], '=');
-		if (equal_sign != NULL)
+	t_env_node *tmp;
+	char **args = cmd->cmd;
+	tmp = *env;
+	int i = 1;
+	if (!cmd->cmd[1])
+	{
+		while (tmp)
 		{
-			// Split the string into key and value
-			*equal_sign = '\0';
-			char *key = cmd->cmd[1];
-			char *value = equal_sign + 1;
+			printf("check\n");
+			if (tmp->key)
+			{
+				ft_putstr_fd("declare -x ", 1);
+				ft_putstr_fd(tmp->key, 1);
+				if (ft_strcmp(tmp->value, "\0"))
+					ft_putchar_fd('=', 1);
+				else if (i == 1)
+					ft_putstr_fd("=\"\"", 1);
+				ft_putstr_fd(tmp->value, 1);
+				ft_putchar_fd('\n', 1);
+			}
+			tmp = tmp->next;
+		}
+	}
+	if (cmd->cmd[1])
+	{
+		args++;
+		char *value;
+		char *key;
+		while (*args)
+		{
+			value = NULL;
+			char **equal_sign = ft_split(*args, '=');
+			if (equal_sign[0])
+				key = equal_sign[0];
+			if (equal_sign[1] == 0)
+			{
+				value = "\0";
+			}
+			else
+			{
+				value = equal_sign[1];
+			}
 			add_node(env, key, value);
 			printf("Exported variable: %s=%s\n", key, value);
+			args++;
 		}
-		else
-		{
-			printf("export: invalid format. Expected key=value\n");
-		}
-	// }
-}
-
-void p_env(t_env_node *env)
-{
-	printf("\nExported variables:\n");
-	t_env_node *temp = env;
-	while (temp != NULL)
-	{
-		printf("%s=%s\n", temp->key, temp->value);
-		temp = temp->next;
 	}
 }
 
-void free_env(t_env_node *env)
-{
-	t_env_node *temp = env;
-	while (temp != NULL)
-	{
-		t_env_node *next = temp->next;
-		free(temp->key);
-		free(temp->value);
-		free(temp);
-		temp = next;
-	}
-}

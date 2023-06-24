@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:15:59 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/21 07:33:31 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/23 06:56:06 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	check_option(char *s)
 	}
 	return (0);
 }
+
 void	echo_cmd(char **str)
 {
 	int i;
@@ -66,3 +67,4 @@ void	echo_cmd(char **str)
 		}
 	}
 }
+

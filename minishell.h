@@ -6,7 +6,7 @@
 /*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/23 04:52:19 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/24 02:09:00 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ typedef struct s_tokens
 }						t_tokens;
 
 void					printing(t_tokens *lexer);
-void	ft_free(char **str);
-void execute_first_command(t_cmd *cmd, char **env, t_env_node *env_node);
+void					ft_free(char **str);
+void 					execute_first_command(t_cmd *cmd, char **env, t_env_node *env_node);
 void					push_quote(t_quote **stack, char quote);
 void					pop_quote(t_quote **stack);
 char					*add_characters(char *str, char x);
@@ -117,13 +117,13 @@ void					echo_cmd(char **str);
 void					print_env(char **cmd, t_env_node *env);
 void					my_exit(t_cmd *cmd);
 void					pwd_cmd(void);
-int					cd_cmd(t_cmd *cmd, t_env_node *env);
+int						cd_cmd(t_cmd *cmd, t_env_node *env);
 void					execute_builtins(t_cmd *cmd, t_env_node *env);
 int						is_builtins(t_cmd *cmd);
-void	execute(t_cmd *cmd, t_env_node *env_list, char **env);
-char	*ft_get_path(char *cmd, t_env_node *env);
-void	my_unset(t_cmd *cmd, t_env_node *env);
-void export_variable(t_cmd *cmd, t_env_node **env);
+void					execute(t_cmd *cmd, t_env_node *env_list, char **env);
+char					*ft_get_path(char *cmd, t_env_node *env);
+void					my_unset(t_cmd *cmd, t_env_node *env);
+void 					export_variable(t_cmd *cmd, t_env_node **env);
 
 
 #endif
