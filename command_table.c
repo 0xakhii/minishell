@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 17:28:27 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/22 16:00:55 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/24 07:57:29 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	cmd_process(t_tokens *current_token, t_cmd **new_cmd, t_env_node *env)
 	if (current_token->e_types == T_STR)
 	{
 		i = 0;
-		str = new_expand(current_token->val, env);
+		str = new_expand(current_token->val, env, 2);
 		while (str && str[i])
 		{
 			(*new_cmd)->cmd = ft_arrjoin((*new_cmd)->cmd, str[i]);

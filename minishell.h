@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/24 02:09:00 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/24 07:57:50 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_helper
 	char				*key;
 	int					exit_status;
 }						t_helper;
-// t_helper g_helper;
+t_helper g_helper;
 
 typedef struct s_env_node
 {
@@ -109,7 +109,7 @@ t_tokens				*create_token(char *val, int type);
 void					add_token(t_tokens **lexer, t_tokens *node);
 t_cmd					*create_command_table(t_tokens *lexer, t_env_node *env);
 char					*get_env_val(t_env_node *env, char *str);
-char					**new_expand(char *str, t_env_node *env);
+char					**new_expand(char *str, t_env_node *env, int flag);
 char					**ft_arrjoin(char **split, char *str);
 
 //------------------------------exec----------------//
