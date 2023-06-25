@@ -6,7 +6,7 @@
 /*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:16:05 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/24 06:12:59 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/24 08:26:17 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ void export_variable(t_cmd *cmd, t_env_node **env)
 	t_env_node *tmp;
 	char **args = cmd->cmd;
 	tmp = *env;
-	int i = 1;
 	if (!cmd->cmd[1])
 	{
 		while (tmp)
@@ -89,8 +88,11 @@ void export_variable(t_cmd *cmd, t_env_node **env)
 				ft_putstr_fd(tmp->key, 1);
 				if (ft_strcmp(tmp->value, "\0"))
 					ft_putchar_fd('=', 1);
-				else if (i == 1)
-					ft_putstr_fd("=\"\"", 1);
+				// if (!ft_strcmp(tmp->value, "\\"))
+				// {
+				// 	ft_putstr_fd("\"\"\n", 1);
+				// 	return ;
+				// }
 				ft_putstr_fd(tmp->value, 1);
 				ft_putchar_fd('\n', 1);
 			}
@@ -99,6 +101,7 @@ void export_variable(t_cmd *cmd, t_env_node **env)
 	}
 	if (cmd->cmd[1])
 	{
+		(*env)->i = 0;
 		args++;
 		char *value;
 		char *key;
@@ -108,14 +111,12 @@ void export_variable(t_cmd *cmd, t_env_node **env)
 			char **equal_sign = ft_split(*args, '=');
 			if (equal_sign[0])
 				key = equal_sign[0];
-			if (equal_sign[1] == 0)
-			{
+			if (!equal_sign[1] && ft_strchr(*args, '='))
+				value = "\"\"";
+			else if (equal_sign[1] == 0)
 				value = "\0";
-			}
 			else
-			{
 				value = equal_sign[1];
-			}
 			add_node(env, key, value);
 			printf("Exported variable: %s=%s\n", key, value);
 			args++;

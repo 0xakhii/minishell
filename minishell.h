@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/24 07:57:50 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/24 08:49:56 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_env_node
 	char				*key;
 	char				*value;
 	struct s_env_node	*next;
+	int					i;
 }						t_env_node;
 
 typedef struct s_tokens

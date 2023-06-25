@@ -6,12 +6,18 @@
 /*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:17:10 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/23 02:45:27 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/25 05:43:57 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
+int	max_value(int n)
+{
+	if (n == -1 || n == 0)
+		return (0);
+	return 1;
+}
 int	is_digit(char *str)
 {
 	int	i;
@@ -45,8 +51,9 @@ void	my_exit(t_cmd *cmd)
 		nextarg = cmd->cmd[1];
 		while (*nextarg)
 		{
-			if (!is_digit(nextarg)) 
+			if (!is_digit(nextarg) || !max_value(ft_atoi(nextarg))) 
 			{
+				printf("-->%d\n", ft_atoi(nextarg));
 				printf("exit\n");
 				printf("exit: %s: numeric argument required\n", nextarg);
 				exit(1);
