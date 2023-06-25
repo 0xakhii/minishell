@@ -6,7 +6,7 @@
 /*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:36:53 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/25 03:06:55 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/25 07:19:23 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,50 @@ void	save_fd(int save[2])
 {
 	save[0] = dup(STDIN_FILENO);
 	save[1] = dup(STDOUT_FILENO);
+}
+
+void	multiple_pipe(t_cmd *cmd, t_env_node *env)
+{
+	int fd[cmd->pipe][2];
+	int pid;
+	int i = 0;
+	int j = 0;
+
+	while (i++ < cmd->pipe)
+	{
+		if ((pid == fork()) == -1)
+		{
+			perror("pipe");
+			exit(1);
+		}
+		if (pid == 0)
+		{
+			//"1st child"
+			if (i == 0)
+				dup2(fd[i][1], STDOUT_FILENO); //Write
+			//last
+			else if (i == cmd->pipe)
+				dup2(fd[i - 1][0], STDIN_FILENO);//read from before last
+			//MIDDLE
+			else
+			{
+				dup2(fd[i - 1][0], STDIN_FILENO);
+				dup2(fd[i][1], STDOUT_FILENO);
+
+			}
+			// Close all pipe ends in the child process
+			while (j++ < cmd->pipe)
+			{
+				close(fd[j][0]);
+				close(fd[j][1]);
+			}
+		}
+	}
+	// Close all pipe ends in the parent process
+	clode(fd[i][1]);
+	if (pid > 0)
+	{
+		while (i < cmd->pipe)
+			waitpid(pid, NULL, 0);
+	}
 }
