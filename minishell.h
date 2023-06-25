@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/24 08:49:56 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/25 08:56:32 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_helper
 	char				*key;
 	int					exit_status;
 }						t_helper;
-t_helper g_helper;
+// t_helper g_helper;
 
 typedef struct s_env_node
 {
@@ -118,12 +118,12 @@ void					echo_cmd(char **str);
 void					print_env(char **cmd, t_env_node *env);
 void					my_exit(t_cmd *cmd);
 void					pwd_cmd(void);
-int						cd_cmd(t_cmd *cmd, t_env_node *env);
-void					execute_builtins(t_cmd *cmd, t_env_node *env);
+int						cd_cmd(t_cmd *cmd, t_env_node **env);
+void					execute_builtins(t_cmd *cmd, t_env_node **env);
 int						is_builtins(t_cmd *cmd);
-void					execute(t_cmd *cmd, t_env_node *env_list, char **env);
+void					execute(t_cmd *cmd, t_env_node **env_list, char **env);
 char					*ft_get_path(char *cmd, t_env_node *env);
-void					my_unset(t_cmd *cmd, t_env_node *env);
+void					my_unset(t_cmd *cmd, t_env_node **env);
 void 					export_variable(t_cmd *cmd, t_env_node **env);
 
 

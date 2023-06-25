@@ -6,27 +6,35 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 23:13:04 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/24 07:57:17 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/25 08:22:13 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_env_val(t_env_node *env, char *str)
+char *get_env_val(t_env_node *env, char *str)
 {
-	char	*val;
+    char *val = NULL;
 
-	val = NULL;
-	while (env)
-	{
-		if (!ft_strcmp(env->key, str))
-			val = env->value;
-		env = env->next;
-	}
-	if (val == NULL)
-		val = "";
-	return (ft_strdup(val));
+    while (env)
+    {
+        if (env->key && str)
+        {
+            if (!ft_strcmp(env->key, str))
+            {
+                val = env->value;
+                break;
+            }
+        }
+        env = env->next;
+    }
+
+    if (val == NULL)
+        return ft_strdup("");
+
+    return ft_strdup(val);
 }
+
 
 char	*get_value(char *res, char *str, int *i, t_env_node *env)
 {
