@@ -3,36 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:17:10 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/25 05:43:57 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/25 06:55:56 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	max_value(int n)
-{
-	if (n == -1 || n == 0)
-		return (0);
-	return 1;
-}
 int	is_digit(char *str)
 {
-	int	i;
+	int			i;
+	int			sign;
 
 	i = 0;
-	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+	sign = 1;
+	if (str[i] == '+' || str[i] == '-')
+	{
+		if (str[i] == '-')
+			sign = -1;
 		i++;
-	if (str[i] == '+')
-		i++;
+	}
 	while (str[i])
 	{
-		if ((str[i] < '0' || str[i] > '9'))
+		if (str[i] < '0' || str[i] > '9')
 			return (0);
 		i++;
 	}
+	if (i > 19)
+		return (0);
 	return (1);
 }
 
@@ -51,7 +51,7 @@ void	my_exit(t_cmd *cmd)
 		nextarg = cmd->cmd[1];
 		while (*nextarg)
 		{
-			if (!is_digit(nextarg) || !max_value(ft_atoi(nextarg))) 
+			if (!is_digit(nextarg)) 
 			{
 				printf("-->%d\n", ft_atoi(nextarg));
 				printf("exit\n");
