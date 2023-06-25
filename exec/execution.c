@@ -3,27 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:36:53 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/25 07:19:23 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/25 08:51:28 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	execute(t_cmd *cmd, t_env_node *env_list, char **env)
+void	execute(t_cmd *cmd, t_env_node **envl, char **env)
 {
 	char	*path;
 	int		pid;
 	int		status;
+	t_env_node *env_list = *envl;
 
 	// int fd[2];
 	// int pid;
 	// t_cmd *tmp;
 	// tmp = cmd;
 	if (cmd->next == NULL && is_builtins(cmd))
-		execute_builtins(cmd, env_list);
+		execute_builtins(cmd, envl);
 	else
 	{
 		path = NULL;
@@ -78,48 +79,48 @@ void	save_fd(int save[2])
 	save[1] = dup(STDOUT_FILENO);
 }
 
-void	multiple_pipe(t_cmd *cmd, t_env_node *env)
-{
-	int fd[cmd->pipe][2];
-	int pid;
-	int i = 0;
-	int j = 0;
+// void	multiple_pipe(t_cmd *cmd, t_env_node *env)
+// {
+// 	int fd[cmd->pipe][2];
+// 	int pid;
+// 	int i = 0;
+// 	int j = 0;
 
-	while (i++ < cmd->pipe)
-	{
-		if ((pid == fork()) == -1)
-		{
-			perror("pipe");
-			exit(1);
-		}
-		if (pid == 0)
-		{
-			//"1st child"
-			if (i == 0)
-				dup2(fd[i][1], STDOUT_FILENO); //Write
-			//last
-			else if (i == cmd->pipe)
-				dup2(fd[i - 1][0], STDIN_FILENO);//read from before last
-			//MIDDLE
-			else
-			{
-				dup2(fd[i - 1][0], STDIN_FILENO);
-				dup2(fd[i][1], STDOUT_FILENO);
+// 	while (i++ < cmd->pipe)
+// 	{
+// 		if ((pid == fork()) == -1)
+// 		{
+// 			perror("pipe");
+// 			exit(1);
+// 		}
+// 		if (pid == 0)
+// 		{
+// 			//"1st child"
+// 			if (i == 0)
+// 				dup2(fd[i][1], STDOUT_FILENO); //Write
+// 			//last
+// 			else if (i == cmd->pipe)
+// 				dup2(fd[i - 1][0], STDIN_FILENO);//read from before last
+// 			//MIDDLE
+// 			else
+// 			{
+// 				dup2(fd[i - 1][0], STDIN_FILENO);
+// 				dup2(fd[i][1], STDOUT_FILENO);
 
-			}
-			// Close all pipe ends in the child process
-			while (j++ < cmd->pipe)
-			{
-				close(fd[j][0]);
-				close(fd[j][1]);
-			}
-		}
-	}
-	// Close all pipe ends in the parent process
-	clode(fd[i][1]);
-	if (pid > 0)
-	{
-		while (i < cmd->pipe)
-			waitpid(pid, NULL, 0);
-	}
-}
+// 			}
+// 			// Close all pipe ends in the child process
+// 			while (j++ < cmd->pipe)
+// 			{
+// 				close(fd[j][0]);
+// 				close(fd[j][1]);
+// 			}
+// 		}
+// 	}
+// 	// Close all pipe ends in the parent process
+// 	clode(fd[i][1]);
+// 	if (pid > 0)
+// 	{
+// 		while (i < cmd->pipe)
+// 			waitpid(pid, NULL, 0);
+// 	}
+// }

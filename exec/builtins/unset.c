@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:16:49 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/25 02:13:07 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/25 08:48:04 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,40 +42,36 @@ int	check_input(char *str)
 
 void delete_node(t_env_node **head, const char *key)
 {
-	t_env_node *current = *head;
-	t_env_node *prev = NULL;
+    t_env_node *current = *head;
+    t_env_node *prev = NULL;
 
-	// if (*head == NULL)
-	// 	*head = current->next;
-	// Check if the head node has the key
-	if (current != NULL && ft_strcmp(current->key, key) == 0)
-	{
-		*head = current->next;
-		free(current->key);
-		if (current->value)
-			free(current->value);
-		if (current)
-			free(current);
-		// printf("HELL NAH\n");
-		// (*head) = (*head)->next;
-		// return;
-	}
-	// Search for the node with the key
-	while (current != NULL && ft_strcmp(current->key, key) != 0)
-	{
-		// printf("[%s]\n", current->key);
-		prev = current;
-		current = current->next;
-	}
-	// printf("[[[%s]]]\n", prev->key);
-	//If key was not found in the list
-	if (current == NULL)
-		return;
-	prev->next = current->next;
-	free(current->key);
-	free(current->value);
-	free(current);
+    // Check if the head node has the key
+    if (current != NULL && ft_strcmp(current->key, key) == 0)
+    {
+        *head = current->next;
+        free(current->key);
+        free(current->value);
+        // free(current);
+        return;
+    }
+
+    // Search for the node with the key
+    while (current != NULL && ft_strcmp(current->key, key) != 0)
+    {
+        prev = current;
+        current = current->next;
+    }
+
+    // If key was not found in the list
+    if (current == NULL)
+        return;
+
+    prev->next = current->next;
+    free(current->key);
+    free(current->value);
+    free(current);
 }
+
 
 int loop_env(t_env_node *head, char *key)
 {
@@ -91,12 +87,12 @@ int loop_env(t_env_node *head, char *key)
 	// 	printf("unset: not a valid identifier\n");
 	return 0;
 }
-void	my_unset(t_cmd *cmd, t_env_node *env)
+void	my_unset(t_cmd *cmd, t_env_node **env)
 {
 	if (!cmd->cmd[1])
 		return ;
 	if (!check_input(cmd->cmd[1]))
 		return ;
-	if (loop_env(env, cmd->cmd[1]))
-		delete_node(&env, cmd->cmd[1]);
+	if (loop_env(*env, cmd->cmd[1]))
+		delete_node(env, cmd->cmd[1]);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:15:59 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/23 06:56:06 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/25 10:29:06 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,16 @@ void	echo_cmd(char **str)
 	else
 	{
 		while (str[++i])
+		{	
+			if (check_option(str[i]) == 1)
+				break;
+		}
+		while (str[i])
 		{
-			j = check_option(str[i]);
-			if (j == 1)
-			{
-				printf("%s", str[i]);
-				if (str[i + 1])
-					printf(" ");
-			}
+			printf("%s", str[i]);
+			if (str[i + 1])
+				printf(" ");
+			i++;
 		}
 	}
 }

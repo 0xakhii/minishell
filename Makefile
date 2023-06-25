@@ -22,7 +22,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@make -C libft
 	@$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
-	@echo "\033[1;32mminishell is ready"
+	@echo "\033[1;32mminishell is ready\033[0;0m"
 
 .c.o:
 	@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
@@ -30,12 +30,12 @@ $(NAME): $(OBJS)
 clean:
 	@make -C libft clean
 	@rm -f $(OBJS)
-	@echo "\033[1;31mminishell objects are deleted"
+	@echo "\033[1;31mminishell objects are deleted\033[0;0m"
 
 fclean: clean
 	@make -C libft fclean
 	@rm -f $(NAME)
-	@echo "\033[1;31mminishell is deleted"
+	@echo "\033[1;31mminishell is deleted\033[0;0m"
 
 re: fclean all
 
