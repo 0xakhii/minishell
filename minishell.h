@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/25 08:56:32 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/25 09:45:37 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void					echo_cmd(char **str);
 void					print_env(char **cmd, t_env_node *env);
 void					my_exit(t_cmd *cmd);
 void					pwd_cmd(void);
-int						cd_cmd(t_cmd *cmd, t_env_node **env);
+int						cd_cmd(t_cmd *cmd, t_env_node **env, char *curpwd);
 void					execute_builtins(t_cmd *cmd, t_env_node **env);
 int						is_builtins(t_cmd *cmd);
 void					execute(t_cmd *cmd, t_env_node **env_list, char **env);

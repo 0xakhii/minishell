@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:13:46 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/25 09:41:16 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/25 09:47:03 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ void set_env_value(t_env_node **env, const char *key, const char *value)
 	}
 }
 	
-int cd_cmd(t_cmd *cmd, t_env_node **env)
+int cd_cmd(t_cmd *cmd, t_env_node **env, char *curpwd)
 {
 	t_env_node *tmp = *env;
-	char *curpwd = NULL;
 
+    set_env_value(env, "OLDPWD", curpwd); // Update OLDPWD in env
 	if (cmd->cmd[1] && cmd->cmd[1][0] == '~' && !cmd->cmd[1][1])
 	{
 		while (tmp)
@@ -82,7 +82,6 @@ int cd_cmd(t_cmd *cmd, t_env_node **env)
                         free(curpwd);
                         return 0;
                     }
-                    set_env_value(env, "OLDPWD", curpwd); // Update OLDPWD in env
                     free(curpwd);
                     return 1;
                 }

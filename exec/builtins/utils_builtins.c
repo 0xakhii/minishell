@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 00:10:21 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/25 08:56:24 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/25 09:47:46 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 void	execute_builtins(t_cmd *cmd, t_env_node **env)
 {
+	char *curpwd = NULL;
 	if (!cmd->cmd)
 		return;
 	if (!ft_strcmp(cmd->cmd[0], "echo"))
@@ -26,7 +27,10 @@ void	execute_builtins(t_cmd *cmd, t_env_node **env)
 	if (!ft_strcmp(cmd->cmd[0], "pwd"))
 		pwd_cmd();
 	else if (!ft_strcmp(cmd->cmd[0], "cd"))
-		cd_cmd(cmd, env);
+	{
+		curpwd = getcwd(curpwd, 0);
+		cd_cmd(cmd, env, curpwd);
+	}
 	else if (!ft_strcmp(cmd->cmd[0], "export"))
 		export_variable(cmd, env);
 	else if (!ft_strcmp(cmd->cmd[0], "unset"))
