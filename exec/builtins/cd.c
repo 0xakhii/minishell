@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:13:46 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/26 02:03:19 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/26 02:06:39 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,12 @@ void	set_env_value(t_env_node **env, const char *key, const char *value)
 		tmp = tmp->next;
 	}
 }
-
-int	cd_cmd(t_cmd *cmd, t_env_node **env)
+	
+int cd_cmd(t_cmd *cmd, t_env_node **env, char *curpwd)
 {
-	t_env_node	*tmp;
-	char *oldpwd = NULL;
+	t_env_node *tmp = *env;
 
-	tmp = *env;
+    set_env_value(env, "OLDPWD", curpwd); // Update OLDPWD in env
 	if (cmd->cmd[1] && cmd->cmd[1][0] == '~' && !cmd->cmd[1][1])
 	{
 		while (tmp)
@@ -74,37 +73,33 @@ int	cd_cmd(t_cmd *cmd, t_env_node **env)
 	if (cmd->cmd[1] && cmd->cmd[1][0] == '-' && !cmd->cmd[1][1])
 	{
 		while (tmp)
-		{
-			if (!ft_strcmp(tmp->key, "OLDPWD"))
-			{
-				if (tmp->value)
-				{
-					if (chdir(tmp->value) != 0)
-					{
-						perror("chdir");
-						return 0;
-					}
-					oldpwd = getcwd(NULL, 0);
-					if (!oldpwd)
-					{
-						perror("getcwd");
-						return 0;
-					}
-					set_env_value(env, "OLDPWD", oldpwd);  // Update OLDPWD in env
-					free(oldpwd);
-					return 1;
-				}
-				else
-				{
-					printf("cd: OLDPWD not set\n");
-					return 0;
-				}
-			}
-			tmp = tmp->next;
-		}
-		printf("OLDPWD not set\n");
-		return 0;
-	}
+        {
+            if (!strcmp(tmp->key, "OLDPWD"))
+            {
+                if (tmp->value)
+                {
+                    if (chdir(tmp->value) != 0)
+                    {
+                        perror("chdir");
+                        free(curpwd);
+                        return 0;
+                    }
+                    free(curpwd);
+                    return 1;
+                }
+                else
+                {
+                    printf("cd: OLDPWD not set\n");
+                    free(curpwd);
+                    return 0;
+                }
+            }
+            tmp = tmp->next;
+        }
+        printf("OLDPWD not set\n");
+        free(curpwd);
+        return 0;
+    }
 	else
 	{
 		while (tmp)
