@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/25 09:45:37 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/26 01:32:08 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,15 @@
 
 # include "libft/libft.h"
 # include <fcntl.h>
+# include <limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <unistd.h>
-# include <sys/wait.h>
 # include <sys/types.h>
-# include <limits.h>
-
+# include <sys/wait.h>
+# include <unistd.h>
 
 typedef struct s_cmd
 {
@@ -34,12 +33,15 @@ typedef struct s_cmd
 	int					pipe;
 	int					in_fd;
 	int					out_fd;
+	int					fd[2];
+	int					pid;
 	enum
 	{
 		T_CMD,
 		T_HERD_FILE
 	} e_types;
 	struct s_cmd		*next;
+	struct s_cmd		*prev;
 }						t_cmd;
 
 typedef struct s_quote
@@ -85,7 +87,8 @@ typedef struct s_tokens
 
 void					printing(t_tokens *lexer);
 void					ft_free(char **str);
-void 					execute_first_command(t_cmd *cmd, char **env, t_env_node *env_node);
+void					execute_first_command(t_cmd *cmd, char **env,
+							t_env_node *env_node);
 void					push_quote(t_quote **stack, char quote);
 void					pop_quote(t_quote **stack);
 char					*add_characters(char *str, char x);
@@ -124,7 +127,7 @@ int						is_builtins(t_cmd *cmd);
 void					execute(t_cmd *cmd, t_env_node **env_list, char **env);
 char					*ft_get_path(char *cmd, t_env_node *env);
 void					my_unset(t_cmd *cmd, t_env_node **env);
-void 					export_variable(t_cmd *cmd, t_env_node **env);
-
-
+void					export_variable(t_cmd *cmd, t_env_node **env);
+void					ft_freeeeee(char **av);
+void					ft_exec(t_cmd *cmd, t_env_node *env);
 #endif

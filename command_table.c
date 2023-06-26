@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_table.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 17:28:27 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/24 08:04:06 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/26 01:49:38 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@ t_cmd	*table_init(void)
 
 	new_cmd = malloc(sizeof(t_cmd));
 	new_cmd->next = NULL;
+	new_cmd->prev = NULL;
 	new_cmd->cmd = NULL;
 	new_cmd->in_file = NULL;
 	new_cmd->out_file = NULL;
 	new_cmd->pipe = 0;
-	new_cmd->in_fd = 0;
-	new_cmd->out_fd = 1;
+	new_cmd->in_fd = -2;
+	new_cmd->out_fd = -2;
 	//new_cmd->exit_status=0;
 	return (new_cmd);
 }
@@ -66,6 +67,7 @@ t_tokens	*files_process(t_cmd **new_cmd, t_tokens *current_token)
 	{
 		(*new_cmd)->pipe++;
 		(*new_cmd)->next = table_init();
+		(*new_cmd)->next->prev = (*new_cmd);
 		(*new_cmd) = (*new_cmd)->next;
 	}
 	return (current_token);

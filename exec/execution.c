@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:36:53 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/25 08:51:28 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/26 01:56:38 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,64 +14,12 @@
 
 void	execute(t_cmd *cmd, t_env_node **envl, char **env)
 {
-	char	*path;
-	int		pid;
-	int		status;
-	t_env_node *env_list = *envl;
-
-	// int fd[2];
-	// int pid;
-	// t_cmd *tmp;
-	// tmp = cmd;
+	(void)env;
 	if (cmd->next == NULL && is_builtins(cmd))
 		execute_builtins(cmd, envl);
 	else
-	{
-		path = NULL;
-		if (cmd->cmd[0])
-		{
-			if (cmd->cmd[0][0] == '.' && cmd->cmd[0][1] == '/')
-			{
-				if (access(cmd->cmd[0], F_OK) == 0)
-					path = ft_strjoin(path, cmd->cmd[0] + 2);
-			}
-			else
-				path = ft_get_path(cmd->cmd[0], env_list);
-			pid = fork();
-			if (pid == 0)
-			{
-				if (path != NULL)
-				{
-					execve(path, cmd->cmd, env);
-					printf("Error executing the command.\n");
-					exit(1);
-				}
-				else
-				{
-					printf("%s: Command not found.\n", cmd->cmd[0]);
-					exit(1);
-				}
-				exit(0);
-			}
-			else if (pid > 0)
-			{
-				waitpid(pid, &status, 0);
-			}
-		}
-	}
-	// while (tmp)
-	// {
-	// 	if (pipe(fd) == -1)
-	// 		return (1);
-	// 	pid = fork;
-	// 	if (pid == 0)
-	// 	{
-	// 		dup2(fd[1], 1);
-	// 		dup2(fd[0], 0);
-	// 	}
-	// }
+		ft_exec(cmd, *envl);
 }
-
 
 void	save_fd(int save[2])
 {
@@ -79,6 +27,79 @@ void	save_fd(int save[2])
 	save[1] = dup(STDOUT_FILENO);
 }
 
+void	ft_lunch(t_cmd *cmd, t_env_node *env_list, char **env)
+{
+	char	*p_name;
+	int		i;
+
+	i = 0;
+	execve(cmd->cmd[0], cmd->cmd, env);
+	p_name = ft_get_path(cmd->cmd[0], env_list);
+	if (execve(p_name, cmd->cmd, env) < 0)
+	{
+		printf("%s: Command not found.\n", cmd->cmd[0]);
+		ft_freeeeee(cmd->cmd);
+		exit(127);
+	}
+}
+
+void	ft_exec(t_cmd *cmd, t_env_node *env)
+{
+	t_cmd	*temp;
+
+	temp = cmd;
+	while (cmd)
+	{
+		if (cmd->next)
+		{
+			pipe(cmd->fd);
+		}
+		cmd->pid = fork();
+		if (cmd->pid == 0)
+		{
+			// printf("---->%i\n",cmd->in_fd);
+			// if(cmd->in_fd != -2)
+			if (!cmd->in_file)
+			{
+				dup2(cmd->in_fd, STDIN_FILENO);
+			}
+			else if (cmd->prev)
+			{
+				close(cmd->prev->fd[1]);
+				dup2(cmd->prev->fd[0], STDIN_FILENO);
+			}
+			if (cmd->out_fd != -2)
+			{
+				dup2(cmd->out_fd, STDOUT_FILENO);
+			}
+			else if (cmd->next)
+			{
+				close(cmd->fd[0]);
+				dup2(cmd->fd[1], STDOUT_FILENO);
+			}
+			ft_lunch(cmd, env, NULL);
+			exit(0);
+		}
+		else
+		{
+			if (cmd->prev)
+			{
+				close(cmd->prev->fd[0]);
+				close(cmd->prev->fd[1]);
+			}
+		}
+		cmd = cmd->next;
+	}
+	while (temp)
+	{
+		// if(cmd->in_file)
+		// 	close(cmd->in_fd);
+		// if(cmd->out_file)
+		// 	close(cmd->out_fd);
+		waitpid(temp->pid, NULL, 0);
+		temp = temp->next;
+	}
+}
 // void	multiple_pipe(t_cmd *cmd, t_env_node *env)
 // {
 // 	int fd[cmd->pipe][2];

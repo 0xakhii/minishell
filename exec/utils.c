@@ -6,13 +6,13 @@
 /*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 08:46:30 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/24 08:51:10 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/26 01:31:08 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_free(char **av)
+void	ft_freeeeee(char **av)
 {
 	int i = 0;
 	while (av[i])
