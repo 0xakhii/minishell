@@ -6,7 +6,7 @@
 /*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/26 01:32:08 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/26 02:02:09 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void					echo_cmd(char **str);
 void					print_env(char **cmd, t_env_node *env);
 void					my_exit(t_cmd *cmd);
 void					pwd_cmd(void);
-int						cd_cmd(t_cmd *cmd, t_env_node **env, char *curpwd);
+int						cd_cmd(t_cmd *cmd, t_env_node **env);
 void					execute_builtins(t_cmd *cmd, t_env_node **env);
 int						is_builtins(t_cmd *cmd);
 void					execute(t_cmd *cmd, t_env_node **env_list, char **env);
