@@ -1,13 +1,10 @@
 echo $"hey$"
 echo $""
 
---redeariction 
 if (env dose not exit have show message error)
 ===> ls | << cat probleme out of programme
 
-===> error when unset the head of env
 
 ===> when deleting a dir ure inside of it pwd does not show up the pwd;
-==> ./minishell ()==> have to entre insdie minishell
-===> minishell   ()====> commande not found 
-===>  unset OLDPWD //cd - OLDPWD
+===> minishell   ()====> commande not found  
+===>  unset OLDPWD //cd - OLDPWD 
