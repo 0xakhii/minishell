@@ -3,35 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:13:46 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/25 09:47:03 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/25 22:28:43 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void set_env_value(t_env_node **env, const char *key, const char *value)
+void	set_env_value(t_env_node **env, const char *key, const char *value)
 {
-	t_env_node *tmp = *env;
+	t_env_node	*tmp;
+
+	tmp = *env;
 	while (tmp)
 	{
 		if (!ft_strcmp(tmp->key, key))
 		{
 			free(tmp->value);
 			tmp->value = strdup(value);
-			return;
+			return ;
 		}
 		tmp = tmp->next;
 	}
 }
-	
-int cd_cmd(t_cmd *cmd, t_env_node **env, char *curpwd)
-{
-	t_env_node *tmp = *env;
 
-    set_env_value(env, "OLDPWD", curpwd); // Update OLDPWD in env
+int	cd_cmd(t_cmd *cmd, t_env_node **env, char *curpwd)
+{
+	t_env_node	*tmp;
+
+	tmp = *env;
+	set_env_value(env, "OLDPWD", curpwd); // Update OLDPWD in env
 	if (cmd->cmd[1] && cmd->cmd[1][0] == '~' && !cmd->cmd[1][1])
 	{
 		while (tmp)
@@ -41,14 +44,14 @@ int cd_cmd(t_cmd *cmd, t_env_node **env, char *curpwd)
 				if (chdir(tmp->value) != 0)
 				{
 					perror("chdir");
-					return 0; // Return 0 on error
+					return (0); // Return 0 on error
 				}
-				return 1; // Return 1 on success
+				return (1); // Return 1 on success
 			}
 			tmp = tmp->next;
 		}
 		printf("HOME not set\n");
-		return 0; // Return 0 if HOME is not set
+		return (0); // Return 0 if HOME is not set
 	}
 	else if (!cmd->cmd[1])
 	{
@@ -59,45 +62,45 @@ int cd_cmd(t_cmd *cmd, t_env_node **env, char *curpwd)
 				if (chdir(tmp->value) != 0)
 				{
 					perror("chdir");
-					return 0; // Return 0 on error
+					return (0); // Return 0 on error
 				}
-				return 1; // Return 1 on success
+				return (1); // Return 1 on success
 			}
 			tmp = tmp->next;
 		}
 		printf("HOME not set\n");
-		return 0; // Return 0 if HOME is not set
+		return (0); // Return 0 if HOME is not set
 	}
 	if (cmd->cmd[1] && cmd->cmd[1][0] == '-' && !cmd->cmd[1][1])
 	{
 		while (tmp)
-        {
-            if (!strcmp(tmp->key, "OLDPWD"))
-            {
-                if (tmp->value)
-                {
-                    if (chdir(tmp->value) != 0)
-                    {
-                        perror("chdir");
-                        free(curpwd);
-                        return 0;
-                    }
-                    free(curpwd);
-                    return 1;
-                }
-                else
-                {
-                    printf("cd: OLDPWD not set\n");
-                    free(curpwd);
-                    return 0;
-                }
-            }
-            tmp = tmp->next;
-        }
-        printf("OLDPWD not set\n");
-        free(curpwd);
-        return 0;
-    }
+		{
+			if (!strcmp(tmp->key, "OLDPWD"))
+			{
+				if (tmp->value)
+				{
+					if (chdir(tmp->value) != 0)
+					{
+						perror("chdir");
+						free(curpwd);
+						return (0);
+					}
+					free(curpwd);
+					return (1);
+				}
+				else
+				{
+					printf("cd: OLDPWD not set\n");
+					free(curpwd);
+					return (0);
+				}
+			}
+			tmp = tmp->next;
+		}
+		printf("OLDPWD not set\n");
+		free(curpwd);
+		return (0);
+	}
 	else
 	{
 		while (tmp)
@@ -107,13 +110,13 @@ int cd_cmd(t_cmd *cmd, t_env_node **env, char *curpwd)
 				if (chdir(cmd->cmd[1]) != 0)
 				{
 					perror("chdir");
-					return 0; // Return 0 on error
+					return (0); // Return 0 on error
 				}
-				return 1; // Return 1 on success
+				return (1); // Return 1 on success
 			}
 			tmp = tmp->next;
 		}
 		printf("Directory not found\n");
-		return 0; // Return 0 if the directory is not found
+		return (0); // Return 0 if the directory is not found
 	}
 }

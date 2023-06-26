@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/25 08:48:57 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/26 01:35:50 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,21 @@ void	free_tokens(t_tokens **t)
 	}
 }
 
-void free_cmd(t_cmd **cmd)
-{
-	t_cmd *tmp;
-	while(*cmd)
-	{
-		ft_free((*cmd)->cmd);
-		free((*cmd)->in_file);
-		free((*cmd)->out_file);
-		tmp = (*cmd)->next;
-		free(*cmd);
-		(*cmd) = tmp;
-	}
-	(*cmd) = NULL;
-}
+// void	free_cmd(t_cmd **cmd)
+// {
+// 	t_cmd	*tmp;
+
+// 	while (*cmd)
+// 	{
+// 		ft_free((*cmd)->cmd);
+// 		free((*cmd)->in_file);
+// 		free((*cmd)->out_file);
+// 		tmp = (*cmd)->next;
+// 		free(*cmd);
+// 		(*cmd) = tmp;
+// 	}
+// 	(*cmd) = NULL;
+// }
 
 void	print_cmd_table(t_cmd *cmd_t)
 {
@@ -51,7 +52,7 @@ void	print_cmd_table(t_cmd *cmd_t)
 	{
 		i = 1;
 		if (cmd && cmd->cmd)
-		{	
+		{
 			printf("Command: %s\n", cmd->cmd[0]);
 			while (cmd->cmd && cmd->cmd[i - 1] && cmd->cmd[i])
 			{
@@ -60,19 +61,18 @@ void	print_cmd_table(t_cmd *cmd_t)
 			}
 		}
 		// if (cmd->e_types == T_IN_FILE)
-			printf("Input file: %s\n", cmd->in_file);
+		printf("Input file: %s\n", cmd->in_file);
 		// else if (cmd->e_types == T_OUT_FILE)
-			printf("Output file: %s\n", cmd->out_file);
+		printf("Output file: %s\n", cmd->out_file);
 		// else if (cmd->e_types == T_APP_FILE)
-			printf("Append file: %s\n", cmd->out_file);
+		printf("Append file: %s\n", cmd->out_file);
 		// else if (cmd->e_types == T_HERD_FILE)
-			printf("Heredoc file: %s\n", cmd->in_file);
+		printf("Heredoc file: %s\n", cmd->in_file);
 		if (cmd->pipe)
 			printf("is piped\n");
 		cmd = cmd->next;
 	}
 }
-
 
 int	main(int ac, char **av, char **env)
 {
@@ -105,7 +105,7 @@ int	main(int ac, char **av, char **env)
 			// g_helper.exit_status = 258;
 		}
 		// print_cmd_table(cmd_table);
-		free_cmd(&cmd_table);
+		// free_cmd(&cmd_table);
 		free_tokens(&lexer);
 		free(in);
 	}
