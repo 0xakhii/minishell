@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:13:46 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/26 02:06:39 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/27 06:30:31 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,101 +21,107 @@ void	set_env_value(t_env_node **env, const char *key, const char *value)
 	{
 		if (!ft_strcmp(tmp->key, key))
 		{
-			free(tmp->value);
-			tmp->value = strdup(value);
+			if(value)
+				tmp->value = ft_strdup(value);
 			return ;
 		}
 		tmp = tmp->next;
 	}
 }
-	
-int cd_cmd(t_cmd *cmd, t_env_node **env, char *curpwd)
-{
-	t_env_node *tmp = *env;
 
-    set_env_value(env, "OLDPWD", curpwd); // Update OLDPWD in env
-	if (cmd->cmd[1] && cmd->cmd[1][0] == '~' && !cmd->cmd[1][1])
+int	cd_home(t_cmd *cmd, t_env_node **env)
+{
+	int	error;
+	char *oldpwd;
+	char *new;
+
+	new = NULL;
+	error = 0;
+	oldpwd = NULL;
+	if (!cmd->cmd[1] || (cmd->cmd[1] && cmd->cmd[1][0] == '~' && !cmd->cmd[1][1]))
 	{
-		while (tmp)
+		oldpwd = getcwd(oldpwd, 0);
+		error = chdir(get_env_val(*env, "HOME"));
+		if (error == -1)
+			return (printf("HOME not set\n"));
+		else
 		{
-			if (!ft_strcmp(tmp->key, "HOME"))
-			{
-				if (chdir(tmp->value) != 0)
-				{
-					perror("chdir");
-					return (0); // Return 0 on error
-				}
-				return (1); // Return 1 on success
-			}
-			tmp = tmp->next;
+			new = getcwd(new, 0);
+			set_env_value(env, "OLDPWD", oldpwd);
+			set_env_value(env, "PWD", new);
+			free(new);
+			free(oldpwd);
+			return (1);
 		}
-		printf("HOME not set\n");
-		return (0); // Return 0 if HOME is not set
 	}
-	else if (!cmd->cmd[1])
-	{
-		while (tmp)
-		{
-			if (!ft_strcmp(tmp->key, "HOME"))
-			{
-				if (chdir(tmp->value) != 0)
-				{
-					perror("chdir");
-					return (0); // Return 0 on error
-				}
-				return (1); // Return 1 on success
-			}
-			tmp = tmp->next;
-		}
-		printf("HOME not set\n");
-		return (0); // Return 0 if HOME is not set
-	}
+	return (0);
+}
+
+int	cd_oldpwd(t_cmd *cmd, t_env_node **env)
+{
+	int	error;
+	char *oldpwd;
+	char *new;
+
+	new = NULL;
+	error = 0;
+	oldpwd = NULL;
 	if (cmd->cmd[1] && cmd->cmd[1][0] == '-' && !cmd->cmd[1][1])
 	{
-		while (tmp)
-        {
-            if (!strcmp(tmp->key, "OLDPWD"))
-            {
-                if (tmp->value)
-                {
-                    if (chdir(tmp->value) != 0)
-                    {
-                        perror("chdir");
-                        free(curpwd);
-                        return 0;
-                    }
-                    free(curpwd);
-                    return 1;
-                }
-                else
-                {
-                    printf("cd: OLDPWD not set\n");
-                    free(curpwd);
-                    return 0;
-                }
-            }
-            tmp = tmp->next;
-        }
-        printf("OLDPWD not set\n");
-        free(curpwd);
-        return 0;
-    }
-	else
-	{
-		while (tmp)
+		oldpwd = getcwd(oldpwd, 0);
+		error = chdir(get_env_val(*env, "OLDPWD"));
+		if (error == -1)
+			return (printf("OLDPWD not set\n"));
+		else
 		{
-			if (cmd->cmd[1])
-			{
-				if (chdir(cmd->cmd[1]) != 0)
-				{
-					perror("chdir");
-					return (0); // Return 0 on error
-				}
-				return (1); // Return 1 on success
-			}
-			tmp = tmp->next;
+			new = getcwd(new, 0);
+			set_env_value(env, "OLDPWD", oldpwd);
+			set_env_value(env, "PWD", new);
+			free(new);
+			free(oldpwd);
+			printf("%s\n", get_env_val(*env, "PWD"));
+			return (1);
 		}
-		printf("Directory not found\n");
-		return (0); // Return 0 if the directory is not found
+    }
+	return (0);
+}
+
+int	cd_dir(t_cmd *cmd, t_env_node **env)
+{
+	int	error;
+	char *oldpwd;
+	char *new;
+
+	new = NULL;
+	error = 0;
+	oldpwd = NULL;
+	oldpwd = getcwd(oldpwd, 0);
+	error = chdir(cmd->cmd[1]);
+	if (error == -1)
+	{
+		perror("chdir");
+		return (0);
 	}
+	else
+	{	
+		new = getcwd(new, 0);
+		set_env_value(env, "OLDPWD", oldpwd);
+		set_env_value(env, "PWD", new);
+		free(new);
+		free(oldpwd);
+		return (1);
+	}
+	return (0);
+}
+
+int cd_cmd(t_cmd *cmd, t_env_node **env)
+{
+	if (cd_home(cmd, env))
+		return (0);
+	if (cd_oldpwd(cmd, env))
+		return (0);
+	if (cmd->cmd[1])
+		if (cd_dir(cmd, env))
+			return (0);
+	return (1);
 }
