@@ -3,22 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:15:54 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/20 01:37:12 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/27 06:35:19 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	pwd_cmd(void)
+void	pwd_cmd(t_env_node *env)
 {
 	char *tmp;
-	//Get path name of the working directory
-	tmp = getcwd(0, 0); //success;
+	tmp = getcwd(0, 0);
 	if (!tmp)
-		return ;
+		printf("%s\n", get_env_val(env, "PWD"));
 	else
 		printf("%s\n", tmp);
 	free(tmp);

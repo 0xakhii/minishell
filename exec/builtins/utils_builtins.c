@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 00:10:21 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/26 02:02:44 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/27 06:34:53 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	execute_builtins(t_cmd *cmd, t_env_node **env)
 	else if (!ft_strcmp(cmd->cmd[0], "exit"))
 		my_exit(cmd);
 	if (!ft_strcmp(cmd->cmd[0], "pwd"))
-		pwd_cmd();
+		pwd_cmd(*env);
 	else if (!ft_strcmp(cmd->cmd[0], "cd"))
 		cd_cmd(cmd, env);
 	else if (!ft_strcmp(cmd->cmd[0], "export"))

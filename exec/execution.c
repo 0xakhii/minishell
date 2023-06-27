@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:36:53 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/26 01:56:38 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/26 07:51:45 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,13 @@ void	save_fd(int save[2])
 	save[1] = dup(STDOUT_FILENO);
 }
 
-void	ft_lunch(t_cmd *cmd, t_env_node *env_list, char **env)
+void	ft_lunch(t_cmd *cmd, t_env_node *env_list)
 {
 	char	*p_name;
-	int		i;
 
-	i = 0;
-	execve(cmd->cmd[0], cmd->cmd, env);
+	execve(cmd->cmd[0], cmd->cmd, node_to_2d(env_list));
 	p_name = ft_get_path(cmd->cmd[0], env_list);
-	if (execve(p_name, cmd->cmd, env) < 0)
+	if (execve(p_name, cmd->cmd, node_to_2d(env_list)) < 0)
 	{
 		printf("%s: Command not found.\n", cmd->cmd[0]);
 		ft_freeeeee(cmd->cmd);
@@ -77,7 +75,7 @@ void	ft_exec(t_cmd *cmd, t_env_node *env)
 				close(cmd->fd[0]);
 				dup2(cmd->fd[1], STDOUT_FILENO);
 			}
-			ft_lunch(cmd, env, NULL);
+			ft_lunch(cmd, env);
 			exit(0);
 		}
 		else
