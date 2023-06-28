@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 08:46:30 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/28 08:41:18 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/28 12:00:26 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,11 @@ char	*ft_get_path(char *cmd, t_env_node *env)
 	return (NULL);
 }
 
-char	**node_to_2d(t_env_node *env)
+char **node_to_2d(t_env_node *env)
 {
-	int			j;
-	char		*key;
-	char		*value;
-	char		**result;
-	t_env_node	*tmp;
+	int j = 0;
+	char **result;
+	t_env_node *tmp;
 
 	tmp = env;
 	while (tmp)
@@ -73,11 +71,16 @@ char	**node_to_2d(t_env_node *env)
 	j = 0;
 	while (tmp)
 	{
-		key = ft_strjoin(tmp->key, "=");
-		value = ft_strjoin(key, tmp->value);
-		result[j] = value;
+		result[j] = (char *)malloc(ft_strlen(tmp->key) + ft_strlen(tmp->value) + 2);
+		ft_strcpy(result[j], tmp->key);
+		strcat(result[j], "=");
+		strcat(result[j], tmp->value);
 		j++;
 		tmp = tmp->next;
 	}
-	return (result[j] = NULL, result);
+	result[j] = NULL;
+	return result;
 }
+
+
+
