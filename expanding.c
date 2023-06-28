@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 23:13:04 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/28 08:29:11 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/28 08:38:41 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char *get_env_val(t_env_node *env, char *str)
 {
     char *val;
 
-	val = NULL
+	val = NULL;
     while (env)
     {
         if (env->key && str)
@@ -129,7 +129,7 @@ char	**new_expand(char *str, t_env_node *env, int flag)
 	i = 0;
 	split = NULL;
 	save = NULL;
-	*res = replace_value(str, env, flag);
+	res = replace_value(str, env, flag);
 	while (res[i])
 	{
 		tmp = split_var(res, &i);

@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 00:10:21 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/28 07:59:22 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/28 08:38:59 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	execute_builtins(t_cmd *cmd, t_env_node **env)
 	else if (!ft_strcmp(cmd->cmd[0], "unset"))
 		my_unset(cmd, env);
 	else
-		return (1);
+		return ;
 }
 
 int	is_builtins(t_cmd *cmd)

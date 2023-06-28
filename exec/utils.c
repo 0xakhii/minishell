@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 08:46:30 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/28 08:24:26 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/28 08:41:18 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ char	**node_to_2d(t_env_node *env)
 	{
 		key = ft_strjoin(tmp->key, "=");
 		value = ft_strjoin(key, tmp->value);
-		free(key);
 		result[j] = value;
 		j++;
 		tmp = tmp->next;
