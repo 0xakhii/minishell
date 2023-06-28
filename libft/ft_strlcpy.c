@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ojamal <ojamal@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 22:24:47 by ojamal            #+#    #+#             */
-/*   Updated: 2022/11/01 23:15:16 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/28 07:42:02 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 			dst[index] = src[index];
 			index++;
 		}
-	dst[index] = '\0';
+		dst[index] = '\0';
 	}
 	return (srcsize);
 }

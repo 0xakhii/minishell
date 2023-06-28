@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:17:53 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/25 07:34:07 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/28 08:03:04 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	print_env(char **cmd, t_env_node *env)
 {
-	t_env_node *tmp;
+	t_env_node	*tmp;
 
 	tmp = env;
 	if (cmd[1])
-			printf("env: ‘%s’: No such file or directory\n", cmd[1]);
+		printf("env: ‘%s’: No such file or directory\n", cmd[1]);
 	else
 	{
 		while (tmp)

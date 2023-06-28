@@ -6,15 +6,15 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:16:05 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/27 09:33:48 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/28 08:02:13 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int check_emptyy(char *cmd)
+int	check_emptyy(char *cmd)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (cmd[i])
@@ -26,67 +26,33 @@ int check_emptyy(char *cmd)
 	return (0);
 }
 
-int check_inputt(char *str)
+int	check_inputt(char *str)
 {
-	int i = 0;
-	int id = 0;
+	int	i;
+	int	id;
 
+	i = 0;
+	id = 0;
 	if (str[0] == '+')
-	{
-		printf("export: not a valid identifier\n");
-		return 0;
-	}
+		msg_er("export: not a valid identifier");
 	while (str[i])
 	{
 		if (!((str[i] >= 'a' && str[i] <= 'z')
-			|| (str[i] >= 'A' && str[i] <= 'Z') || str[i] == '_'))
+				|| (str[i] >= 'A' && str[i] <= 'Z') || str[i] == '_'))
 		{
 			if (id && str[i] != '+' && !(str[i] == '=' && str[i - 1] == '+'))
-			{
-				printf("export: not a valid identifier\n");
-				return 0;
-			}
+				msg_er("export: not a valid identifier");
 			else if (!id)
 				id = 1;
 		}
 		i++;
 	}
-	return 1;
-}
-
-
-void add_node(t_env_node **env, char *key, char *value)
-{
-	t_env_node *new_node;
-	t_env_node *temp;
-
-	temp = *env;
-	new_node = create_env_node(key, value);
-	if (*env == NULL)
-		*env = new_node;
-	else
-	{
-		while (temp->next != NULL)
-			temp = temp->next;
-		temp->next = new_node;
-	}
-}
-
-t_env_node *find_node(t_env_node **env, char *key)
-{
-	t_env_node *tmp = *env;
-	while (tmp != NULL)
-	{
-		if (!ft_strcmp(tmp->key, key))
-			return tmp;
-		tmp = tmp->next;
-	}
-	return NULL; 
+	return (1);
 }
 
 void	print_export(t_env_node **env)
 {
-	t_env_node *tmp;
+	t_env_node	*tmp;
 
 	tmp = *env;
 	while (tmp)
@@ -96,7 +62,8 @@ void	print_export(t_env_node **env)
 			printf("declare -x %s", tmp->key);
 			if (ft_strcmp(tmp->value, "\0"))
 			{
-				if (tmp->value[0] != '\"' && tmp->value[ft_strlen(tmp->value) - 1] != '\"')
+				if (tmp->value[0] != '\"'
+					&& tmp->value[ft_strlen(tmp->value) - 1] != '\"')
 					printf("=\"%s\"", tmp->value);
 				else
 					printf("=%s", tmp->value);
@@ -109,7 +76,7 @@ void	print_export(t_env_node **env)
 
 void	append_to_export(char *key, char *value, t_env_node **env)
 {
-	t_env_node *existing;
+	t_env_node	*existing;
 
 	if (check_inputt(key))
 	{
@@ -121,13 +88,13 @@ void	append_to_export(char *key, char *value, t_env_node **env)
 	}
 }
 
-void export_variable(t_cmd *cmd, t_env_node **env)
+void	export_variable(t_cmd *cmd, t_env_node **env)
 {
-	char **equal_sign;
-	char *value;
-	char *key;
+	char	**equal_sign;
+	char	*value;
+	char	*key;
 
-	if (!cmd->cmd[1])	
+	if (!cmd->cmd[1])
 		print_export(env);
 	else
 	{

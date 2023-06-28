@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ojamal <ojamal@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 02:32:00 by ojamal            #+#    #+#             */
-/*   Updated: 2022/11/01 23:15:27 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/28 07:42:14 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		if (ss1[index] != ss2[index])
 			return (ss1[index] - ss2[index]);
 		index++;
-	}	
+	}
 	return (0);
 }
 // #include<stdio.h>

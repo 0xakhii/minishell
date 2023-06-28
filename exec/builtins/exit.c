@@ -6,23 +6,23 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:17:10 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/27 07:16:06 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/28 08:02:41 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int check_max_min(int i, char *str)
+int	check_max_min(int i, char *str)
 {
 	if (i >= 19 && str[0] != '-')
-	{	
+	{
 		if (str[i - 1] > '7')
 			return (0);
 		else if (i > 19)
 			return (0);
 	}
 	else if (i > 19 && str[0] == '-')
-	{	
+	{
 		if (str[i - 1] > '8')
 			return (0);
 		else if (i > 20)

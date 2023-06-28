@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/26 01:35:50 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/28 07:38:30 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,9 @@ void	print_cmd_table(t_cmd *cmd_t)
 				i++;
 			}
 		}
-		// if (cmd->e_types == T_IN_FILE)
 		printf("Input file: %s\n", cmd->in_file);
-		// else if (cmd->e_types == T_OUT_FILE)
 		printf("Output file: %s\n", cmd->out_file);
-		// else if (cmd->e_types == T_APP_FILE)
 		printf("Append file: %s\n", cmd->out_file);
-		// else if (cmd->e_types == T_HERD_FILE)
 		printf("Heredoc file: %s\n", cmd->in_file);
 		if (cmd->pipe)
 			printf("is piped\n");
@@ -93,19 +89,12 @@ int	main(int ac, char **av, char **env)
 			return (0);
 		add_history(in);
 		lexer = lexer_init(in);
-		// g_helper.exit_status = 0;
 		if (lexer && lexer->e_types != 6 && !token_check(lexer)
 			&& !syntax_check(lexer))
 		{
 			cmd_table = create_command_table(lexer, env_list);
 			execute(cmd_table, &env_list, env);
 		}
-		else
-		{
-			// g_helper.exit_status = 258;
-		}
-		// print_cmd_table(cmd_table);
-		// free_cmd(&cmd_table);
 		free_tokens(&lexer);
 		free(in);
 	}

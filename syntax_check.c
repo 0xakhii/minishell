@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 19:17:20 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/22 16:01:00 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/28 08:27:47 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int	token_check(t_tokens *lexer)
 			return (msg_er("syntax error near unexpected token `newline'"));
 		if (lexer->e_types == 5 && lexer->next && lexer->next->e_types != 1)
 			return (msg_er("syntax error near unexpected token `newline'"));
-		
 		lexer = lexer->next;
 	}
 	return (0);

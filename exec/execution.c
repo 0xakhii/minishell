@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:36:53 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/26 07:51:45 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/28 08:25:55 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,27 +49,19 @@ void	ft_exec(t_cmd *cmd, t_env_node *env)
 	while (cmd)
 	{
 		if (cmd->next)
-		{
 			pipe(cmd->fd);
-		}
 		cmd->pid = fork();
 		if (cmd->pid == 0)
 		{
-			// printf("---->%i\n",cmd->in_fd);
-			// if(cmd->in_fd != -2)
 			if (!cmd->in_file)
-			{
 				dup2(cmd->in_fd, STDIN_FILENO);
-			}
 			else if (cmd->prev)
 			{
 				close(cmd->prev->fd[1]);
 				dup2(cmd->prev->fd[0], STDIN_FILENO);
 			}
 			if (cmd->out_fd != -2)
-			{
 				dup2(cmd->out_fd, STDOUT_FILENO);
-			}
 			else if (cmd->next)
 			{
 				close(cmd->fd[0]);

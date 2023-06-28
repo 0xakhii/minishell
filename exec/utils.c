@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 08:46:30 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/27 05:38:58 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/28 08:24:26 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void	ft_freeeeee(char **av)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (av[i])
 	{
 		free(av[i]);
@@ -24,14 +26,15 @@ void	ft_freeeeee(char **av)
 	av = NULL;
 }
 
-char *ft_get_path(char *cmd, t_env_node *env)
+char	*ft_get_path(char *cmd, t_env_node *env)
 {
-	char **path;
-	t_env_node *tmp;
-	char *temp;
-	char *new_p;
-	int i = 0;
+	char		**path;
+	t_env_node	*tmp;
+	char		*temp;
+	char		*new_p;
+	int			i;
 
+	i = 0;
 	tmp = env;
 	temp = get_env_val(tmp, "PATH");
 	path = ft_split(temp + 5, ':');
@@ -42,40 +45,40 @@ char *ft_get_path(char *cmd, t_env_node *env)
 		if (access(new_p, X_OK) == 0)
 		{
 			free(path);
-			return new_p;
+			return (new_p);
 		}
 		free(new_p);
 		i++;
 	}
 	free(path);
-	return NULL;
+	return (NULL);
 }
 
-char **node_to_2d(t_env_node *env)
+char	**node_to_2d(t_env_node *env)
 {
-	int j;
-	int i;
-	t_env_node *tmp;
+	int			j;
+	char		*key;
+	char		*value;
+	char		**result;
+	t_env_node	*tmp;
 
-	j = 0;
 	tmp = env;
 	while (tmp)
 	{
 		j++;
 		tmp = tmp->next;
 	}
-	char **result = (char **)malloc((j + 1) * sizeof(char *));
+	result = (char **)malloc((j + 1) * sizeof(char *));
 	tmp = env;
-	i = 0;
+	j = 0;
 	while (tmp)
 	{
-		result[i] = (char *)malloc((ft_strlen(tmp->key) + ft_strlen(tmp->value) + 2) * sizeof(char));
-		ft_strncpy(result[i], tmp->key, ft_strlen(tmp->key));
-		result[i][ft_strlen(tmp->key)] = '=';
-		ft_strncpy(result[i] + (ft_strlen(tmp->key) + 1), tmp->value, ft_strlen(tmp->value));
-		result[i][(ft_strlen(tmp->key) + ft_strlen(tmp->value)) - 1] = '\0';
-		i++;
+		key = ft_strjoin(tmp->key, "=");
+		value = ft_strjoin(key, tmp->value);
+		free(key);
+		result[j] = value;
+		j++;
 		tmp = tmp->next;
 	}
-	return ((result[i] = NULL), (result));
+	return (result[j] = NULL, result);
 }
