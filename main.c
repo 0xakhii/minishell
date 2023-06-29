@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/28 07:38:30 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/29 02:25:30 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,21 @@ void	free_tokens(t_tokens **t)
 	}
 }
 
-// void	free_cmd(t_cmd **cmd)
-// {
-// 	t_cmd	*tmp;
+void	free_cmd(t_cmd **cmd)
+{
+	t_cmd	*tmp;
 
-// 	while (*cmd)
-// 	{
-// 		ft_free((*cmd)->cmd);
-// 		free((*cmd)->in_file);
-// 		free((*cmd)->out_file);
-// 		tmp = (*cmd)->next;
-// 		free(*cmd);
-// 		(*cmd) = tmp;
-// 	}
-// 	(*cmd) = NULL;
-// }
+	while (*cmd)
+	{
+		ft_freeeeee((*cmd)->cmd);
+		free((*cmd)->in_file);
+		free((*cmd)->out_file);
+		tmp = (*cmd)->next;
+		free(*cmd);
+		(*cmd) = tmp;
+	}
+	(*cmd) = NULL;
+}
 
 void	print_cmd_table(t_cmd *cmd_t)
 {
@@ -93,9 +93,9 @@ int	main(int ac, char **av, char **env)
 			&& !syntax_check(lexer))
 		{
 			cmd_table = create_command_table(lexer, env_list);
-			execute(cmd_table, &env_list, env);
+			execute(cmd_table, &env_list);
 		}
-		free_tokens(&lexer);
 		free(in);
+		free_cmd(&cmd_table);
 	}
 }

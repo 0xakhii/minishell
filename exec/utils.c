@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 08:46:30 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/28 12:00:26 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/29 02:13:47 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_freeeeee(char **av)
 	int	i;
 
 	i = 0;
-	while (av[i])
+	while (av && av[i])
 	{
 		free(av[i]);
 		i++;
@@ -38,6 +38,7 @@ char	*ft_get_path(char *cmd, t_env_node *env)
 	tmp = env;
 	temp = get_env_val(tmp, "PATH");
 	path = ft_split(temp + 5, ':');
+	free(temp);
 	while (path[i])
 	{
 		temp = ft_strjoin(path[i], "/");
@@ -56,31 +57,32 @@ char	*ft_get_path(char *cmd, t_env_node *env)
 
 char **node_to_2d(t_env_node *env)
 {
-	int j = 0;
-	char **result;
-	t_env_node *tmp;
+    int			j;
+    char		**result;
+    int			len;
+    t_env_node	*tmp;
 
-	tmp = env;
-	while (tmp)
-	{
-		j++;
-		tmp = tmp->next;
-	}
-	result = (char **)malloc((j + 1) * sizeof(char *));
-	tmp = env;
+    tmp = env;
 	j = 0;
-	while (tmp)
-	{
-		result[j] = (char *)malloc(ft_strlen(tmp->key) + ft_strlen(tmp->value) + 2);
-		ft_strcpy(result[j], tmp->key);
-		strcat(result[j], "=");
-		strcat(result[j], tmp->value);
-		j++;
-		tmp = tmp->next;
-	}
-	result[j] = NULL;
-	return result;
+    while (tmp && ++j)
+        tmp = tmp->next;
+    result = (char **)malloc((j + 1) * sizeof(char *));
+    tmp = env;
+    j = 0;
+    while (tmp)
+    {
+        len = ft_strlen(tmp->key) + ft_strlen(tmp->value) + 2;
+        result[j] = (char *)malloc(len);
+        ft_strncpy(result[j], tmp->key, len);
+        ft_strlcat(result[j], "=", len);
+        ft_strlcat(result[j], tmp->value, len);
+        tmp = tmp->next;
+        j++;
+    }
+    result[j] = NULL;
+    return (result);
 }
+
 
 
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_table.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 17:28:27 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/26 01:49:38 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/06/29 02:36:48 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ char	**ft_arrjoin(char **split, char *str)
 		new_split[i] = ft_strdup(str);
 		new_split[i + 1] = NULL;
 	}
+	ft_freeeeee(split);
 	return (new_split);
 }
 
@@ -137,5 +138,6 @@ t_cmd	*create_command_table(t_tokens *lexer, t_env_node *env)
 		current_token = files_process(&new_cmd, current_token);
 		current_token = current_token->next;
 	}
+	free_tokens(&lexer);
 	return (cmd_table);
 }

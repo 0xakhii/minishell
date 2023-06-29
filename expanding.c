@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 23:13:04 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/28 08:38:41 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/29 02:37:30 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ char *get_env_val(t_env_node *env, char *str)
         env = env->next;
     }
     if (val == NULL)
-        return ft_strdup("");
-    return ft_strdup(val);
+        return (ft_strdup(""));
+    return (ft_strdup(val));
 }
 
 
@@ -130,7 +130,7 @@ char	**new_expand(char *str, t_env_node *env, int flag)
 	split = NULL;
 	save = NULL;
 	res = replace_value(str, env, flag);
-	while (res[i])
+	while (res && res[i])
 	{
 		tmp = split_var(res, &i);
 		if (!tmp)
@@ -140,5 +140,6 @@ char	**new_expand(char *str, t_env_node *env, int flag)
 		free(save);
 		free(tmp);
 	}
+	free(res);
 	return (split);
 }

@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/28 07:58:23 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/29 02:11:41 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct s_tokens
 }						t_tokens;
 
 void					printing(t_tokens *lexer);
+void					free_tokens(t_tokens **t);
 void					ft_free(char **str);
 void					execute_first_command(t_cmd *cmd, char **env,
 							t_env_node *env_node);
@@ -126,7 +127,7 @@ void					pwd_cmd(t_env_node *env);
 int						cd_cmd(t_cmd *cmd, t_env_node **env);
 void					execute_builtins(t_cmd *cmd, t_env_node **env);
 int						is_builtins(t_cmd *cmd);
-void					execute(t_cmd *cmd, t_env_node **env_list, char **env);
+void					execute(t_cmd *cmd, t_env_node **env_list);
 char					*ft_get_path(char *cmd, t_env_node *env);
 void					my_unset(t_cmd *cmd, t_env_node **env);
 void					export_variable(t_cmd *cmd, t_env_node **env);

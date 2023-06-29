@@ -6,15 +6,14 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:36:53 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/28 08:25:55 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/29 02:34:16 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	execute(t_cmd *cmd, t_env_node **envl, char **env)
+void	execute(t_cmd *cmd, t_env_node **envl)
 {
-	(void)env;
 	if (cmd->next == NULL && is_builtins(cmd))
 		execute_builtins(cmd, envl);
 	else
@@ -27,17 +26,32 @@ void	save_fd(int save[2])
 	save[1] = dup(STDOUT_FILENO);
 }
 
-void	ft_lunch(t_cmd *cmd, t_env_node *env_list)
+void ft_lunch(t_cmd *cmd, t_env_node *env_list)
 {
 	char	*p_name;
+	char	**env;
 
-	execve(cmd->cmd[0], cmd->cmd, node_to_2d(env_list));
-	p_name = ft_get_path(cmd->cmd[0], env_list);
-	if (execve(p_name, cmd->cmd, node_to_2d(env_list)) < 0)
+	if (cmd->cmd == NULL || cmd->cmd[0] == NULL || cmd->cmd[0][0] == '\0')
 	{
-		printf("%s: Command not found.\n", cmd->cmd[0]);
-		ft_freeeeee(cmd->cmd);
-		exit(127);
+		printf(" :Command not found.\n");
+		return;
+	}
+	env = node_to_2d(env_list);
+	if (execve(cmd->cmd[0], cmd->cmd, env) < 0)
+	{
+		p_name = ft_get_path(cmd->cmd[0], env_list);
+		if (p_name != NULL && execve(p_name, cmd->cmd, env) < 0)
+		{
+			printf("%s: Command not found.\n", cmd->cmd[0]);
+			ft_freeeeee(cmd->cmd);
+			exit(127);
+		}
+		else if (p_name == NULL)
+		{
+			printf("%s: Command not found.\n", cmd->cmd[0]);
+			ft_freeeeee(cmd->cmd);
+			exit(127);
+		}
 	}
 }
 
