@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/30 15:29:44 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/30 17:04:04 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,18 @@ void	put_minishell()
 	ft_putstr_fd("\033[1;32m╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝\n\033[0m", 1);
 }
 
+char	*get_dir()
+{
+	char	*currdir;
+	char	*prompt;
+	
+	currdir = get_currdir();
+	currdir = join_str(" \033[1;36m", currdir);
+	currdir = join_str(currdir, "\033[0m ");
+	prompt = join_str("\033[1;32m➜ \033[0m", currdir);
+	return (prompt);
+}
+
 int	main(int ac, char **av, char **env)
 {
 	t_tokens	*lexer;
@@ -95,7 +107,7 @@ int	main(int ac, char **av, char **env)
 	env_list = create_env_list(env);
 	while (1)
 	{
-		in = readline(ft_strjoin(getcwd(0, 0), "$>"));
+		in = readline(get_dir());
 		if (!in)
 			return (0);
 		add_history(in);

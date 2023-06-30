@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 23:29:33 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/28 08:27:07 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/30 16:58:19 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,40 @@ void	printing2(t_env_node *lexer)
 		printf("key:%s \nvalue:%s\n", lexer->key, lexer->value);
 		lexer = lexer->next;
 	}
+}
+
+char *get_currdir()
+{
+	char	*copy;
+    char	*path; 
+    char	*currdir;
+
+	path = getcwd(NULL, 0);
+	currdir = strrchr(path, '/');
+    if (currdir)
+        currdir++;
+    else
+        currdir = path;
+    copy = ft_strdup(currdir);
+    free(path);
+    return (copy);
+}
+
+char *join_str(char *s1,char *s2)
+{
+    int len1;
+    int len2;
+    char *result;
+
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	result = (char *)malloc(len1 + len2 + 1);
+    if (result)
+	{
+        ft_strcpy(result, s1);
+        ft_strlcat(result, s2, (len1 + len2 + 1));
+    }
+    return (result);
 }
 
 int	msg_er(char *str)
