@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/30 17:04:04 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/30 17:16:08 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,16 +80,23 @@ void	put_minishell()
 	ft_putstr_fd("\033[1;32m╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝\n\033[0m", 1);
 }
 
-char	*get_dir()
+char *get_dir(int flag)
 {
-	char	*currdir;
-	char	*prompt;
-	
-	currdir = get_currdir();
+    char	*currdir;
+    char	*color;
+    char	*prompt;
+    
+    currdir = get_currdir();
+    if (flag)
+        color = "\033[1;31m";
+    else
+        color = "\033[1;32m";
+    prompt = join_str(color, "➜ \033[0m");
 	currdir = join_str(" \033[1;36m", currdir);
 	currdir = join_str(currdir, "\033[0m ");
-	prompt = join_str("\033[1;32m➜ \033[0m", currdir);
-	return (prompt);
+    prompt = join_str(prompt, currdir);
+    free(currdir);
+    return (prompt);
 }
 
 int	main(int ac, char **av, char **env)
@@ -98,7 +105,10 @@ int	main(int ac, char **av, char **env)
 	t_env_node	*env_list;
 	t_cmd		*cmd_table;
 	char		*in;
+	char		*prompt;
+	int			flag;
 
+	flag = 0;
 	(void)ac;
 	(void)av;
 	lexer = NULL;
@@ -107,7 +117,9 @@ int	main(int ac, char **av, char **env)
 	env_list = create_env_list(env);
 	while (1)
 	{
-		in = readline(get_dir());
+		prompt = get_dir(flag);
+		in = readline(prompt);
+		free(prompt);
 		if (!in)
 			return (0);
 		add_history(in);
@@ -117,7 +129,10 @@ int	main(int ac, char **av, char **env)
 		{
 			cmd_table = create_command_table(lexer, env_list);
 			execute(cmd_table, &env_list);
+			flag = 0;
 		}
+		else
+			flag = 1;
 		free(in);
 		free_cmd(&cmd_table);
 	}
