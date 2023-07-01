@@ -6,40 +6,54 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/30 17:16:08 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/01 11:29:49 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_tokens(t_tokens **t)
+void free_tokens(t_tokens **t)
 {
-	t_tokens	*tmp;
+	t_tokens *tmp;
 
-	while ((*t))
+	while (*t)
 	{
-		free((*t)->val);
-		(*t)->val = NULL;
 		tmp = (*t)->next;
-		free((*t));
-		(*t) = tmp;
+		free((*t)->val);
+		free(*t);
+		*t = tmp;
 	}
 }
 
-void	free_cmd(t_cmd **cmd)
+void free_cmd(t_cmd **cmd)
 {
-	t_cmd	*tmp;
+	t_cmd *tmp;
 
 	while (*cmd)
 	{
-		ft_freeeeee((*cmd)->cmd);
+		tmp = (*cmd)->next;
 		free((*cmd)->in_file);
 		free((*cmd)->out_file);
-		tmp = (*cmd)->next;
+		ft_freeeeee((*cmd)->cmd);
 		free(*cmd);
-		(*cmd) = tmp;
+		*cmd = tmp;
 	}
-	(*cmd) = NULL;
+	*cmd = NULL;
+}
+
+void free_env_list(t_env_node *head)
+{
+	t_env_node *current = head;
+	t_env_node *next;
+
+	while (current != NULL)
+	{
+		next = current->next;
+		free(current->key);
+		free(current->value);
+		free(current);
+		current = next;
+	}
 }
 
 void	print_cmd_table(t_cmd *cmd_t)
@@ -73,30 +87,35 @@ void	print_cmd_table(t_cmd *cmd_t)
 void	put_minishell()
 {
 	ft_putstr_fd("\033[1;32m███╗   ███╗██╗███╗   ██╗██╗███████╗██╗  ██╗███████╗██╗     ██╗     \n", 1);
-	ft_putstr_fd("\033[1;32m████╗ ████║██║████╗  ██║██║██╔════╝██║  ██║██╔════╝██║     ██║     \n", 1);
-	ft_putstr_fd("\033[1;32m██╔████╔██║██║██╔██╗ ██║██║███████╗███████║█████╗  ██║     ██║     \n", 1);
-	ft_putstr_fd("\033[1;32m██║╚██╔╝██║██║██║╚██╗██║██║╚════██║██╔══██║██╔══╝  ██║     ██║     \n", 1);
-	ft_putstr_fd("\033[1;32m██║ ╚═╝ ██║██║██║ ╚████║██║███████║██║  ██║███████╗███████╗███████╗\n", 1);
-	ft_putstr_fd("\033[1;32m╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝\n\033[0m", 1);
+	ft_putstr_fd("████╗ ████║██║████╗  ██║██║██╔════╝██║  ██║██╔════╝██║     ██║     \n", 1);
+	ft_putstr_fd("██╔████╔██║██║██╔██╗ ██║██║███████╗███████║█████╗  ██║     ██║     \n", 1);
+	ft_putstr_fd("██║╚██╔╝██║██║██║╚██╗██║██║╚════██║██╔══██║██╔══╝  ██║     ██║     \n", 1);
+	ft_putstr_fd("██║ ╚═╝ ██║██║██║ ╚████║██║███████║██║  ██║███████╗███████╗███████╗\n", 1);
+	ft_putstr_fd("╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝\n\033[0m", 1);
 }
 
 char *get_dir(int flag)
 {
-    char	*currdir;
-    char	*color;
-    char	*prompt;
-    
+    char *currdir;
+    char *color;
+    char *prompt;
+    char *tmp;
+
     currdir = get_currdir();
     if (flag)
         color = "\033[1;31m";
     else
         color = "\033[1;32m";
     prompt = join_str(color, "➜ \033[0m");
-	currdir = join_str(" \033[1;36m", currdir);
-	currdir = join_str(currdir, "\033[0m ");
+    tmp = join_str(" \033[1;36m", currdir);
+    free(currdir);
+    currdir = tmp;
+    tmp = join_str(currdir, "\033[0m ");
+    free(currdir);
+    currdir = tmp;
     prompt = join_str(prompt, currdir);
     free(currdir);
-    return (prompt);
+    return prompt;
 }
 
 int	main(int ac, char **av, char **env)
@@ -136,4 +155,5 @@ int	main(int ac, char **av, char **env)
 		free(in);
 		free_cmd(&cmd_table);
 	}
+	free_env_list(env_list);
 }
