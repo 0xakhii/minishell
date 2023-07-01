@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:36:53 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/29 02:34:16 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/01 10:49:26 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void ft_lunch(t_cmd *cmd, t_env_node *env_list)
 			exit(127);
 		}
 	}
+	ft_freeeeee(env);
 }
 
 void	ft_exec(t_cmd *cmd, t_env_node *env)

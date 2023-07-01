@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 23:29:33 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/30 16:58:19 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/01 10:50:40 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char *get_currdir()
     char	*currdir;
 
 	path = getcwd(NULL, 0);
-	currdir = strrchr(path, '/');
+	currdir = ft_strrchr(path, '/');
     if (currdir)
         currdir++;
     else
