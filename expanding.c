@@ -6,33 +6,34 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 23:13:04 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/02 18:35:53 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/29 02:37:30 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_env_val(t_env_node *env, char *str)
+char *get_env_val(t_env_node *env, char *str)
 {
-	char	*val;
+    char *val;
 
 	val = NULL;
-	while (env)
-	{
-		if (env->key && str)
-		{
-			if (!ft_strcmp(env->key, str))
-			{
-				val = env->value;
-				break ;
-			}
-		}
-		env = env->next;
-	}
-	if (val == NULL)
-		return (ft_strdup(""));
-	return (ft_strdup(val));
+    while (env)
+    {
+        if (env->key && str)
+        {
+            if (!ft_strcmp(env->key, str))
+            {
+                val = env->value;
+                break;
+            }
+        }
+        env = env->next;
+    }
+    if (val == NULL)
+        return (ft_strdup(""));
+    return (ft_strdup(val));
 }
+
 
 char	*get_value(char *res, char *str, int *i, t_env_node *env)
 {
@@ -43,7 +44,7 @@ char	*get_value(char *res, char *str, int *i, t_env_node *env)
 	if (str[*i] == '?')
 	{
 		(*i)++;
-		res = ft_strjoin(res, ft_itoa(g_helper.exit_status));
+		// res = ft_strjoin(res, ft_itoa(g_helper.exit_status));
 	}
 	else if (ft_isalpha(str[*i]) || str[*i] == '_')
 	{
@@ -111,10 +112,8 @@ char	*split_var(char *str, int *i)
 
 void	my_free(char **str)
 {
-	int	i;
-
-	i = 0;
-	while (str && str[i])
+	int i = 0;
+	while(str && str[i])
 		free(str[i++]);
 	free(str);
 }
@@ -135,7 +134,7 @@ char	**new_expand(char *str, t_env_node *env, int flag)
 	{
 		tmp = split_var(res, &i);
 		if (!tmp)
-			break ;
+			break;
 		save = split;
 		split = ft_arrjoin(split, tmp);
 		free(save);

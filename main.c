@@ -6,15 +6,15 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/02 18:44:22 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/01 11:29:49 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_tokens(t_tokens **t)
+void free_tokens(t_tokens **t)
 {
-	t_tokens	*tmp;
+	t_tokens *tmp;
 
 	while (*t)
 	{
@@ -25,9 +25,9 @@ void	free_tokens(t_tokens **t)
 	}
 }
 
-void	free_cmd(t_cmd **cmd)
+void free_cmd(t_cmd **cmd)
 {
-	t_cmd	*tmp;
+	t_cmd *tmp;
 
 	while (*cmd)
 	{
@@ -41,12 +41,11 @@ void	free_cmd(t_cmd **cmd)
 	*cmd = NULL;
 }
 
-void	free_env_list(t_env_node *head)
+void free_env_list(t_env_node *head)
 {
-	t_env_node	*current;
-	t_env_node	*next;
+	t_env_node *current = head;
+	t_env_node *next;
 
-	current = head;
 	while (current != NULL)
 	{
 		next = current->next;
@@ -85,29 +84,38 @@ void	print_cmd_table(t_cmd *cmd_t)
 	}
 }
 
-char	*get_dir(int flag)
+void	put_minishell()
 {
-	char	*currdir;
-	char	*color;
-	char	*prompt;
-	char	*tmp;
+	ft_putstr_fd("\033[1;32m███╗   ███╗██╗███╗   ██╗██╗███████╗██╗  ██╗███████╗██╗     ██╗     \n", 1);
+	ft_putstr_fd("████╗ ████║██║████╗  ██║██║██╔════╝██║  ██║██╔════╝██║     ██║     \n", 1);
+	ft_putstr_fd("██╔████╔██║██║██╔██╗ ██║██║███████╗███████║█████╗  ██║     ██║     \n", 1);
+	ft_putstr_fd("██║╚██╔╝██║██║██║╚██╗██║██║╚════██║██╔══██║██╔══╝  ██║     ██║     \n", 1);
+	ft_putstr_fd("██║ ╚═╝ ██║██║██║ ╚████║██║███████║██║  ██║███████╗███████╗███████╗\n", 1);
+	ft_putstr_fd("╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝\n\033[0m", 1);
+}
 
-	currdir = get_currdir();
-	if (flag)
-		color = "\033[1;31m";
-	else
-		color = "\033[1;32m";
-	prompt = join_str(color, "➜ \033[0m");
-	tmp = join_str(" \033[1;36m", currdir);
-	free(currdir);
-	currdir = tmp;
-	tmp = join_str(currdir, "\033[0m ");
-	free(currdir);
-	currdir = tmp;
-	tmp = join_str(prompt, currdir);
-	free(currdir);
-	free(prompt);
-	return (tmp);
+char *get_dir(int flag)
+{
+    char *currdir;
+    char *color;
+    char *prompt;
+    char *tmp;
+
+    currdir = get_currdir();
+    if (flag)
+        color = "\033[1;31m";
+    else
+        color = "\033[1;32m";
+    prompt = join_str(color, "➜ \033[0m");
+    tmp = join_str(" \033[1;36m", currdir);
+    free(currdir);
+    currdir = tmp;
+    tmp = join_str(currdir, "\033[0m ");
+    free(currdir);
+    currdir = tmp;
+    prompt = join_str(prompt, currdir);
+    free(currdir);
+    return prompt;
 }
 
 int	main(int ac, char **av, char **env)
@@ -119,13 +127,12 @@ int	main(int ac, char **av, char **env)
 	char		*prompt;
 	int			flag;
 
-	// atexit(leak_report);
 	flag = 0;
 	(void)ac;
 	(void)av;
-	(void)env;
 	lexer = NULL;
 	cmd_table = NULL;
+	put_minishell();
 	env_list = create_env_list(env);
 	while (1)
 	{
@@ -134,10 +141,8 @@ int	main(int ac, char **av, char **env)
 		free(prompt);
 		if (!in)
 			return (0);
-		free(in);
 		add_history(in);
 		lexer = lexer_init(in);
-		g_helper.exit_status = 0;
 		if (lexer && lexer->e_types != 6 && !token_check(lexer)
 			&& !syntax_check(lexer))
 		{
@@ -147,6 +152,7 @@ int	main(int ac, char **av, char **env)
 		}
 		else
 			flag = 1;
+		free(in);
 		free_cmd(&cmd_table);
 	}
 	free_env_list(env_list);

@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 19:17:20 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/02 18:44:04 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/28 08:27:47 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ int	check_start(t_tokens *lexer)
 	if (lexer->e_types != 1)
 	{
 		if (lexer->e_types == 0)
-			return (g_helper.exit_status = 285,
-				msg_er("syntax error near unexpected token `|'"));
+			return (msg_er("syntax error near unexpected token `|'"));
 	}
 	return (0);
 }
@@ -31,20 +30,15 @@ int	token_check(t_tokens *lexer)
 	{
 		if (lexer->e_types == 0 && lexer->next && (lexer->next->e_types == 6
 				|| lexer->next->e_types == 0))
-			return (g_helper.exit_status = 285,
-				msg_er("syntax error near unexpected token `|'"));
+			return (msg_er("syntax error near unexpected token `|'"));
 		if (lexer->e_types == 2 && lexer->next && lexer->next->e_types != 1)
-			return (g_helper.exit_status = 285,
-				msg_er("syntax error near unexpected token `newline'"));
+			return (msg_er("syntax error near unexpected token `newline'"));
 		if (lexer->e_types == 3 && lexer->next && lexer->next->e_types != 1)
-			return (g_helper.exit_status = 285,
-				msg_er("syntax error near unexpected token `newline'"));
+			return (msg_er("syntax error near unexpected token `newline'"));
 		if (lexer->e_types == 4 && lexer->next && lexer->next->e_types != 1)
-			return (g_helper.exit_status = 285,
-				msg_er("syntax error near unexpected token `newline'"));
+			return (msg_er("syntax error near unexpected token `newline'"));
 		if (lexer->e_types == 5 && lexer->next && lexer->next->e_types != 1)
-			return (g_helper.exit_status = 285,
-				msg_er("syntax error near unexpected token `newline'"));
+			return (msg_er("syntax error near unexpected token `newline'"));
 		lexer = lexer->next;
 	}
 	return (0);
@@ -104,10 +98,14 @@ int	syntax_check(t_tokens *lexer)
 		lexer = lexer->next;
 	}
 	if (stack_single != NULL)
-		return (g_helper.exit_status = 285, free(stack_single),
-			msg_er("Unclosed single quote: '"));
+	{
+		free(stack_single);
+		return (msg_er("Unclosed single quote: '"));
+	}
 	if (stack_double != NULL)
-		return (g_helper.exit_status = 285, free(stack_double),
-			msg_er("Unclosed double quote: \""));
+	{
+		free(stack_double);
+		return (msg_er("Unclosed double quote: \""));
+	}
 	return (0);
 }

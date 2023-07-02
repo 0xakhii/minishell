@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:16:49 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/02 17:06:45 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/28 07:52:59 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	delete_node(t_env_node **head, const char *key)
 		*head = current->next;
 		free(current->key);
 		free(current->value);
-		free(current);
 		return ;
 	}
 	while (current != NULL && ft_strcmp(current->key, key) != 0)

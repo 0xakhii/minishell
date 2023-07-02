@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/02 21:07:24 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/02 21:19:22 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
-// # include "Leak_Hunter/leak_hunter.h"
 
 typedef struct s_cmd
 {
@@ -60,13 +59,14 @@ typedef struct s_helper
 	char				*key;
 	int					exit_status;
 }						t_helper;
-t_helper g_helper;
+// t_helper g_helper;
 
 typedef struct s_env_node
 {
 	char				*key;
 	char				*value;
 	struct s_env_node	*next;
+	int					i;
 }						t_env_node;
 
 typedef struct s_tokens
