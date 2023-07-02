@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:17:10 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/27 07:16:06 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/02 21:09:26 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,23 @@ int	is_digit(char *str)
 		i++;
 	}
 	if (!check_max_min(i, str))
+	if (!check_max_min(i, str))
 		return (0);
 	return (1);
+}
+
+void	check_args_exit(t_cmd *cmd)
+{
+	if (cmd->cmd[2]) 
+	{
+		if (!is_digit(cmd->cmd[1])) 
+		{
+			printf("exit\nexit: %s: numeric argument required\n", cmd->cmd[1]);
+			exit(1);
+		}
+		else
+			printf("exit\nExit: too many arguments!\n");
+	}
 }
 
 void	check_args_exit(t_cmd *cmd)
@@ -79,12 +94,17 @@ void	my_exit(t_cmd *cmd)
 	if (cmd->cmd[1] && !cmd->cmd[2])
 	{
 		if (!is_digit(cmd->cmd[1])) 
+		if (!is_digit(cmd->cmd[1])) 
 		{
+			printf("exit\nexit: %s: numeric argument required\n", cmd->cmd[1]);
+			exit(1);
+		}
 			printf("exit\nexit: %s: numeric argument required\n", cmd->cmd[1]);
 			exit(1);
 		}
 		if (cmd->cmd[1])
 		{
+			if (is_digit(cmd->cmd[1]))
 			if (is_digit(cmd->cmd[1]))
 			{
 				printf("exit\n");
@@ -92,5 +112,6 @@ void	my_exit(t_cmd *cmd)
 			}
 		}
 	}
+	check_args_exit(cmd);
 	check_args_exit(cmd);
 }

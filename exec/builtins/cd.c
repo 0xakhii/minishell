@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:13:46 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/27 06:30:31 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/02 21:08:59 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@ int	cd_home(t_cmd *cmd, t_env_node **env)
 			return (printf("HOME not set\n"));
 		else
 		{
+			new = getcwd(new, 0);
+			set_env_value(env, "OLDPWD", oldpwd);
+			set_env_value(env, "PWD", new);
+			free(new);
+			free(oldpwd);
+			return (1);
 			new = getcwd(new, 0);
 			set_env_value(env, "OLDPWD", oldpwd);
 			set_env_value(env, "PWD", new);

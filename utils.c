@@ -1,4 +1,4 @@
-	/* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 23:29:33 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/22 19:47:10 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/02 18:38:12 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,45 @@ void	printing2(t_env_node *lexer)
 	}
 }
 
+char	*get_currdir(void)
+{
+	char	*copy;
+	char	*path;
+	char	*currdir;
+
+	path = getcwd(NULL, 0);
+	currdir = ft_strrchr(path, '/');
+	if (currdir)
+		currdir++;
+	else
+		currdir = path;
+	copy = ft_strdup(currdir);
+	free(path);
+	return (copy);
+}
+
+char	*join_str(char *s1, char *s2)
+{
+	int		len1;
+	int		len2;
+	char	*result;
+
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	result = (char *)malloc(len1 + len2 + 1);
+	if (result)
+	{
+		ft_strcpy(result, s1);
+		ft_strlcat(result, s2, (len1 + len2 + 1));
+	}
+	return (result);
+}
+
 int	msg_er(char *str)
 {
 	ft_putstr_fd("\033[1;31m[Minishell]\033[0m:", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd("\n", 2);
-	// g_helper.exit_status = 258;
 	return (1);
 }
 

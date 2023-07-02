@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 12:07:55 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/25 07:29:56 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/02 18:35:04 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	append_to_list(t_env_node **head, t_env_node **tail,
 void	fill_env_list(char **env, t_env_node **head, t_env_node **tail)
 {
 	t_env_node	*new_node;
-	t_helper g_helper;
 
 	g_helper.i = 0;
 	while (env[g_helper.i] != NULL)

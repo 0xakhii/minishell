@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/26 01:35:50 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/07/02 18:44:22 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,46 @@ void	free_tokens(t_tokens **t)
 {
 	t_tokens	*tmp;
 
-	while ((*t))
+	while (*t)
 	{
-		free((*t)->val);
-		(*t)->val = NULL;
 		tmp = (*t)->next;
-		free((*t));
-		(*t) = tmp;
+		free((*t)->val);
+		free(*t);
+		*t = tmp;
 	}
 }
 
-// void	free_cmd(t_cmd **cmd)
-// {
-// 	t_cmd	*tmp;
+void	free_cmd(t_cmd **cmd)
+{
+	t_cmd	*tmp;
 
-// 	while (*cmd)
-// 	{
-// 		ft_free((*cmd)->cmd);
-// 		free((*cmd)->in_file);
-// 		free((*cmd)->out_file);
-// 		tmp = (*cmd)->next;
-// 		free(*cmd);
-// 		(*cmd) = tmp;
-// 	}
-// 	(*cmd) = NULL;
-// }
+	while (*cmd)
+	{
+		tmp = (*cmd)->next;
+		free((*cmd)->in_file);
+		free((*cmd)->out_file);
+		ft_freeeeee((*cmd)->cmd);
+		free(*cmd);
+		*cmd = tmp;
+	}
+	*cmd = NULL;
+}
+
+void	free_env_list(t_env_node *head)
+{
+	t_env_node	*current;
+	t_env_node	*next;
+
+	current = head;
+	while (current != NULL)
+	{
+		next = current->next;
+		free(current->key);
+		free(current->value);
+		free(current);
+		current = next;
+	}
+}
 
 void	print_cmd_table(t_cmd *cmd_t)
 {
@@ -60,18 +75,39 @@ void	print_cmd_table(t_cmd *cmd_t)
 				i++;
 			}
 		}
-		// if (cmd->e_types == T_IN_FILE)
 		printf("Input file: %s\n", cmd->in_file);
-		// else if (cmd->e_types == T_OUT_FILE)
 		printf("Output file: %s\n", cmd->out_file);
-		// else if (cmd->e_types == T_APP_FILE)
 		printf("Append file: %s\n", cmd->out_file);
-		// else if (cmd->e_types == T_HERD_FILE)
 		printf("Heredoc file: %s\n", cmd->in_file);
 		if (cmd->pipe)
 			printf("is piped\n");
 		cmd = cmd->next;
 	}
+}
+
+char	*get_dir(int flag)
+{
+	char	*currdir;
+	char	*color;
+	char	*prompt;
+	char	*tmp;
+
+	currdir = get_currdir();
+	if (flag)
+		color = "\033[1;31m";
+	else
+		color = "\033[1;32m";
+	prompt = join_str(color, "➜ \033[0m");
+	tmp = join_str(" \033[1;36m", currdir);
+	free(currdir);
+	currdir = tmp;
+	tmp = join_str(currdir, "\033[0m ");
+	free(currdir);
+	currdir = tmp;
+	tmp = join_str(prompt, currdir);
+	free(currdir);
+	free(prompt);
+	return (tmp);
 }
 
 int	main(int ac, char **av, char **env)
@@ -80,33 +116,38 @@ int	main(int ac, char **av, char **env)
 	t_env_node	*env_list;
 	t_cmd		*cmd_table;
 	char		*in;
+	char		*prompt;
+	int			flag;
 
+	// atexit(leak_report);
+	flag = 0;
 	(void)ac;
 	(void)av;
+	(void)env;
 	lexer = NULL;
 	cmd_table = NULL;
 	env_list = create_env_list(env);
 	while (1)
 	{
-		in = readline("minishell$>");
+		prompt = get_dir(flag);
+		in = readline(prompt);
+		free(prompt);
 		if (!in)
 			return (0);
+		free(in);
 		add_history(in);
 		lexer = lexer_init(in);
-		// g_helper.exit_status = 0;
+		g_helper.exit_status = 0;
 		if (lexer && lexer->e_types != 6 && !token_check(lexer)
 			&& !syntax_check(lexer))
 		{
 			cmd_table = create_command_table(lexer, env_list);
-			execute(cmd_table, &env_list, env);
+			execute(cmd_table, &env_list);
+			flag = 0;
 		}
 		else
-		{
-			// g_helper.exit_status = 258;
-		}
-		// print_cmd_table(cmd_table);
-		// free_cmd(&cmd_table);
-		free_tokens(&lexer);
-		free(in);
+			flag = 1;
+		free_cmd(&cmd_table);
 	}
+	free_env_list(env_list);
 }

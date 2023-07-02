@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/27 07:29:58 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/02 21:07:24 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
+// # include "Leak_Hunter/leak_hunter.h"
 
 typedef struct s_cmd
 {
@@ -59,14 +60,13 @@ typedef struct s_helper
 	char				*key;
 	int					exit_status;
 }						t_helper;
-// t_helper g_helper;
+t_helper g_helper;
 
 typedef struct s_env_node
 {
 	char				*key;
 	char				*value;
 	struct s_env_node	*next;
-	int					i;
 }						t_env_node;
 
 typedef struct s_tokens
@@ -85,7 +85,10 @@ typedef struct s_tokens
 	struct s_tokens		*next;
 }						t_tokens;
 
+char					*get_currdir();
+char					*join_str(char *s1,char *s2);
 void					printing(t_tokens *lexer);
+void					free_tokens(t_tokens **t);
 void					ft_free(char **str);
 void					execute_first_command(t_cmd *cmd, char **env,
 							t_env_node *env_node);
@@ -116,9 +119,11 @@ char					*get_env_val(t_env_node *env, char *str);
 char					**new_expand(char *str, t_env_node *env, int flag);
 char					**ft_arrjoin(char **split, char *str);
 t_env_node				*create_env_node(char *key, char *value);
+t_env_node				*create_env_node(char *key, char *value);
 
 //------------------------------exec----------------//
 void					echo_cmd(char **str);
+char					**node_to_2d(t_env_node *env);
 char					**node_to_2d(t_env_node *env);
 void					print_env(char **cmd, t_env_node *env);
 void					my_exit(t_cmd *cmd);
@@ -126,10 +131,12 @@ void					pwd_cmd(t_env_node *env);
 int						cd_cmd(t_cmd *cmd, t_env_node **env);
 void					execute_builtins(t_cmd *cmd, t_env_node **env);
 int						is_builtins(t_cmd *cmd);
-void					execute(t_cmd *cmd, t_env_node **env_list, char **env);
+void					execute(t_cmd *cmd, t_env_node **env_list);
 char					*ft_get_path(char *cmd, t_env_node *env);
 void					my_unset(t_cmd *cmd, t_env_node **env);
 void					export_variable(t_cmd *cmd, t_env_node **env);
 void					ft_freeeeee(char **av);
 void					ft_exec(t_cmd *cmd, t_env_node *env);
+void					add_node(t_env_node **env, char *key, char *value);
+t_env_node				*find_node(t_env_node **env, char *key);
 #endif
