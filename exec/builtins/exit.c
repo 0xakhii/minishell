@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:17:10 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/02 21:09:26 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/02 21:30:20 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,20 +70,6 @@ void	check_args_exit(t_cmd *cmd)
 	}
 }
 
-void	check_args_exit(t_cmd *cmd)
-{
-	if (cmd->cmd[2]) 
-	{
-		if (!is_digit(cmd->cmd[1])) 
-		{
-			printf("exit\nexit: %s: numeric argument required\n", cmd->cmd[1]);
-			exit(1);
-		}
-		else
-			printf("exit\nExit: too many arguments!\n");
-	}
-}
-
 void	my_exit(t_cmd *cmd)
 {
 	if (cmd->cmd[0] && !cmd->cmd[1])
@@ -111,7 +97,5 @@ void	my_exit(t_cmd *cmd)
 				exit(0);
 			}
 		}
-	}
-	check_args_exit(cmd);
 	check_args_exit(cmd);
 }
