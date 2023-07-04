@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/02 21:21:37 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/02 18:34:50 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
+// # include "Leak_Hunter/leak_hunter.h"
 
 typedef struct s_cmd
 {
@@ -59,14 +60,13 @@ typedef struct s_helper
 	char				*key;
 	int					exit_status;
 }						t_helper;
-// t_helper g_helper;
+t_helper g_helper;
 
 typedef struct s_env_node
 {
 	char				*key;
 	char				*value;
 	struct s_env_node	*next;
-	int					i;
 }						t_env_node;
 
 typedef struct s_tokens
@@ -119,11 +119,9 @@ char					*get_env_val(t_env_node *env, char *str);
 char					**new_expand(char *str, t_env_node *env, int flag);
 char					**ft_arrjoin(char **split, char *str);
 t_env_node				*create_env_node(char *key, char *value);
-t_env_node				*create_env_node(char *key, char *value);
 
 //------------------------------exec----------------//
 void					echo_cmd(char **str);
-char					**node_to_2d(t_env_node *env);
 char					**node_to_2d(t_env_node *env);
 void					print_env(char **cmd, t_env_node *env);
 void					my_exit(t_cmd *cmd);

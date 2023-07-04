@@ -5,11 +5,10 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/07/02 21:08:16 by ojamal           ###   ########.fr       */
+/*   Created: 2023/02/25 08:46:30 by ymenyoub          #+#    #+#             */
+/*   Updated: 2023/06/29 02:13:47 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../minishell.h"
 
@@ -84,31 +83,6 @@ char **node_to_2d(t_env_node *env)
     return (result);
 }
 
-char **node_to_2d(t_env_node *env)
-{
-	int j;
-	int i;
-	t_env_node *tmp;
 
-	j = 0;
-	tmp = env;
-	while (tmp)
-	{
-		j++;
-		tmp = tmp->next;
-	}
-	char **result = (char **)malloc((j + 1) * sizeof(char *));
-	tmp = env;
-	i = 0;
-	while (tmp)
-	{
-		result[i] = (char *)malloc((ft_strlen(tmp->key) + ft_strlen(tmp->value) + 2) * sizeof(char));
-		ft_strncpy(result[i], tmp->key, ft_strlen(tmp->key));
-		result[i][ft_strlen(tmp->key)] = '=';
-		ft_strncpy(result[i] + (ft_strlen(tmp->key) + 1), tmp->value, ft_strlen(tmp->value));
-		result[i][(ft_strlen(tmp->key) + ft_strlen(tmp->value)) - 1] = '\0';
-		i++;
-		tmp = tmp->next;
-	}
-	return ((result[i] = NULL), (result));
-}
+
+
