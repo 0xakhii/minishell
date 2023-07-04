@@ -6,23 +6,23 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:17:10 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/02 21:30:20 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/06/28 08:02:41 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int check_max_min(int i, char *str)
+int	check_max_min(int i, char *str)
 {
 	if (i >= 19 && str[0] != '-')
-	{	
+	{
 		if (str[i - 1] > '7')
 			return (0);
 		else if (i > 19)
 			return (0);
 	}
 	else if (i > 19 && str[0] == '-')
-	{	
+	{
 		if (str[i - 1] > '8')
 			return (0);
 		else if (i > 20)
@@ -50,7 +50,6 @@ int	is_digit(char *str)
 			return (0);
 		i++;
 	}
-	if (!check_max_min(i, str))
 	if (!check_max_min(i, str))
 		return (0);
 	return (1);
@@ -80,22 +79,18 @@ void	my_exit(t_cmd *cmd)
 	if (cmd->cmd[1] && !cmd->cmd[2])
 	{
 		if (!is_digit(cmd->cmd[1])) 
-		if (!is_digit(cmd->cmd[1])) 
 		{
-			printf("exit\nexit: %s: numeric argument required\n", cmd->cmd[1]);
-			exit(1);
-		}
 			printf("exit\nexit: %s: numeric argument required\n", cmd->cmd[1]);
 			exit(1);
 		}
 		if (cmd->cmd[1])
 		{
 			if (is_digit(cmd->cmd[1]))
-			if (is_digit(cmd->cmd[1]))
 			{
 				printf("exit\n");
 				exit(0);
 			}
 		}
+	}
 	check_args_exit(cmd);
 }
