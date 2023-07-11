@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:16:05 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/28 08:02:13 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/11 16:56:20 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,26 +93,26 @@ void	export_variable(t_cmd *cmd, t_env_node **env)
 	char	**equal_sign;
 	char	*value;
 	char	*key;
+	int i = 1;
 
-	if (!cmd->cmd[1])
+	if (!cmd->cmd[i])
 		print_export(env);
 	else
 	{
-		cmd->cmd++;
-		while (*cmd->cmd)
+		while (cmd->cmd[i])
 		{
 			value = NULL;
-			equal_sign = ft_split(*cmd->cmd, '=');
+			equal_sign = ft_split(cmd->cmd[i], '=');
 			if (equal_sign[0])
 				key = equal_sign[0];
-			if (equal_sign[1] == NULL && ft_strchr(*cmd->cmd, '='))
+			if (equal_sign[1] == NULL && ft_strchr(cmd->cmd[i], '='))
 				value = "\"\"";
 			else if (equal_sign[1] == NULL)
 				value = "\0";
 			else
 				value = equal_sign[1];
 			append_to_export(key, value, env);
-			cmd->cmd++;
+			i++;
 		}
 	}
 }

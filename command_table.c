@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 17:28:27 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/02 18:32:52 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/11 17:06:34 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ t_tokens	*files_process(t_cmd **new_cmd, t_tokens *current_token)
 		(*new_cmd)->next = table_init();
 		(*new_cmd)->next->prev = (*new_cmd);
 		(*new_cmd) = (*new_cmd)->next;
+		g_helper.exit_status = 0;
 	}
 	return (current_token);
 }
@@ -99,7 +100,7 @@ char	**ft_arrjoin(char **split, char *str)
 		new_split[i] = ft_strdup(str);
 		new_split[i + 1] = NULL;
 	}
-	ft_freeeeee(split);
+	//ft_freeeeee(split);
 	return (new_split);
 }
 
@@ -107,6 +108,7 @@ void	cmd_process(t_tokens *current_token, t_cmd **new_cmd, t_env_node *env, int 
 {
 	int		i;
 	char	**str;
+	char **tmp;
 
 	if (current_token->e_types == T_STR)
 	{
@@ -114,7 +116,9 @@ void	cmd_process(t_tokens *current_token, t_cmd **new_cmd, t_env_node *env, int 
 		str = new_expand(current_token->val, env, flag);
 		while (str && str[i])
 		{
+			tmp = (*new_cmd)->cmd;
 			(*new_cmd)->cmd = ft_arrjoin((*new_cmd)->cmd, str[i]);
+			ft_freeeeee(tmp);
 			free(str[i++]);
 		}
 		free(str);
@@ -138,6 +142,7 @@ t_cmd	*create_command_table(t_tokens *lexer, t_env_node *env)
 		current_token = files_process(&new_cmd, current_token);
 		current_token = current_token->next;
 	}
+	g_helper.exit_status = 0;
 	free_tokens(&lexer);
 	return (cmd_table);
 }
