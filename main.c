@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/11 17:10:22 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/11 20:42:32 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ int	main(int ac, char **av, char **env)
 			flag = 1;
 			g_helper.exit_status = 0;
 		}
+		free_tokens(&lexer);
 		free_cmd(&cmd_table);
 		cmd_table = NULL;
 		free(in);
