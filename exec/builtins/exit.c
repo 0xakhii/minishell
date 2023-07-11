@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:17:10 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/28 08:02:41 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/11 19:13:48 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int	check_max_min(int i, char *str)
 
 int	is_digit(char *str)
 {
-	int			i;
-	int			sign;
+	int	i;
+	int	sign;
 
 	i = 0;
 	sign = 1;
@@ -57,9 +57,9 @@ int	is_digit(char *str)
 
 void	check_args_exit(t_cmd *cmd)
 {
-	if (cmd->cmd[2]) 
+	if (cmd->cmd[2])
 	{
-		if (!is_digit(cmd->cmd[1])) 
+		if (!is_digit(cmd->cmd[1]))
 		{
 			printf("exit\nexit: %s: numeric argument required\n", cmd->cmd[1]);
 			exit(1);
@@ -78,7 +78,7 @@ void	my_exit(t_cmd *cmd)
 	}
 	if (cmd->cmd[1] && !cmd->cmd[2])
 	{
-		if (!is_digit(cmd->cmd[1])) 
+		if (!is_digit(cmd->cmd[1]))
 		{
 			printf("exit\nexit: %s: numeric argument required\n", cmd->cmd[1]);
 			exit(1);

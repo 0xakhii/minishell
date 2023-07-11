@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 19:03:01 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/11 19:11:27 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/11 19:15:01 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,9 @@ void	cmd_process(t_tokens *current_token, t_cmd **new_cmd, t_env_node *env,
 
 t_cmd	*create_command_table(t_tokens *lexer, t_env_node *env)
 {
-	t_cmd *cmd_table;
-	t_tokens *current_token;
-	t_cmd *new_cmd;
+	t_cmd		*cmd_table;
+	t_tokens	*current_token;
+	t_cmd		*new_cmd;
 
 	cmd_table = NULL;
 	current_token = lexer;

@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:16:05 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/11 16:56:20 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/11 19:16:05 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int	check_inputt(char *str)
 		msg_er("export: not a valid identifier");
 	while (str[i])
 	{
-		if (!((str[i] >= 'a' && str[i] <= 'z')
-				|| (str[i] >= 'A' && str[i] <= 'Z') || str[i] == '_'))
+		if (!((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A'
+					&& str[i] <= 'Z') || str[i] == '_'))
 		{
 			if (id && str[i] != '+' && !(str[i] == '=' && str[i - 1] == '+'))
 				msg_er("export: not a valid identifier");
@@ -62,8 +62,8 @@ void	print_export(t_env_node **env)
 			printf("declare -x %s", tmp->key);
 			if (ft_strcmp(tmp->value, "\0"))
 			{
-				if (tmp->value[0] != '\"'
-					&& tmp->value[ft_strlen(tmp->value) - 1] != '\"')
+				if (tmp->value[0] != '\"' && tmp->value[ft_strlen(tmp->value)
+						- 1] != '\"')
 					printf("=\"%s\"", tmp->value);
 				else
 					printf("=%s", tmp->value);
@@ -93,13 +93,14 @@ void	export_variable(t_cmd *cmd, t_env_node **env)
 	char	**equal_sign;
 	char	*value;
 	char	*key;
-	int i = 1;
+	int		i;
 
-	if (!cmd->cmd[i])
+	i = 0;
+	if (!cmd->cmd[1])
 		print_export(env);
 	else
 	{
-		while (cmd->cmd[i])
+		while (cmd->cmd[++i])
 		{
 			value = NULL;
 			equal_sign = ft_split(cmd->cmd[i], '=');
@@ -112,7 +113,6 @@ void	export_variable(t_cmd *cmd, t_env_node **env)
 			else
 				value = equal_sign[1];
 			append_to_export(key, value, env);
-			i++;
 		}
 	}
 }

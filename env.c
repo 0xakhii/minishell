@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 12:07:55 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/02 18:35:04 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/11 19:19:56 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ t_env_node	*create_env_list(char **env)
 
 	head = NULL;
 	tail = NULL;
-	
 	fill_env_list(env, &head, &tail);
 	return (head);
 }

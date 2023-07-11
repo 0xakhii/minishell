@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/11 19:07:22 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/11 19:17:57 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,7 @@ typedef struct s_tokens
 
 char					*get_currdir(void);
 char					*join_str(char *s1, char *s2);
-void					printing(t_tokens *lexer);
 void					free_tokens(t_tokens **t);
-void					ft_free(char **str);
 void					execute_first_command(t_cmd *cmd, char **env,
 							t_env_node *env_node);
 void					push_quote(t_quote **stack, char quote);
@@ -103,9 +101,7 @@ void					process_special_token(char *in, char *str, int *i,
 void					process_token(char *str, int type, t_tokens **lexer);
 t_tokens				*lexer_init(char *in);
 int						msg_er(char *str);
-void					printing2(t_env_node *lexer);
 int						syntax_check(t_tokens *lexer);
-int						get_cmd(void);
 t_tokens				*expand_command(t_tokens *lexer, t_env_node *env_list);
 t_env_node				*create_env_list(char **env);
 void					get_tokens(char *input);
@@ -126,6 +122,8 @@ t_tokens				*in_files(t_cmd **new_cmd, t_tokens *current_token,
 
 //------------------------------exec----------------//
 void					echo_cmd(char **str);
+void					set_env_value(t_env_node **env, const char *key,
+							const char *value);
 char					**node_to_2d(t_env_node *env);
 void					print_env(char **cmd, t_env_node *env);
 void					my_exit(t_cmd *cmd);

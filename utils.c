@@ -6,29 +6,11 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 23:29:33 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/02 18:38:12 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/11 19:17:29 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	printing(t_tokens *lexer)
-{
-	while (lexer)
-	{
-		printf("%s %d\n", lexer->val, lexer->e_types);
-		lexer = lexer->next;
-	}
-}
-
-void	printing2(t_env_node *lexer)
-{
-	while (lexer)
-	{
-		printf("key:%s \nvalue:%s\n", lexer->key, lexer->value);
-		lexer = lexer->next;
-	}
-}
 
 char	*get_currdir(void)
 {

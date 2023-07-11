@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 08:46:30 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/29 02:13:47 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/11 19:14:07 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,34 +55,30 @@ char	*ft_get_path(char *cmd, t_env_node *env)
 	return (NULL);
 }
 
-char **node_to_2d(t_env_node *env)
+char	**node_to_2d(t_env_node *env)
 {
-    int			j;
-    char		**result;
-    int			len;
-    t_env_node	*tmp;
+	int			j;
+	char		**result;
+	int			len;
+	t_env_node	*tmp;
 
-    tmp = env;
+	tmp = env;
 	j = 0;
-    while (tmp && ++j)
-        tmp = tmp->next;
-    result = (char **)malloc((j + 1) * sizeof(char *));
-    tmp = env;
-    j = 0;
-    while (tmp)
-    {
-        len = ft_strlen(tmp->key) + ft_strlen(tmp->value) + 2;
-        result[j] = (char *)malloc(len);
-        ft_strncpy(result[j], tmp->key, len);
-        ft_strlcat(result[j], "=", len);
-        ft_strlcat(result[j], tmp->value, len);
-        tmp = tmp->next;
-        j++;
-    }
-    result[j] = NULL;
-    return (result);
+	while (tmp && ++j)
+		tmp = tmp->next;
+	result = (char **)malloc((j + 1) * sizeof(char *));
+	tmp = env;
+	j = 0;
+	while (tmp)
+	{
+		len = ft_strlen(tmp->key) + ft_strlen(tmp->value) + 2;
+		result[j] = (char *)malloc(len);
+		ft_strncpy(result[j], tmp->key, len);
+		ft_strlcat(result[j], "=", len);
+		ft_strlcat(result[j], tmp->value, len);
+		tmp = tmp->next;
+		j++;
+	}
+	result[j] = NULL;
+	return (result);
 }
-
-
-
-

@@ -6,31 +6,11 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:13:46 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/02 18:26:25 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/11 19:19:11 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-void	set_env_value(t_env_node **env, const char *key, const char *value)
-{
-	t_env_node	*tmp;
-
-	tmp = *env;
-	while (tmp)
-	{
-		if (!ft_strcmp(tmp->key, key))
-		{
-			if (value)
-			{
-				free(tmp->value);
-				tmp->value = ft_strdup(value);
-			}
-			return ;
-		}
-		tmp = tmp->next;
-	}
-}
 
 int	ft_chdir(t_env_node *env, char *val)
 {
@@ -52,8 +32,8 @@ int	cd_home(t_cmd *cmd, t_env_node **env)
 	new = NULL;
 	error = 0;
 	oldpwd = NULL;
-	if (!cmd->cmd[1]
-		|| (cmd->cmd[1] && cmd->cmd[1][0] == '~' && !cmd->cmd[1][1]))
+	if (!cmd->cmd[1] || (cmd->cmd[1] && cmd->cmd[1][0] == '~'
+		&& !cmd->cmd[1][1]))
 	{
 		oldpwd = getcwd(oldpwd, 0);
 		error = ft_chdir(*env, "HOME");

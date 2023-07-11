@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 23:13:04 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/11 17:02:27 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/11 19:18:21 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*get_env_val(t_env_node *env, char *str)
 char	*get_value(char *res, char *str, int *i, t_env_node *env)
 {
 	char	*id;
-	char *value;
+	char	*value;
 
 	id = NULL;
 	(*i)++;
@@ -79,7 +79,8 @@ char	*replace_value(char *str, t_env_node *env, int flag)
 			c = 0;
 		if ((flag != 2 || c != '\'') && str[i] == '$')
 		{
-			if (c == 0 && (str[i + 1] == '\"' || str[i + 1] == '\'') && flag == 2)
+			if (c == 0 && (str[i + 1] == '\"' || str[i + 1] == '\'')
+					&& flag == 2)
 				i++;
 			else
 				res = get_value(res, str, &i, env);
@@ -116,16 +117,6 @@ char	*split_var(char *str, int *i)
 		(*i)++;
 	}
 	return (res);
-}
-
-void	my_free(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str && str[i])
-		free(str[i++]);
-	free(str);
 }
 
 char	**new_expand(char *str, t_env_node *env, int flag)

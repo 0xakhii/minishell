@@ -6,11 +6,31 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 00:10:21 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/28 08:38:59 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/11 19:16:42 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+void	set_env_value(t_env_node **env, const char *key, const char *value)
+{
+	t_env_node	*tmp;
+
+	tmp = *env;
+	while (tmp)
+	{
+		if (!ft_strcmp(tmp->key, key))
+		{
+			if (value)
+			{
+				free(tmp->value);
+				tmp->value = ft_strdup(value);
+			}
+			return ;
+		}
+		tmp = tmp->next;
+	}
+}
 
 void	add_node(t_env_node **env, char *key, char *value)
 {
@@ -40,7 +60,7 @@ t_env_node	*find_node(t_env_node **env, char *key)
 			return (tmp);
 		tmp = tmp->next;
 	}
-	return (NULL); 
+	return (NULL);
 }
 
 void	execute_builtins(t_cmd *cmd, t_env_node **env)
@@ -69,13 +89,10 @@ int	is_builtins(t_cmd *cmd)
 {
 	if (!cmd->cmd)
 		return (0);
-	if (!ft_strcmp(cmd->cmd[0], "echo")
-		|| (!ft_strcmp(cmd->cmd[0], "env")) 
-		|| (!ft_strcmp(cmd->cmd[0], "exit"))
-		|| (!ft_strcmp(cmd->cmd[0], "pwd")) 
-		|| (!ft_strcmp(cmd->cmd[0], "cd"))
-		|| (!ft_strcmp(cmd->cmd[0], "export"))
-		|| (!ft_strcmp(cmd->cmd[0], "unset")))
+	if (!ft_strcmp(cmd->cmd[0], "echo") || (!ft_strcmp(cmd->cmd[0], "env"))
+		|| (!ft_strcmp(cmd->cmd[0], "exit")) || (!ft_strcmp(cmd->cmd[0], "pwd"))
+		|| (!ft_strcmp(cmd->cmd[0], "cd")) || (!ft_strcmp(cmd->cmd[0],
+				"export")) || (!ft_strcmp(cmd->cmd[0], "unset")))
 		return (1);
 	return (0);
 }
