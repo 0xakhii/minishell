@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:36:53 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/01 10:49:26 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/11 16:49:04 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,6 @@ void ft_lunch(t_cmd *cmd, t_env_node *env_list)
 	char	*p_name;
 	char	**env;
 
-	if (cmd->cmd == NULL || cmd->cmd[0] == NULL || cmd->cmd[0][0] == '\0')
-	{
-		printf(" :Command not found.\n");
-		return;
-	}
 	env = node_to_2d(env_list);
 	if (execve(cmd->cmd[0], cmd->cmd, env) < 0)
 	{
