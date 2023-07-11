@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 23:13:04 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/02 18:35:53 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/11 17:02:27 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char	*get_env_val(t_env_node *env, char *str)
 char	*get_value(char *res, char *str, int *i, t_env_node *env)
 {
 	char	*id;
+	char *value;
 
 	id = NULL;
 	(*i)++;
@@ -49,9 +50,10 @@ char	*get_value(char *res, char *str, int *i, t_env_node *env)
 	{
 		while (ft_isalnum(str[*i]) || str[*i] == '_')
 			id = add_characters(id, str[(*i)++]);
-		id = get_env_val(env, id);
-		res = ft_strjoin(res, id);
+		value = get_env_val(env, id);
+		res = ft_strjoin(res, value);
 		free(id);
+		free(value);
 	}
 	else
 		res = add_characters(res, '$');
@@ -75,8 +77,13 @@ char	*replace_value(char *str, t_env_node *env, int flag)
 			c = str[i];
 		else if (c == str[i])
 			c = 0;
-		if (c != '\'' && str[i] == '$')
-			res = get_value(res, str, &i, env);
+		if ((flag != 2 || c != '\'') && str[i] == '$')
+		{
+			if (c == 0 && (str[i + 1] == '\"' || str[i + 1] == '\'') && flag == 2)
+				i++;
+			else
+				res = get_value(res, str, &i, env);
+		}
 		else
 			res = add_characters(res, str[i++]);
 	}
@@ -96,6 +103,8 @@ char	*split_var(char *str, int *i)
 		(*i)++;
 	while (str[*i])
 	{
+		if (res == NULL)
+			res = add_characters(res, '\0');
 		if (c == 0 && (str[*i] == ' ' || str[*i] == '\t' || str[*i] == '\v'))
 			return (res);
 		if (c == 0 && (str[*i] == '\'' || str[*i] == '\"'))
