@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/02 18:34:50 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/11 19:07:22 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_helper
 	char				*key;
 	int					exit_status;
 }						t_helper;
-t_helper g_helper;
+t_helper				g_helper;
 
 typedef struct s_env_node
 {
@@ -85,8 +85,8 @@ typedef struct s_tokens
 	struct s_tokens		*next;
 }						t_tokens;
 
-char					*get_currdir();
-char					*join_str(char *s1,char *s2);
+char					*get_currdir(void);
+char					*join_str(char *s1, char *s2);
 void					printing(t_tokens *lexer);
 void					free_tokens(t_tokens **t);
 void					ft_free(char **str);
@@ -119,6 +119,10 @@ char					*get_env_val(t_env_node *env, char *str);
 char					**new_expand(char *str, t_env_node *env, int flag);
 char					**ft_arrjoin(char **split, char *str);
 t_env_node				*create_env_node(char *key, char *value);
+t_tokens				*out_files(t_cmd **new_cmd, t_tokens *current_token,
+							t_env_node *env);
+t_tokens				*in_files(t_cmd **new_cmd, t_tokens *current_token,
+							t_env_node *env);
 
 //------------------------------exec----------------//
 void					echo_cmd(char **str);
