@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/12 22:28:00 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/12 22:40:28 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ int	main(int ac, char **av, char **env)
 	lexer = NULL;
 	cmd_table = NULL;
 	env_list = create_env_list(env);
+	signal(SIGINT, sig_handler);
 	while (1)
 	{
 		prompt = get_dir(flag);
@@ -145,7 +146,6 @@ int	main(int ac, char **av, char **env)
 		free(prompt);
 		if (!in)
 			return (0);
-		signal(SIGINT, sig_handler);
 		lexer = lexer_init(in);
 		if (lexer && lexer->e_types != 6)
 		{
