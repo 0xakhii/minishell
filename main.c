@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/12 18:36:35 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/12 22:28:00 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,17 @@ char	*get_dir(int flag)
 	return (tmp);
 }
 
+void	sig_handler(int sig)
+{
+	if (sig == SIGINT)
+	{
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+}
+
 int	main(int ac, char **av, char **env)
 {
 	t_tokens	*lexer;
@@ -134,6 +145,7 @@ int	main(int ac, char **av, char **env)
 		free(prompt);
 		if (!in)
 			return (0);
+		signal(SIGINT, sig_handler);
 		lexer = lexer_init(in);
 		if (lexer && lexer->e_types != 6)
 		{

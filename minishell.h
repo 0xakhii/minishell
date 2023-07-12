@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/12 18:36:18 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/12 22:28:22 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include "libft/libft.h"
 # include <fcntl.h>
 # include <limits.h>
-# include <readline/history.h>
-# include <readline/readline.h>
+# include <history.h>
+# include <readline.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -147,4 +147,5 @@ void					ft_freeeeee(char **av);
 void					ft_exec(t_cmd *cmd, t_env_node *env);
 void					add_node(t_env_node **env, char *key, char *value);
 t_env_node				*find_node(t_env_node **env, char *key);
+void rl_replace_line (const char *, int);
 #endif
