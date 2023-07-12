@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:36:53 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/11 16:49:04 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/12 23:43:51 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,25 @@ void	save_fd(int save[2])
 	save[1] = dup(STDOUT_FILENO);
 }
 
-void ft_lunch(t_cmd *cmd, t_env_node *env_list)
+void	ft_lunch(t_cmd *cmd, t_env_node *env_list)
 {
 	char	*p_name;
 	char	**env;
 
+	p_name = NULL;
 	env = node_to_2d(env_list);
 	if (execve(cmd->cmd[0], cmd->cmd, env) < 0)
 	{
+		if (cmd->cmd[0][0] == '.' && cmd->cmd[0][1] == '/')
+		{
+			if (access(cmd->cmd[0], X_OK) == 0)
+				execve(p_name, cmd->cmd, env);
+			else
+			{
+				perror(cmd->cmd[0]);
+				return ;
+			}
+		}
 		p_name = ft_get_path(cmd->cmd[0], env_list);
 		if (p_name != NULL && execve(p_name, cmd->cmd, env) < 0)
 		{
@@ -97,6 +108,7 @@ void	ft_exec(t_cmd *cmd, t_env_node *env)
 		// if(cmd->out_file)
 		// 	close(cmd->out_fd);
 		waitpid(temp->pid, NULL, 0);
+		// g_helper.exit_status = 0;
 		temp = temp->next;
 	}
 }
