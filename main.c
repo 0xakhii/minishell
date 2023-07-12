@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/11 20:42:32 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/12 18:36:35 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ int	main(int ac, char **av, char **env)
 			add_history(in);
 		 	if (!token_check(lexer) && !syntax_check(lexer))
 			{
+				create_herdoc(lexer);
 				cmd_table = create_command_table(lexer, env_list);
 				execute(cmd_table, &env_list);
 				flag = 0;

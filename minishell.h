@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/11 19:17:57 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/12 18:36:18 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_helper
 {
 	int					i;
 	char				*equal_sign;
-	size_t				key_len;
+	int					key_len;
 	char				*value_start;
 	char				*key;
 	int					exit_status;
@@ -68,6 +68,13 @@ typedef struct s_env_node
 	char				*value;
 	struct s_env_node	*next;
 }						t_env_node;
+
+typedef struct s_herd
+{
+	char				*val;
+	int					type;
+	struct s_herd		*next;
+}						t_herd;
 
 typedef struct s_tokens
 {
@@ -119,6 +126,7 @@ t_tokens				*out_files(t_cmd **new_cmd, t_tokens *current_token,
 							t_env_node *env);
 t_tokens				*in_files(t_cmd **new_cmd, t_tokens *current_token,
 							t_env_node *env);
+							void    create_herdoc(t_tokens *lexer);
 
 //------------------------------exec----------------//
 void					echo_cmd(char **str);
