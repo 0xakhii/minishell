@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:36:53 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/13 22:22:50 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/13 23:53:47 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,24 +46,17 @@ void	ft_lunch(t_cmd *cmd, t_env_node *env_list)
 			}
 		}
 		p_name = ft_get_path(cmd->cmd[0], env_list);
-		if (access(p_name, X_OK) == 0)
+		if (p_name != NULL && execve(p_name, cmd->cmd, env) < 0)
 		{
-			if (p_name != NULL && execve(p_name, cmd->cmd, env) < 0)
-			{
-				printf("%s: Command not found.\n", cmd->cmd[0]);
-				ft_freeeeee(cmd->cmd);
-				exit(127);
-			}
-			else if (p_name == NULL)
-			{
-				printf("%s: Command not found.\n", cmd->cmd[0]);
-				ft_freeeeee(cmd->cmd);
-				exit(127);
-			}
+			printf("%s: Command not found.\n", cmd->cmd[0]);
+			ft_freeeeee(cmd->cmd);
+			exit(127);
 		}
-		else
+		else if (p_name == NULL)
 		{
-			printf("hh\n");
+			printf("%s: Command not found.\n", cmd->cmd[0]);
+			ft_freeeeee(cmd->cmd);
+			exit(127);
 		}
 	}
 	ft_freeeeee(env);
