@@ -4,3 +4,10 @@ echo $""
 if (env dose not exit have show message error)
 ===> ls | << cat probleme out of programme
 
+/ls ==== NO Such file or get_dir
+builtins/ == is direc
+/builtins == No such file or dir
+export "" // maybe (split)
+export =
+
+

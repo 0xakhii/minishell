@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   herdoc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 18:06:15 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/12 18:42:10 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/13 03:18:51 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*spaces_skip(char *str)
 	return (del);
 }
 
-void    create_herdoc(t_tokens *lexer)
+void	create_herdoc(t_tokens *lexer)
 {
 	t_tokens	*current_token;
 	char		*del;
