@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/13 00:14:49 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/07/13 15:04:35 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,10 @@ int	main(int ac, char **av, char **env)
 			{
 				create_herdoc(lexer);
 				cmd_table = create_command_table(lexer, env_list);
-				execute(cmd_table, &env_list);
+				if (cmd_table->in_fd == -1 || cmd_table->out_fd == -1)
+					g_helper.exit_status = 1;
+				else
+					execute(cmd_table, &env_list);
 				flag = 0;
 			}
 			else
