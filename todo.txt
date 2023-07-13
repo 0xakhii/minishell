@@ -1,5 +1,4 @@
 
-/ls ==== NO Such file or get_dir
 builtins/ == is direc
 /builtins == No such file or dir
 export =

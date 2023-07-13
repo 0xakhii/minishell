@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:36:53 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/13 23:53:47 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/13 23:57:33 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void	ft_lunch(t_cmd *cmd, t_env_node *env_list)
 	env = node_to_2d(env_list);
 	if (cmd->cmd && execve(cmd->cmd[0], cmd->cmd, env) < 0)
 	{
-		if (cmd->cmd[0][0] == '.' && cmd->cmd[0][1] == '/')
+		if ((cmd->cmd[0][0] == '.' && cmd->cmd[0][1] == '/')
+			|| cmd->cmd[0][0] == '/')
 		{
 			if (access(cmd->cmd[0], X_OK) == 0)
 				execve(p_name, cmd->cmd, env);
@@ -46,7 +47,8 @@ void	ft_lunch(t_cmd *cmd, t_env_node *env_list)
 			}
 		}
 		p_name = ft_get_path(cmd->cmd[0], env_list);
-		if (p_name != NULL && execve(p_name, cmd->cmd, env) < 0)
+		if (p_name != NULL && execve(p_name, cmd->cmd, env) < 0
+			&& access(p_name, X_OK) == 0)
 		{
 			printf("%s: Command not found.\n", cmd->cmd[0]);
 			ft_freeeeee(cmd->cmd);
