@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:16:05 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/11 19:16:05 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/13 23:50:29 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,21 @@ int	check_inputt(char *str)
 
 	i = 0;
 	id = 0;
-	if (str[0] == '+')
-		msg_er("export: not a valid identifier");
+	if (!str[0] || str[0] == '+')
+		return (msg_er("export: not a valid identifier"));
 	while (str[i])
 	{
 		if (!((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A'
 					&& str[i] <= 'Z') || str[i] == '_'))
 		{
 			if (id && str[i] != '+' && !(str[i] == '=' && str[i - 1] == '+'))
-				msg_er("export: not a valid identifier");
+				return (msg_er("export: not a valid identifier"));
 			else if (!id)
 				id = 1;
 		}
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
 void	print_export(t_env_node **env)
@@ -63,7 +63,7 @@ void	print_export(t_env_node **env)
 			if (ft_strcmp(tmp->value, "\0"))
 			{
 				if (tmp->value[0] != '\"' && tmp->value[ft_strlen(tmp->value)
-						- 1] != '\"')
+					- 1] != '\"')
 					printf("=\"%s\"", tmp->value);
 				else
 					printf("=%s", tmp->value);
@@ -79,6 +79,8 @@ void	append_to_export(char *key, char *value, t_env_node **env)
 	t_env_node	*existing;
 
 	if (check_inputt(key))
+		return ;
+	else
 	{
 		existing = find_node(env, key);
 		if (existing && value)
@@ -106,11 +108,11 @@ void	export_variable(t_cmd *cmd, t_env_node **env)
 			equal_sign = ft_split(cmd->cmd[i], '=');
 			if (equal_sign[0])
 				key = equal_sign[0];
-			if (equal_sign[1] == NULL && ft_strchr(cmd->cmd[i], '='))
+			if (cmd->cmd[i][0] && equal_sign[1] == NULL && ft_strchr(cmd->cmd[i], '='))
 				value = "\"\"";
-			else if (equal_sign[1] == NULL)
-				value = "\0";
-			else
+			else if (equal_sign[0] && equal_sign[1] == NULL)
+				value = "";
+			else if (equal_sign[0] && equal_sign[1])
 				value = equal_sign[1];
 			append_to_export(key, value, env);
 		}
