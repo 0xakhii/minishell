@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:36:53 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/14 00:14:55 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/07/14 00:17:55 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,10 @@ void	ft_lunch(t_cmd *cmd, t_env_node *env_list)
 
 	p_name = NULL;
 	env = node_to_2d(env_list);
-	if (execve(cmd->cmd[0], cmd->cmd, env) < 0)
+	if (cmd->cmd && execve(cmd->cmd[0], cmd->cmd, env) < 0)
 	{
-		if (cmd->cmd[0][0] == '.' && cmd->cmd[0][1] == '/')
+		if ((cmd->cmd[0][0] == '.' && cmd->cmd[0][1] == '/')
+			|| cmd->cmd[0][0] == '/')
 		{
 			if (access(cmd->cmd[0], X_OK) == 0)
 				execve(p_name, cmd->cmd, env);
@@ -46,27 +47,26 @@ void	ft_lunch(t_cmd *cmd, t_env_node *env_list)
 			}
 		}
 		p_name = ft_get_path(cmd->cmd[0], env_list);
-		if (p_name != NULL && execve(p_name, cmd->cmd, env) < 0)
+		if (p_name != NULL && execve(p_name, cmd->cmd, env) < 0
+			&& access(p_name, X_OK) == 0)
 		{
-			printf("%s: Command not found1.\n", cmd->cmd[0]);
+			printf("%s: Command not found.\n", cmd->cmd[0]);
 			ft_freeeeee(cmd->cmd);
 			exit(127);
 		}
 		else if (p_name == NULL)
 		{
-			printf("%s: Command not found2.\n", cmd->cmd[0]);
+			printf("%s: Command not found.\n", cmd->cmd[0]);
 			ft_freeeeee(cmd->cmd);
 			exit(127);
 		}
 	}
 	ft_freeeeee(env);
-	exit(127);
 }
 
 void	ft_exec(t_cmd *cmd, t_env_node *env)
 {
 	t_cmd	*temp;
-	int in = 0;
 
 	temp = cmd;
 	while (cmd)
@@ -76,29 +76,19 @@ void	ft_exec(t_cmd *cmd, t_env_node *env)
 		cmd->pid = fork();
 		if (cmd->pid == 0)
 		{
-			char c;
-			if (cmd->in_fd == -1 || cmd->out_fd == -1)
-				exit(1);
-			if (cmd->in_fd != -2)
-			{
-				read(cmd->in_fd, &c, 1);
-				printf("%d    %c\n", cmd->in_fd , c);
+			if (!cmd->in_file)
 				dup2(cmd->in_fd, STDIN_FILENO);
+			else if (cmd->prev)
+			{
+				close(cmd->prev->fd[1]);
+				dup2(cmd->prev->fd[0], STDIN_FILENO);
 			}
-			else
-				dup2(in, STDIN_FILENO);
 			if (cmd->out_fd != -2)
 				dup2(cmd->out_fd, STDOUT_FILENO);
 			else if (cmd->next)
-				dup2(cmd->fd[1], STDOUT_FILENO);
-			// close(in);
-			// close(cmd->in_fd);
-			// close(cmd->out_fd);
-			if (cmd->next)
 			{
-			close(cmd->fd[1]);
-			close(cmd->fd[0]);
-
+				close(cmd->fd[0]);
+				dup2(cmd->fd[1], STDOUT_FILENO);
 			}
 			ft_lunch(cmd, env);
 			exit(0);
@@ -106,10 +96,10 @@ void	ft_exec(t_cmd *cmd, t_env_node *env)
 		else
 		{
 			if (cmd->prev)
-				close(in);
-			in = cmd->fd[0];
-			if (cmd->next)
-				close(cmd->fd[1]);
+			{
+				close(cmd->prev->fd[0]);
+				close(cmd->prev->fd[1]);
+			}
 		}
 		cmd = cmd->next;
 	}
