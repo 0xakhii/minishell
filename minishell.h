@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/12 22:40:42 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/13 18:36:39 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include "libft/libft.h"
 # include <fcntl.h>
-# include <limits.h>
 # include <history.h>
+# include <limits.h>
 # include <readline.h>
 # include <stdbool.h>
 # include <stdio.h>
@@ -126,7 +126,8 @@ t_tokens				*out_files(t_cmd **new_cmd, t_tokens *current_token,
 							t_env_node *env);
 t_tokens				*in_files(t_cmd **new_cmd, t_tokens *current_token,
 							t_env_node *env);
-							void    create_herdoc(t_tokens *lexer);
+void					create_herdoc(t_tokens *lexer, t_env_node *env);
+char					*replace_value(char *str, t_env_node *env, int flag);
 
 //------------------------------exec----------------//
 void					echo_cmd(char **str);

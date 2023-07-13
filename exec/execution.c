@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:36:53 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/13 02:39:09 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/07/13 18:24:07 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_lunch(t_cmd *cmd, t_env_node *env_list)
 
 	p_name = NULL;
 	env = node_to_2d(env_list);
-	if (execve(cmd->cmd[0], cmd->cmd, env) < 0)
+	if (cmd->cmd && execve(cmd->cmd[0], cmd->cmd, env) < 0)
 	{
 		if (cmd->cmd[0][0] == '.' && cmd->cmd[0][1] == '/')
 		{
