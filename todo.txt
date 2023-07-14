@@ -1,1 +1,6 @@
-exit status "258" on syntax error
+exit status "258" on syntax errorr
+unset lots of args(chi 7ed mkynch == skip)
+unset "" == invalid identifier
+leaks export
+leaks cd -
+segfault mkdir -p a/b/c ///  cd a/b/c    //// rm -rf ../../../a
