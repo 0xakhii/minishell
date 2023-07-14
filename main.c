@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/14 18:42:29 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/14 21:40:51 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,14 +85,14 @@ void	print_cmd_table(t_cmd *cmd_t)
 	}
 }
 
-char	*get_dir(int flag)
+char	*get_dir(int flag, t_env_node *env)
 {
 	char	*currdir;
 	char	*color;
 	char	*prompt;
 	char	*tmp;
 
-	currdir = get_currdir();
+	currdir = get_currdir(env);
 	if (flag)
 		color = "\033[1;31m";
 	else
@@ -140,7 +140,7 @@ int	main(int ac, char **av, char **env)
 	signal(SIGINT, sig_handler);
 	while (1)
 	{
-		prompt = get_dir(flag);
+		prompt = get_dir(flag, env_list);
 		in = readline(prompt);
 		free(prompt);
 		if (!in)

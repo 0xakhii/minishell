@@ -1,11 +1,11 @@
 exit status "258" on syntax errorr (FIXED)
+
 unset "" == invalid identifier (FIXED)
+
 leaks export (FIXED)
+
 leaks cd - (FIXED)
+
 unset lots of args(chi 7ed mkynch == skip) (FIXED)
 
-
-
-
-
-segfault mkdir -p a/b/c ///  cd a/b/c    //// rm -rf ../../../a
+segfault mkdir -p a/b/c ///  cd a/b/c    //// rm -rf ../../../a (FIXED)

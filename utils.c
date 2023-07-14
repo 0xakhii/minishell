@@ -6,19 +6,22 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 23:29:33 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/11 19:17:29 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/14 21:39:56 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_currdir(void)
+char	*get_currdir(t_env_node *env)
 {
 	char	*copy;
 	char	*path;
 	char	*currdir;
 
-	path = getcwd(NULL, 0);
+	path = NULL;
+	path = get_env_val(env, "PWD");
+	if (path == NULL)
+		return (NULL);
 	currdir = ft_strrchr(path, '/');
 	if (currdir)
 		currdir++;
@@ -35,10 +38,14 @@ char	*join_str(char *s1, char *s2)
 	int		len2;
 	char	*result;
 
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
+	len1 = 0;
+	len2 = 0;
+	if (s1)
+		len1 = ft_strlen(s1);
+	if (s2)
+		len2 = ft_strlen(s2);
 	result = (char *)malloc(len1 + len2 + 1);
-	if (result)
+	if (result && s1 && s2)
 	{
 		ft_strcpy(result, s1);
 		ft_strlcat(result, s2, (len1 + len2 + 1));

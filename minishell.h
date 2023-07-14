@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/13 18:36:39 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/14 21:40:09 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ typedef struct s_tokens
 	struct s_tokens		*next;
 }						t_tokens;
 
-char					*get_currdir(void);
+char					*get_currdir(t_env_node *env);
 char					*join_str(char *s1, char *s2);
 void					free_tokens(t_tokens **t);
 void					execute_first_command(t_cmd *cmd, char **env,
