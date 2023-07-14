@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/14 00:23:30 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/07/14 14:11:21 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void	sig_handler(int sig)
 	{
 		printf("\n");
 		rl_on_new_line();
-		// rl_replace_line("", 0);
+		rl_replace_line("", 0);
 		rl_redisplay();
 	}
 }
@@ -134,7 +134,6 @@ int	main(int ac, char **av, char **env)
 	flag = 0;
 	(void)ac;
 	(void)av;
-	(void)env;
 	lexer = NULL;
 	cmd_table = NULL;
 	env_list = create_env_list(env);
@@ -158,14 +157,17 @@ int	main(int ac, char **av, char **env)
 					g_helper.exit_status = 1;
 				else
 					execute(cmd_table, &env_list);
-				flag = 0;
+				if (g_helper.exit_status != 0)
+					flag = 1;
+				else
+					flag = 0;
 			}
 			else
 				flag = 1;
 		}
 		else
 		{
-			flag = 1;
+			flag = 0;
 			g_helper.exit_status = 0;
 		}
 		free_tokens(&lexer);

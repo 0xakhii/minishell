@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:16:49 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/14 00:15:17 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/07/14 14:19:50 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	check_input(char *str)
 	int	i;
 
 	i = 0;
+	if (!str[0])
+		printf("unset: not a valid identifier\n");
 	while (str[i])
 	{
 		if (!((str[i] >= 'a' && str[i] <= 'z')

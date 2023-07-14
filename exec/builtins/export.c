@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:16:05 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/14 00:00:37 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/14 14:44:04 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	check_emptyy(char *cmd)
 	i = 0;
 	while (cmd[i])
 	{
-		if (cmd[i] != ' ' && cmd[i] != '\t')
+		if (cmd[i] == ' ' || cmd[i] == '\t')
 			return (1);
 		i++;
 	}
@@ -40,7 +40,9 @@ int	check_inputt(char *str)
 		if (!((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A'
 					&& str[i] <= 'Z') || str[i] == '_'))
 		{
-			if (id && str[i] != '+' && !(str[i] == '=' && str[i - 1] == '+'))
+			if (check_emptyy(str))
+				return (msg_er("export: not a valide identifier"));
+			if (id && str[i] != '=')
 				return (msg_er("export: not a valid identifier"));
 			else if (!id)
 				id = 1;
@@ -116,6 +118,7 @@ void	export_variable(t_cmd *cmd, t_env_node **env)
 			else if (equal_sign[0] && equal_sign[1])
 				value = equal_sign[1];
 			append_to_export(key, value, env);
+			ft_freeeeee(equal_sign);
 		}
 	}
 }

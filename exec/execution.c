@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:36:53 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/14 13:47:27 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/14 14:07:49 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	ft_lunch(t_cmd *cmd, t_env_node *env_list)
 
 	p_name = NULL;
 	env = node_to_2d(env_list);
+	check_dir(cmd->cmd[0]);
 	if (execve(cmd->cmd[0], cmd->cmd, env) < 0)
 	{
 		if ((cmd->cmd[0][0] == '.' && cmd->cmd[0][1] == '/')
