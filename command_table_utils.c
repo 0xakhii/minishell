@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 19:03:01 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/11 19:15:01 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/13 15:02:30 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,5 @@ t_cmd	*create_command_table(t_tokens *lexer, t_env_node *env)
 		current_token = current_token->next;
 	}
 	g_helper.exit_status = 0;
-	free_tokens(&lexer);
 	return (cmd_table);
 }

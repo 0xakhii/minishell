@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:16:49 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/02 17:06:45 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/14 18:49:57 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,15 @@ int	check_input(char *str)
 	int	i;
 
 	i = 0;
+	if (!str[0])
+		printf("unset: ` ' not a valid identifier\n");
 	while (str[i])
 	{
 		if (!((str[i] >= 'a' && str[i] <= 'z')
 				|| (str[i] >= 'A' && str[i] <= 'Z')
 				|| str[i] == '_') || !check_empty(str))
 		{
-			printf("unset: not a valid identifier\n");
+			printf("unset: `%s' not a valid identifier\n", str);
 			return (0);
 		}
 		i++;
@@ -89,10 +91,16 @@ int	loop_env(t_env_node *head, char *key)
 
 void	my_unset(t_cmd *cmd, t_env_node **env)
 {
-	if (!cmd->cmd[1])
+	int i = 1;
+	if (!cmd->cmd[i])
 		return ;
-	if (!check_input(cmd->cmd[1]))
-		return ;
-	if (loop_env(*env, cmd->cmd[1]))
-		delete_node(env, cmd->cmd[1]);
+	while (cmd->cmd[i])
+	{
+		if (!check_input(cmd->cmd[i]))
+			return ;
+		if (loop_env(*env, cmd->cmd[i]))
+			delete_node(env, cmd->cmd[i]);
+		else
+			i++;
+	}
 }

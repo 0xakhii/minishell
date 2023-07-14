@@ -1,10 +1,10 @@
 NAME = minishell
 
-CC = cc
+CC = cc 
 
 CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3
 
-LIBS = -lreadline -L libft -lft
+LIBS = -L ./readline-8.2 -lreadline -L libft -lft  -lcurses -I ./readline-8.2
 
 SRCS = main.c utils.c syntax_check.c expanding.c \
 		lexer.c env.c  lexer_utils.c syntax_utils.c \
@@ -12,7 +12,7 @@ SRCS = main.c utils.c syntax_check.c expanding.c \
 		exec/builtins/utils_builtins.c exec/builtins/echo.c\
 		exec/builtins/env.c exec/builtins/exit.c exec/builtins/cd.c\
 		exec/utils.c exec/execution.c exec/builtins/unset.c \
-		exec/builtins/export.c\
+		exec/builtins/export.c herdoc.c\
 		# Leak_Hunter/leak_hunter.c Leak_Hunter/list_tools.c
 
 OBJS = $(SRCS:.c=.o)
@@ -25,7 +25,7 @@ $(NAME): $(OBJS)
 	@echo "\033[1;32mminishell is ready\033[0;0m"
 
 .c.o:
-	@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
+	@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) -I ./readline-8.2
 
 clean:
 	@make -C libft clean

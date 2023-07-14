@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/11 17:10:22 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/14 18:42:29 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,17 @@ char	*get_dir(int flag)
 	return (tmp);
 }
 
+void	sig_handler(int sig)
+{
+	if (sig == SIGINT)
+	{
+		printf("\n");
+		rl_on_new_line();
+		// rl_replace_line("", 0);
+		rl_redisplay();
+	}
+}
+
 int	main(int ac, char **av, char **env)
 {
 	t_tokens	*lexer;
@@ -123,10 +134,10 @@ int	main(int ac, char **av, char **env)
 	flag = 0;
 	(void)ac;
 	(void)av;
-	(void)env;
 	lexer = NULL;
 	cmd_table = NULL;
 	env_list = create_env_list(env);
+	signal(SIGINT, sig_handler);
 	while (1)
 	{
 		prompt = get_dir(flag);
@@ -140,18 +151,26 @@ int	main(int ac, char **av, char **env)
 			add_history(in);
 		 	if (!token_check(lexer) && !syntax_check(lexer))
 			{
+				create_herdoc(lexer, env_list);
 				cmd_table = create_command_table(lexer, env_list);
-				execute(cmd_table, &env_list);
-				flag = 0;
+				if (cmd_table->in_fd == -1 || cmd_table->out_fd == -1)
+					g_helper.exit_status = 1;
+				else
+					execute(cmd_table, &env_list);
+				if (g_helper.exit_status != 0)
+					flag = 1;
+				else
+					flag = 0;
 			}
 			else
 				flag = 1;
 		}
 		else
 		{
-			flag = 1;
+			flag = 0;
 			g_helper.exit_status = 0;
 		}
+		free_tokens(&lexer);
 		free_cmd(&cmd_table);
 		cmd_table = NULL;
 		free(in);
