@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:16:49 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/14 14:19:50 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/14 17:41:42 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	check_input(char *str)
 				|| (str[i] >= 'A' && str[i] <= 'Z')
 				|| str[i] == '_') || !check_empty(str))
 		{
-			printf("unset: not a valid identifier\n");
+			printf("unset: `%s' not a valid identifier\n", str);
 			return (0);
 		}
 		i++;
@@ -91,10 +91,16 @@ int	loop_env(t_env_node *head, char *key)
 
 void	my_unset(t_cmd *cmd, t_env_node **env)
 {
-	if (!cmd->cmd[1])
+	int i = 1;
+	if (!cmd->cmd[i])
 		return ;
-	if (!check_input(cmd->cmd[1]))
-		return ;
-	if (loop_env(*env, cmd->cmd[1]))
-		delete_node(env, cmd->cmd[1]);
+	while (cmd->cmd[i])
+	{
+		if (!check_input(cmd->cmd[i]))
+			return ;
+		if (loop_env(*env, cmd->cmd[i]))
+			delete_node(env, cmd->cmd[i]);
+		else
+			i++;
+	}
 }
