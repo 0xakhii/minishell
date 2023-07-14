@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 18:06:15 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/13 20:49:16 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/14 17:59:07 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	create_herdoc(t_tokens *lexer, t_env_node *env)
 					in = readline("herdoc> ");
 					if (!in)
 						break ;
-					if (strcmp(del, in) == 0 && ft_strlen(del) == ft_strlen(in))
+					if (ft_strcmp(del, in) == 0 && ft_strlen(del) == ft_strlen(in))
 					{
 						free(in);
 						break ;
