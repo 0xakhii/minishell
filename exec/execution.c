@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:36:53 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/14 18:54:28 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/14 18:55:37 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,6 @@ void	save_fd(int save[2])
 	save[1] = dup(STDOUT_FILENO);
 }
 
-void	check_dir(char *cmd)
-{
-	int	tmp;
-
-	tmp = open(cmd, O_DIRECTORY);
-	if (tmp != -1)
-	{
-		close(tmp);
-		printf("%s: is a directory\n", cmd);
-		exit(126);
-	}
-}
 void	check_dir(char *cmd)
 {
 	int	tmp;
