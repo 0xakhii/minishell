@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:16:49 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/14 17:41:42 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/14 18:53:53 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ int	check_input(char *str)
 	int	i;
 
 	i = 0;
-	if (!str[0])
-		printf("unset: not a valid identifier\n");
 	while (str[i])
 	{
 		if (!((str[i] >= 'a' && str[i] <= 'z')
