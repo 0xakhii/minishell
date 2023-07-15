@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:36:53 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/14 18:55:37 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/15 06:59:04 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,22 @@ void	check_dir(char *cmd)
 	tmp = open(cmd, O_DIRECTORY);
 	if (tmp != -1)
 	{
-		close(tmp);
-		printf("%s: is a directory\n", cmd);
-		exit(126);
+		if (cmd[0] == '.' && !cmd[1])
+		{
+			printf(": filename argument required\n");
+			exit(2);
+		}
+		else if (cmd[0] == '.' && cmd[1] == '.')
+		{
+			printf(": command not found3\n");
+			exit(127);
+		}
+		else
+		{
+			close(tmp);
+			printf("%s: is a directory\n", cmd);
+			exit(126);
+		}
 	}
 }
 void	ft_lunch(t_cmd *cmd, t_env_node *env_list)
