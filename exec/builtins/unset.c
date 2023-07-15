@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:16:49 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/14 18:55:09 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/15 17:47:56 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,13 @@ int	check_input(char *str)
 				|| (str[i] >= 'A' && str[i] <= 'Z')
 				|| str[i] == '_') || !check_empty(str))
 		{
-			printf("unset: `%s' not a valid identifier\n", str);
-			return (0);
+			if (str[i] >= '0' && str[i] <= '9' && i != 0)
+				i++;
+			else
+			{	
+				printf("unset: `%s' not a valid identifier\n", str);
+				return (0);
+			}
 		}
 		i++;
 	}

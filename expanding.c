@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 23:13:04 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/11 19:18:21 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/15 18:14:07 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,16 @@ char	*get_value(char *res, char *str, int *i, t_env_node *env)
 {
 	char	*id;
 	char	*value;
+	char	*val;
 
 	id = NULL;
 	(*i)++;
 	if (str[*i] == '?')
 	{
 		(*i)++;
-		res = ft_strjoin(res, ft_itoa(g_helper.exit_status));
+		val = ft_itoa(g_helper.exit_status);
+		res = ft_strjoin(res, val);
+		free(val);
 	}
 	else if (ft_isalpha(str[*i]) || str[*i] == '_')
 	{

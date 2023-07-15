@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:36:53 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/15 06:59:04 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/07/15 16:54:33 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void	check_dir(char *cmd)
 			printf(": filename argument required\n");
 			exit(2);
 		}
-		else if (cmd[0] == '.' && cmd[1] == '.')
+		else if (cmd[0] == '.' && cmd[1] == '.' && cmd[2] != '/')
 		{
-			printf(": command not found3\n");
+			printf(": command not found\n");
 			exit(127);
 		}
 		else
@@ -75,14 +75,14 @@ void	ft_lunch(t_cmd *cmd, t_env_node *env_list)
 		p_name = ft_get_path(cmd->cmd[0], env_list);
 		if (p_name != NULL && execve(p_name, cmd->cmd, env) < 0)
 		{
-			printf("%s: Command not found1.\n", cmd->cmd[0]);
+			printf("%s: Command not found.\n", cmd->cmd[0]);
 			ft_freeeeee(cmd->cmd);
 			exit(127);
 		}
 		else if (p_name == NULL)
 		{
 			check_dir(cmd->cmd[0]);
-			printf("%s: Command not found2.\n", cmd->cmd[0]);
+			printf("%s: Command not found.\n", cmd->cmd[0]);
 			ft_freeeeee(cmd->cmd);
 			exit(127);
 		}
@@ -104,7 +104,6 @@ void	ft_exec(t_cmd *cmd, t_env_node *env)
 {
 	t_cmd	*temp;
 	int		in;
-	// char	c;
 
 	in = 0;
 	temp = cmd;
@@ -118,11 +117,7 @@ void	ft_exec(t_cmd *cmd, t_env_node *env)
 			if (cmd->in_fd == -1 || cmd->out_fd == -1)
 				exit(1);
 			if (cmd->in_fd != -2)
-			{
-				// read(cmd->in_fd, &c, 1);
-				// printf("%d    %c\n", cmd->in_fd, c);
 				dup2(cmd->in_fd, STDIN_FILENO);
-			}
 			else
 				dup2(in, STDIN_FILENO);
 			if (cmd->out_fd != -2)
