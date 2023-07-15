@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:16:05 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/14 14:44:04 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/15 22:32:58 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	print_export(t_env_node **env)
 			if (ft_strcmp(tmp->value, "\0"))
 			{
 				if (tmp->value[0] != '\"' && tmp->value[ft_strlen(tmp->value)
-					- 1] != '\"')
+						- 1] != '\"')
 					printf("=\"%s\"", tmp->value);
 				else
 					printf("=%s", tmp->value);

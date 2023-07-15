@@ -32,7 +32,7 @@ datadir = ${datarootdir}
 
 top_srcdir = ..
 #BUILD_DIR = .
-BUILD_DIR = /Users/ojamal/Desktop/minishell/readline-8.2
+BUILD_DIR = /Users/ymenyoub/Desktop/minishell/readline-8.2
 installdir = $(datadir)/readline
 
 INSTALL = /usr/bin/install -c
@@ -49,13 +49,13 @@ DEFS = -DHAVE_CONFIG_H
 CC = gcc
 CFLAGS = -g -O2 -Wno-parentheses -Wno-format-security -Wno-tautological-constant-out-of-range-compare
 LOCAL_CFLAGS =  -DREADLINE_LIBRARY -DRL_LIBRARY_VERSION='"$(RL_LIBRARY_VERSION)"'
-CPPFLAGS = -I/goinfre/ojamal/homebrew/opt/readline/include
+CPPFLAGS = 
 
 INCLUDES = -I$(srcdir) -I$(top_srcdir) -I..
 
 CCFLAGS  = $(ASAN_CFLAGS) $(DEFS) $(LOCAL_CFLAGS) $(INCLUDES) $(CPPFLAGS) \
 	$(CFLAGS)
-LDFLAGS = -g -L.. -L/goinfre/ojamal/homebrew/opt/readline/lib $(ASAN_LDFLAGS)
+LDFLAGS = -g -L..  $(ASAN_LDFLAGS)
 
 ASAN_XCFLAGS = -fsanitize=address -fno-omit-frame-pointer
 ASAN_XLDFLAGS = -fsanitize=address

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:36:53 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/15 16:54:33 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/16 00:22:40 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	check_dir(char *cmd)
 		}
 	}
 }
+
 void	ft_lunch(t_cmd *cmd, t_env_node *env_list)
 {
 	char	*p_name;
@@ -95,15 +96,18 @@ int	get_exit_status(int status)
 {
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
-	// else if (WIFSIGNALED(status))
-	// 	return (WTERMSIG(status) + 128);
+	else if (WIFSIGNALED(status))
+		return (WTERMSIG(status) + 128);
 	return (0);
 }
+
+// void child_process(t_cmd *cmd, t_env_node *env)
 
 void	ft_exec(t_cmd *cmd, t_env_node *env)
 {
 	t_cmd	*temp;
 	int		in;
+	int status;
 
 	in = 0;
 	temp = cmd;
@@ -114,6 +118,8 @@ void	ft_exec(t_cmd *cmd, t_env_node *env)
 		cmd->pid = fork();
 		if (cmd->pid == 0)
 		{
+			signal(SIGINT, sig_handler);
+			signal(SIGQUIT, sig_handler);
 			if (cmd->in_fd == -1 || cmd->out_fd == -1)
 				exit(1);
 			if (cmd->in_fd != -2)
@@ -124,9 +130,6 @@ void	ft_exec(t_cmd *cmd, t_env_node *env)
 				dup2(cmd->out_fd, STDOUT_FILENO);
 			else if (cmd->next)
 				dup2(cmd->fd[1], STDOUT_FILENO);
-			// close(in);
-			// close(cmd->in_fd);
-			// close(cmd->out_fd);
 			if (cmd->next)
 			{
 				close(cmd->fd[1]);
@@ -147,13 +150,10 @@ void	ft_exec(t_cmd *cmd, t_env_node *env)
 	}
 	while (temp)
 	{
-		int status;
-		// if(cmd->in_file)
-		// 	close(cmd->in_fd);
-		// if(cmd->out_file)
-		// 	close(cmd->out_fd);
 		waitpid(temp->pid, &status, 0);
 		g_helper.exit_status = get_exit_status(status);
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
+			printf("^\\Quit: %d\n", WTERMSIG(status));
 		temp = temp->next;
 	}
 }

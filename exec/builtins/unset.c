@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:16:49 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/15 17:47:56 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/15 22:31:23 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,13 @@ int	check_input(char *str)
 		printf("unset: ` ' not a valid identifier\n");
 	while (str[i])
 	{
-		if (!((str[i] >= 'a' && str[i] <= 'z')
-				|| (str[i] >= 'A' && str[i] <= 'Z')
-				|| str[i] == '_') || !check_empty(str))
+		if (!((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A'
+					&& str[i] <= 'Z') || str[i] == '_') || !check_empty(str))
 		{
 			if (str[i] >= '0' && str[i] <= '9' && i != 0)
 				i++;
 			else
-			{	
+			{
 				printf("unset: `%s' not a valid identifier\n", str);
 				return (0);
 			}
@@ -96,7 +95,9 @@ int	loop_env(t_env_node *head, char *key)
 
 void	my_unset(t_cmd *cmd, t_env_node **env)
 {
-	int i = 1;
+	int	i;
+
+	i = 1;
 	if (!cmd->cmd[i])
 		return ;
 	while (cmd->cmd[i])

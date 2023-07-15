@@ -31,7 +31,7 @@ PACKAGE_TARNAME = readline
 srcdir = .
 
 top_srcdir = .
-BUILD_DIR = /Users/ojamal/Desktop/minishell/readline-8.2
+BUILD_DIR = /Users/ymenyoub/Desktop/minishell/readline-8.2
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
@@ -76,7 +76,7 @@ CTAGS = ctags -w
 
 CFLAGS = -g -O2 -Wno-parentheses -Wno-format-security -Wno-tautological-constant-out-of-range-compare
 LOCAL_CFLAGS =  -DRL_LIBRARY_VERSION='"$(RL_LIBRARY_VERSION)"' -DBRACKETED_PASTE_DEFAULT=1
-CPPFLAGS = -I/goinfre/ojamal/homebrew/opt/readline/include
+CPPFLAGS = 
 
 DEFS = -DHAVE_CONFIG_H 
 LOCAL_DEFS = 
