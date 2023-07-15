@@ -1,3 +1,0 @@
-export hello -> then env | grep hello (it shows hello=  expected output (nothing (no new_line)))
-
-(EXIT TESTS)

@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/15 16:59:29 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/15 22:33:27 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,9 @@ void	print_cmd_table(t_cmd *cmd_t)
 			}
 		}
 		printf("Input file: %s\n", cmd->in_file);
+		printf("Input fd: %d\n", cmd->in_fd);
 		printf("Output file: %s\n", cmd->out_file);
+		printf("Output fd: %d\n", cmd->out_fd);
 		printf("Append file: %s\n", cmd->out_file);
 		printf("Heredoc file: %s\n", cmd->in_file);
 		if (cmd->pipe)
@@ -151,7 +153,6 @@ int	main(int ac, char **av, char **env)
 			add_history(in);
 		 	if (!token_check(lexer) && !syntax_check(lexer))
 			{
-				create_herdoc(lexer, env_list);
 				cmd_table = create_command_table(lexer, env_list);
 				if (cmd_table->in_fd == -1 || cmd_table->out_fd == -1)
 					g_helper.exit_status = 1;
