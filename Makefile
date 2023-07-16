@@ -21,6 +21,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@make -C libft
+	@stty -echoctl
 	@$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
 	@echo "\033[1;32mminishell is ready\033[0;0m"
 

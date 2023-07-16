@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/16 01:34:06 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/07/16 01:56:40 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,9 @@ void	print_cmd_table(t_cmd *cmd_t)
 			}
 		}
 		printf("Input file: %s\n", cmd->in_file);
+		printf("Input fd: %d\n", cmd->in_fd);
 		printf("Output file: %s\n", cmd->out_file);
+		printf("Output fd: %d\n", cmd->out_fd);
 		printf("Append file: %s\n", cmd->out_file);
 		printf("Heredoc file: %s\n", cmd->in_file);
 		if (cmd->pipe)
@@ -152,11 +154,11 @@ int	main(int ac, char **av, char **env)
 			add_history(in);
 		 	if (!token_check(lexer) && !syntax_check(lexer))
 			{
-				create_herdoc(lexer, env_list);
 				cmd_table = create_command_table(lexer, env_list);
+				// print_cmd_table(cmd_table);
 				if (cmd_table->in_fd == -1 || cmd_table->out_fd == -1)
 					g_helper.exit_status = 1;
-				else
+				if (cmd_table->cmd)
 				{
 					signal(SIGINT, SIG_IGN);
 					execute(cmd_table, &env_list);

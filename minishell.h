@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/16 00:05:57 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/07/16 01:56:51 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ t_tokens				*out_files(t_cmd **new_cmd, t_tokens *current_token,
 							t_env_node *env);
 t_tokens				*in_files(t_cmd **new_cmd, t_tokens *current_token,
 							t_env_node *env);
-void					create_herdoc(t_tokens *lexer, t_env_node *env);
+void	create_herdoc(char *str, t_env_node *env, t_cmd *cmd);
 char					*replace_value(char *str, t_env_node *env, int flag);
 
 //------------------------------exec----------------//

@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 18:06:15 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/15 17:34:26 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/16 01:47:06 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,60 +31,96 @@ char	*spaces_skip(char *str)
 	return (del);
 }
 
-void	create_herdoc(t_tokens *lexer, t_env_node *env)
+char	*remove_quotes(char *str)
 {
-	t_tokens	*current_token;
-	char		*del;
-	char		*in;
-	int			pipefd[2];
-	int			pid;
-	char		buffer[1024];
-	int			n;
+	char	*res;
 
-	current_token = lexer;
-	while (current_token->e_types != 6)
+	int i, j;
+	i = 0;
+	j = 0;
+	res = malloc(ft_strlen(str) + 1);
+	while (str[i])
 	{
-		if (current_token->e_types == 4)
+		if (str[i] == '\'' || str[i] == '\"')
 		{
-			lexer = lexer->next;
-			current_token = lexer;
-			if (current_token->e_types == 1)
-				del = spaces_skip(current_token->val);
-			pipe(pipefd);
-			pid = fork();
-			if (pid == -1)
-			{
-				perror("fork");
-				exit(1);
-			}
-			if (pid == 0)
-			{
-				close(pipefd[0]);
-				while (1)
-				{
-					in = readline("herdoc> ");
-					if (!in)
-						break ;
-					if (ft_strcmp(del, in) == 0 && ft_strlen(del) == ft_strlen(in))
-					{
-						free(in);
-						break ;
-					}
-					in = replace_value(in, env, 1);
-					while ((n = read(pipefd[0], buffer, sizeof(buffer))) > 0)
-						write(pipefd[1], buffer, n);
-					free(in);
-				}
-				close(pipefd[1]);
-				exit(0);
-			}
-			else
-			{
-				close(pipefd[1]);
-				wait(NULL);
-			}
+			i++;
+			continue ;
 		}
-		lexer = lexer->next;
-		current_token = lexer;
+		res[j] = str[i];
+		i++;
+		j++;
+	}
+	res[j] = '\0';
+	return (res);
+}
+
+int	herd_quotes(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\'' || str[i] == '\"')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+void	herd_loop(char *del, int pipefd[2], t_env_node *env)
+{
+	char	*in;
+	char	*tmp;
+
+	tmp = del;
+	close(pipefd[0]);
+	while (1)
+	{
+		in = readline("herdoc> ");
+		if (!in)
+			break ;
+		del = remove_quotes(del);
+		if (ft_strcmp(del, in) == 0 && ft_strlen(del) == ft_strlen(in))
+		{
+			free(in);
+			break ;
+		}
+		if (herd_quotes(tmp))
+			replace_value(in, env, 0);
+		else
+			in = replace_value(in, env, 2);
+		write(pipefd[1], in, ft_strlen(in));
+		write(pipefd[1], "\n", 1);
+		free(in);
+	}
+}
+
+void	create_herdoc(char *str, t_env_node *env, t_cmd *cmd)
+{
+	int		pid;
+	char	*del;
+	int		pipefd[2];
+
+	del = spaces_skip(str);
+	pipe(pipefd);
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("fork");
+		exit(1);
+	}
+	if (pid == 0)
+	{
+		herd_loop(str, pipefd, env);
+		close(pipefd[1]);
+		exit(0);
+	}
+	else
+	{
+		free(del);
+		close(pipefd[1]);
+		cmd->in_fd = pipefd[0];
+		wait(NULL);
 	}
 }
