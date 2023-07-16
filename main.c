@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/15 22:33:27 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/16 01:05:06 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,9 +154,10 @@ int	main(int ac, char **av, char **env)
 		 	if (!token_check(lexer) && !syntax_check(lexer))
 			{
 				cmd_table = create_command_table(lexer, env_list);
+				// print_cmd_table(cmd_table);
 				if (cmd_table->in_fd == -1 || cmd_table->out_fd == -1)
 					g_helper.exit_status = 1;
-				else
+				if (cmd_table->cmd)
 					execute(cmd_table, &env_list);
 				if (g_helper.exit_status != 0)
 					flag = 1;

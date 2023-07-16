@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/15 23:06:29 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/16 00:49:07 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ t_tokens				*out_files(t_cmd **new_cmd, t_tokens *current_token,
 							t_env_node *env);
 t_tokens				*in_files(t_cmd **new_cmd, t_tokens *current_token,
 							t_env_node *env);
-int						create_herdoc(char *str, t_env_node *env);
+void	create_herdoc(char *str, t_env_node *env, t_cmd *cmd);
 char					*replace_value(char *str, t_env_node *env, int flag);
 
 //------------------------------exec----------------//
