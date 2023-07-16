@@ -6,7 +6,7 @@
 /*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/16 00:06:00 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/07/16 01:34:06 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ int	main(int ac, char **av, char **env)
 	cmd_table = NULL;
 	env_list = create_env_list(env);
 	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
 		prompt = get_dir(flag, env_list);
@@ -156,7 +157,10 @@ int	main(int ac, char **av, char **env)
 				if (cmd_table->in_fd == -1 || cmd_table->out_fd == -1)
 					g_helper.exit_status = 1;
 				else
+				{
+					signal(SIGINT, SIG_IGN);
 					execute(cmd_table, &env_list);
+				}
 				if (g_helper.exit_status != 0)
 					flag = 1;
 				else
