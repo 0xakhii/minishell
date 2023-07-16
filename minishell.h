@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/16 01:56:51 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/16 04:23:58 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,4 +150,6 @@ void					add_node(t_env_node **env, char *key, char *value);
 t_env_node				*find_node(t_env_node **env, char *key);
 int						get_exit_status(int status);
 void					sig_handler(int sig);
+void					ft_lunch(t_cmd *cmd, t_env_node *env_list);
+void					print_export(t_env_node **env);
 #endif

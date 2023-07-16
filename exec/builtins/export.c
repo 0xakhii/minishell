@@ -6,7 +6,7 @@
 /*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:16:05 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/15 22:32:58 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/07/16 04:23:32 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,30 +52,6 @@ int	check_inputt(char *str)
 	return (0);
 }
 
-void	print_export(t_env_node **env)
-{
-	t_env_node	*tmp;
-
-	tmp = *env;
-	while (tmp)
-	{
-		if (tmp->key)
-		{
-			printf("declare -x %s", tmp->key);
-			if (ft_strcmp(tmp->value, "\0"))
-			{
-				if (tmp->value[0] != '\"' && tmp->value[ft_strlen(tmp->value)
-						- 1] != '\"')
-					printf("=\"%s\"", tmp->value);
-				else
-					printf("=%s", tmp->value);
-			}
-			printf("\n");
-		}
-		tmp = tmp->next;
-	}
-}
-
 void	append_to_export(char *key, char *value, t_env_node **env)
 {
 	t_env_node	*existing;
@@ -90,6 +66,18 @@ void	append_to_export(char *key, char *value, t_env_node **env)
 		else
 			add_node(env, key, value);
 	}
+}
+
+char	*set_value(t_cmd *cmd, char **equal_sign, int *i, char *value)
+{
+	if (cmd->cmd[*i][0] && cmd->cmd[*i][0] != '=' && equal_sign[1] == NULL
+		&& ft_strchr(cmd->cmd[*i], '='))
+		value = "\"\"";
+	else if (equal_sign[0] && equal_sign[1] == NULL)
+		value = "";
+	else if (equal_sign[0] && equal_sign[1])
+		value = equal_sign[1];
+	return (value);
 }
 
 void	export_variable(t_cmd *cmd, t_env_node **env)
@@ -110,13 +98,7 @@ void	export_variable(t_cmd *cmd, t_env_node **env)
 			equal_sign = ft_split(cmd->cmd[i], '=');
 			if (equal_sign[0])
 				key = equal_sign[0];
-			if (cmd->cmd[i][0] && cmd->cmd[i][0] != '=' && equal_sign[1] == NULL
-				&& ft_strchr(cmd->cmd[i], '='))
-				value = "\"\"";
-			else if (equal_sign[0] && equal_sign[1] == NULL)
-				value = "";
-			else if (equal_sign[0] && equal_sign[1])
-				value = equal_sign[1];
+			value = set_value(cmd, equal_sign, &i, value);
 			append_to_export(key, value, env);
 			ft_freeeeee(equal_sign);
 		}

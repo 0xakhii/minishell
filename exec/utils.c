@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 08:46:30 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/11 19:14:07 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/16 04:25:01 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,28 @@ char	**node_to_2d(t_env_node *env)
 	}
 	result[j] = NULL;
 	return (result);
+}
+
+void	print_export(t_env_node **env)
+{
+	t_env_node	*tmp;
+
+	tmp = *env;
+	while (tmp)
+	{
+		if (tmp->key)
+		{
+			printf("declare -x %s", tmp->key);
+			if (ft_strcmp(tmp->value, "\0"))
+			{
+				if (tmp->value[0] != '\"' && tmp->value[ft_strlen(tmp->value)
+						- 1] != '\"')
+					printf("=\"%s\"", tmp->value);
+				else
+					printf("=%s", tmp->value);
+			}
+			printf("\n");
+		}
+		tmp = tmp->next;
+	}
 }
