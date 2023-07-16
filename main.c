@@ -6,24 +6,11 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/16 01:56:40 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/16 21:21:09 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	free_tokens(t_tokens **t)
-{
-	t_tokens	*tmp;
-
-	while (*t)
-	{
-		tmp = (*t)->next;
-		free((*t)->val);
-		free(*t);
-		*t = tmp;
-	}
-}
 
 void	free_cmd(t_cmd **cmd)
 {
@@ -57,70 +44,45 @@ void	free_env_list(t_env_node *head)
 	}
 }
 
-void	print_cmd_table(t_cmd *cmd_t)
+void	starting_point(char *in, t_env_node *env_list, t_tokens *lexer,
+		t_cmd *cmd_table)
 {
-	t_cmd	*cmd;
-	int		i;
-
-	cmd = cmd_t;
-	while (cmd)
+	add_history(in);
+	if (!token_check(lexer) && !syntax_check(lexer))
 	{
-		i = 1;
-		if (cmd && cmd->cmd)
+		cmd_table = create_command_table(lexer, env_list);
+		if (cmd_table->in_fd == -1 || cmd_table->out_fd == -1)
+			g_helper.exit_status = 1;
+		if (cmd_table->cmd)
 		{
-			printf("Command: %s\n", cmd->cmd[0]);
-			while (cmd->cmd && cmd->cmd[i - 1] && cmd->cmd[i])
-			{
-				printf("args: %s\n", cmd->cmd[i]);
-				i++;
-			}
+			signal(SIGINT, SIG_IGN);
+			execute(cmd_table, &env_list);
 		}
-		printf("Input file: %s\n", cmd->in_file);
-		printf("Input fd: %d\n", cmd->in_fd);
-		printf("Output file: %s\n", cmd->out_file);
-		printf("Output fd: %d\n", cmd->out_fd);
-		printf("Append file: %s\n", cmd->out_file);
-		printf("Heredoc file: %s\n", cmd->in_file);
-		if (cmd->pipe)
-			printf("is piped\n");
-		cmd = cmd->next;
+		if (g_helper.exit_status != 0)
+			g_helper.flag = 1;
+		else
+			g_helper.flag = 0;
 	}
-}
-
-char	*get_dir(int flag, t_env_node *env)
-{
-	char	*currdir;
-	char	*color;
-	char	*prompt;
-	char	*tmp;
-
-	currdir = get_currdir(env);
-	if (flag)
-		color = "\033[1;31m";
 	else
-		color = "\033[1;32m";
-	prompt = join_str(color, "➜ \033[0m");
-	tmp = join_str(" \033[1;36m", currdir);
-	free(currdir);
-	currdir = tmp;
-	tmp = join_str(currdir, "\033[0m ");
-	free(currdir);
-	currdir = tmp;
-	tmp = join_str(prompt, currdir);
-	free(currdir);
-	free(prompt);
-	return (tmp);
+		g_helper.flag = 1;
 }
 
-void	sig_handler(int sig)
+void	rdline_loop(t_tokens *lexer, t_cmd *cmd_table, t_env_node *env_list,
+		char *in)
 {
-	if (sig == SIGINT)
+	g_helper.flag = 0;
+	lexer = lexer_init(in);
+	if (lexer && lexer->e_types != 6)
+		starting_point(in, env_list, lexer, cmd_table);
+	else
 	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
+		g_helper.flag = 0;
+		g_helper.exit_status = 0;
 	}
+	free_tokens(&lexer);
+	free_cmd(&cmd_table);
+	cmd_table = NULL;
+	free(in);
 }
 
 int	main(int ac, char **av, char **env)
@@ -128,14 +90,12 @@ int	main(int ac, char **av, char **env)
 	t_tokens	*lexer;
 	t_env_node	*env_list;
 	t_cmd		*cmd_table;
-	char		*in;
 	char		*prompt;
-	int			flag;
+	char		*in;
 
-	// atexit(leak_report);
-	flag = 0;
 	(void)ac;
 	(void)av;
+	prompt = NULL;
 	lexer = NULL;
 	cmd_table = NULL;
 	env_list = create_env_list(env);
@@ -143,43 +103,13 @@ int	main(int ac, char **av, char **env)
 	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
-		prompt = get_dir(flag, env_list);
+		prompt = get_dir(g_helper.flag, env_list);
 		in = readline(prompt);
 		free(prompt);
 		if (!in)
 			return (0);
-		lexer = lexer_init(in);
-		if (lexer && lexer->e_types != 6)
-		{
-			add_history(in);
-		 	if (!token_check(lexer) && !syntax_check(lexer))
-			{
-				cmd_table = create_command_table(lexer, env_list);
-				// print_cmd_table(cmd_table);
-				if (cmd_table->in_fd == -1 || cmd_table->out_fd == -1)
-					g_helper.exit_status = 1;
-				if (cmd_table->cmd)
-				{
-					signal(SIGINT, SIG_IGN);
-					execute(cmd_table, &env_list);
-				}
-				if (g_helper.exit_status != 0)
-					flag = 1;
-				else
-					flag = 0;
-			}
-			else
-				flag = 1;
-		}
-		else
-		{
-			flag = 0;
-			g_helper.exit_status = 0;
-		}
-		free_tokens(&lexer);
-		free_cmd(&cmd_table);
-		cmd_table = NULL;
-		free(in);
+		rdline_loop(lexer, cmd_table, env_list, in);
+		signal(SIGINT, sig_handler);
 	}
 	free_env_list(env_list);
 }

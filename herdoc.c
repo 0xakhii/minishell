@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 18:06:15 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/16 01:47:06 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/16 20:05:22 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ char	*spaces_skip(char *str)
 char	*remove_quotes(char *str)
 {
 	char	*res;
+	int		i;
+	int		j;
 
-	int i, j;
 	i = 0;
 	j = 0;
 	res = malloc(ft_strlen(str) + 1);

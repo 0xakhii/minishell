@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 23:13:04 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/15 18:14:07 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/16 21:31:03 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,11 @@ char	*replace_value(char *str, t_env_node *env, int flag)
 		return (str);
 	while (str[i])
 	{
-		if (c == 0 && (str[i] == '\"' || str[i] == '\''))
-			c = str[i];
-		else if (c == str[i])
-			c = 0;
+		c = expand_norm(c, str, i);
 		if ((flag != 2 || c != '\'') && str[i] == '$')
 		{
 			if (c == 0 && (str[i + 1] == '\"' || str[i + 1] == '\'')
-					&& flag == 2)
+				&& flag == 2)
 				i++;
 			else
 				res = get_value(res, str, &i, env);
@@ -91,8 +88,6 @@ char	*replace_value(char *str, t_env_node *env, int flag)
 		else
 			res = add_characters(res, str[i++]);
 	}
-	if (flag == 1)
-		free(str);
 	return (res);
 }
 
