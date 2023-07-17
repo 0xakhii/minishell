@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 19:03:01 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/17 00:38:33 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/17 01:33:20 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ t_cmd	*table_init(void)
 	new_cmd->next = NULL;
 	new_cmd->prev = NULL;
 	new_cmd->cmd = NULL;
-	new_cmd->in_file = NULL;
-	new_cmd->out_file = NULL;
 	new_cmd->pipe = 0;
 	new_cmd->in_fd = -2;
 	new_cmd->out_fd = -2;

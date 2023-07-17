@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/17 01:13:06 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/17 01:33:08 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void	free_cmd(t_cmd **cmd)
 	while (*cmd)
 	{
 		tmp = (*cmd)->next;
-		free((*cmd)->in_file);
-		free((*cmd)->out_file);
 		close((*cmd)->in_fd);
 		close((*cmd)->out_fd);
 		ft_freeeeee((*cmd)->cmd);
