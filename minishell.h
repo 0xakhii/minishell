@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/16 23:16:44 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/17 03:45:10 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@
 typedef struct s_cmd
 {
 	char				**cmd;
-	char				*in_file;
-	char				*out_file;
 	int					pipe;
 	int					in_fd;
 	int					out_fd;
@@ -132,8 +130,7 @@ char					*replace_value(char *str, t_env_node *env, int flag);
 char					*get_dir(int flag, t_env_node *env);
 char					expand_norm(char c, char *str, int i);
 void					herd_sig(int sig);
-void					herd_wait_sig(int pid, t_cmd *cmd, char *del,
-							int pipefd[2]);
+void					herd_wait_sig(int pid, t_cmd *cmd, int pipefd[2]);
 
 //------------------------------exec----------------//
 void					echo_cmd(char **str);
