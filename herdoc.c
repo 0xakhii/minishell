@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 18:06:15 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/17 03:46:35 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/17 20:04:29 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	herd_loop(char *del, int pipefd[2], t_env_node *env)
 	char	*in;
 	char	*tmp;
 
-
 	close(pipefd[0]);
 	while (1)
 	{
@@ -119,5 +118,8 @@ void	create_herdoc(char *str, t_env_node *env, t_cmd *cmd)
 		exit(0);
 	}
 	else
+	{
+		free(del);
 		herd_wait_sig(pid, cmd, pipefd);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/17 03:46:22 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/17 20:04:50 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ void	starting_point(char *in, t_env_node *env_list, t_tokens *lexer,
 			execute(cmd_table, &env_list);
 			free_cmd(&cmd_table);
 		}
+		else
+			free_cmd(&cmd_table);
 		if (g_helper.exit_status != 0)
 			g_helper.flag = 1;
 		else
@@ -66,7 +68,7 @@ void	starting_point(char *in, t_env_node *env_list, t_tokens *lexer,
 	}
 	else
 	{
-		free_tokens(&lexer);	
+		free_tokens(&lexer);
 		g_helper.flag = 1;
 	}
 }
@@ -98,7 +100,6 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
-	// atexit(leak_report);
 	prompt = NULL;
 	lexer = NULL;
 	cmd_table = NULL;
