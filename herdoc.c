@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 18:06:15 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/17 00:09:40 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/17 03:46:35 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,22 +74,21 @@ void	herd_loop(char *del, int pipefd[2], t_env_node *env)
 	char	*in;
 	char	*tmp;
 
-	tmp = del;
+
 	close(pipefd[0]);
 	while (1)
 	{
-		in = readline("herdoc> ");
+		in = readline("> ");
 		if (!in)
 			break ;
-		del = remove_quotes(del);
-		if (ft_strcmp(del, in) == 0 && ft_strlen(del) == ft_strlen(in))
+		tmp = remove_quotes(del);
+		if (ft_strcmp(tmp, in) == 0 && ft_strlen(tmp) == ft_strlen(in))
 		{
+			free(tmp);
 			free(in);
 			break ;
 		}
-		if (herd_quotes(tmp))
-			replace_value(in, env, 0);
-		else
+		if (!herd_quotes(del))
 			in = replace_value(in, env, 2);
 		if (in)
 			write(pipefd[1], in, ft_strlen(in));
@@ -115,10 +114,10 @@ void	create_herdoc(char *str, t_env_node *env, t_cmd *cmd)
 	if (pid == 0)
 	{
 		signal(SIGINT, herd_sig);
-		herd_loop(str, pipefd, env);
+		herd_loop(del, pipefd, env);
 		close(pipefd[1]);
 		exit(0);
 	}
 	else
-		herd_wait_sig(pid, cmd, del, pipefd);
+		herd_wait_sig(pid, cmd, pipefd);
 }

@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 23:29:33 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/17 00:12:45 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/17 03:37:22 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,10 @@ char	*join_str(char *s1, char *s2)
 	return (result);
 }
 
-void	herd_wait_sig(int pid, t_cmd *cmd, char *del, int pipefd[2])
+void	herd_wait_sig(int pid, t_cmd *cmd, int pipefd[2])
 {
 	int	stat;
 
-	free(del);
 	close(pipefd[1]);
 	cmd->in_fd = pipefd[0];
 	waitpid(pid, &stat, 0);

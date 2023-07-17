@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:13:46 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/11 19:19:11 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/17 02:04:39 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	cd_home(t_cmd *cmd, t_env_node **env)
 		oldpwd = getcwd(oldpwd, 0);
 		error = ft_chdir(*env, "HOME");
 		if (error == -1)
-			return (printf("HOME not set\n"));
+			return (free(oldpwd), printf("HOME not set\n"));
 		else
 		{
 			new = getcwd(new, 0);
@@ -66,7 +66,7 @@ int	cd_oldpwd(t_cmd *cmd, t_env_node **env)
 		oldpwd = getcwd(oldpwd, 0);
 		error = ft_chdir(*env, "OLDPWD");
 		if (error == -1)
-			return (printf("OLDPWD not set\n"));
+			return (free(oldpwd), printf("OLDPWD not set\n"));
 		else
 		{
 			new = getcwd(new, 0);
@@ -95,6 +95,7 @@ int	cd_dir(t_cmd *cmd, t_env_node **env)
 	if (error == -1)
 	{
 		perror("chdir");
+		free(oldpwd);
 		return (0);
 	}
 	else
