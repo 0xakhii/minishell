@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 19:03:01 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/17 01:33:20 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/18 00:14:47 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ t_tokens	*files_process(t_cmd **new_cmd, t_tokens *current_token,
 	current_token = out_files(new_cmd, current_token, env);
 	if (current_token->e_types == T_PIPE)
 	{
-		(*new_cmd)->pipe++;
 		(*new_cmd)->next = table_init();
+		(*new_cmd)->next->pipe++;
 		(*new_cmd)->next->prev = (*new_cmd);
 		(*new_cmd) = (*new_cmd)->next;
 		g_helper.exit_status = 0;
