@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:16:05 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/17 18:15:33 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/17 19:18:26 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	check_inputt(char *str)
 
 	i = 0;
 	id = 0;
-	if (str && (!str[0] || str[0] == '+' || str[0] == '=') || (str[i] >= '0' && str[i] <= '9'))
+	if (str && ((!str[0] || str[0] == '+' || str[0] == '=') || (str[i] >= '0' && str[i] <= '9')))
 		return (msg_er("export: not a valid identifier"));
 	while (str && str[i] != '\0')
 	{
