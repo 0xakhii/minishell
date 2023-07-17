@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:36:53 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/16 04:15:26 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/07/17 00:30:53 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 void	execute(t_cmd *cmd, t_env_node **envl)
 {
 	if (cmd->next == NULL && is_builtins(cmd))
+	{
 		execute_builtins(cmd, envl);
+		g_helper.exit_status = 0;
+	}
 	else
 		ft_exec(cmd, *envl);
 }

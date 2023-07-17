@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 04:40:53 by ojamal            #+#    #+#             */
-/*   Updated: 2023/06/17 01:57:25 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/16 22:18:30 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,14 @@ void	push_quote(t_quote **stack, char quote)
 	new_node->quote = quote;
 	new_node->next = *stack;
 	*stack = new_node;
+}
+
+int	msg_er(char *str)
+{
+	ft_putstr_fd("\033[1;31m[Minishell]\033[0m:", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd("\n", 2);
+	return (1);
 }
 
 void	pop_quote(t_quote **stack)

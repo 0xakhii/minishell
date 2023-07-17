@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/16 21:27:31 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/16 23:16:44 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,9 @@ void					create_herdoc(char *str, t_env_node *env, t_cmd *cmd);
 char					*replace_value(char *str, t_env_node *env, int flag);
 char					*get_dir(int flag, t_env_node *env);
 char					expand_norm(char c, char *str, int i);
+void					herd_sig(int sig);
+void					herd_wait_sig(int pid, t_cmd *cmd, char *del,
+							int pipefd[2]);
 
 //------------------------------exec----------------//
 void					echo_cmd(char **str);
@@ -155,4 +158,5 @@ int						get_exit_status(int status);
 void					sig_handler(int sig);
 void					ft_lunch(t_cmd *cmd, t_env_node *env_list);
 void					print_export(t_env_node **env);
+void					wait_and_signal(t_cmd *cmd);
 #endif

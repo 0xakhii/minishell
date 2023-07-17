@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 20:52:07 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/16 21:27:44 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/17 00:06:26 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,15 @@ char	expand_norm(char c, char *str, int i)
 	else if (c == str[i])
 		c = 0;
 	return (c);
+}
+
+void	herd_sig(int sig)
+{
+	if (sig == SIGINT)
+	{
+		printf("\n");
+		exit(1);
+	}
 }
 
 void	sig_handler(int sig)

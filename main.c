@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/16 21:21:09 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/17 01:13:06 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	free_cmd(t_cmd **cmd)
 		tmp = (*cmd)->next;
 		free((*cmd)->in_file);
 		free((*cmd)->out_file);
+		close((*cmd)->in_fd);
+		close((*cmd)->out_fd);
 		ft_freeeeee((*cmd)->cmd);
 		free(*cmd);
 		*cmd = tmp;
@@ -57,6 +59,7 @@ void	starting_point(char *in, t_env_node *env_list, t_tokens *lexer,
 		{
 			signal(SIGINT, SIG_IGN);
 			execute(cmd_table, &env_list);
+			free_cmd(&cmd_table);
 		}
 		if (g_helper.exit_status != 0)
 			g_helper.flag = 1;
@@ -79,8 +82,6 @@ void	rdline_loop(t_tokens *lexer, t_cmd *cmd_table, t_env_node *env_list,
 		g_helper.flag = 0;
 		g_helper.exit_status = 0;
 	}
-	free_tokens(&lexer);
-	free_cmd(&cmd_table);
 	cmd_table = NULL;
 	free(in);
 }

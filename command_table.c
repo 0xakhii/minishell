@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 17:28:27 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/16 00:49:20 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/16 23:43:39 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ t_tokens	*in_files(t_cmd **new_cmd, t_tokens *current_token, t_env_node *env)
 	if (current_token->next && current_token->e_types == T_HERD)
 	{
 		current_token = current_token->next;
+		signal(SIGINT, SIG_IGN);
 		if ((*new_cmd)->in_fd == -1 || (*new_cmd)->out_fd == -1)
 			return (current_token);
 		if ((*new_cmd)->in_fd)

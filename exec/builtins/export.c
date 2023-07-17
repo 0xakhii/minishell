@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:16:05 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/16 04:23:32 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/07/17 01:25:05 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ int	check_inputt(char *str)
 
 	i = 0;
 	id = 0;
-	if (!str[0] || str[0] == '+')
+	if (str && (!str[0] || str[0] == '+' || str[0] == '='))
 		return (msg_er("export: not a valid identifier"));
-	while (str[i])
+	while (str && str[i] != '\0')
 	{
-		if (!((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A'
+		if (str && !((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A'
 					&& str[i] <= 'Z') || str[i] == '_'))
 		{
 			if (check_emptyy(str))
@@ -88,6 +88,8 @@ void	export_variable(t_cmd *cmd, t_env_node **env)
 	int		i;
 
 	i = 0;
+	equal_sign = NULL;
+	key = NULL;
 	if (!cmd->cmd[1])
 		print_export(env);
 	else
@@ -95,6 +97,8 @@ void	export_variable(t_cmd *cmd, t_env_node **env)
 		while (cmd->cmd[++i])
 		{
 			value = NULL;
+			if (check_inputt(cmd->cmd[i]))
+				return ;
 			equal_sign = ft_split(cmd->cmd[i], '=');
 			if (equal_sign[0])
 				key = equal_sign[0];
