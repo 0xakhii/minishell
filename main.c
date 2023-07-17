@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/17 01:13:06 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/17 03:46:22 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void	free_cmd(t_cmd **cmd)
 	while (*cmd)
 	{
 		tmp = (*cmd)->next;
-		free((*cmd)->in_file);
-		free((*cmd)->out_file);
 		close((*cmd)->in_fd);
 		close((*cmd)->out_fd);
 		ft_freeeeee((*cmd)->cmd);
@@ -67,7 +65,10 @@ void	starting_point(char *in, t_env_node *env_list, t_tokens *lexer,
 			g_helper.flag = 0;
 	}
 	else
+	{
+		free_tokens(&lexer);	
 		g_helper.flag = 1;
+	}
 }
 
 void	rdline_loop(t_tokens *lexer, t_cmd *cmd_table, t_env_node *env_list,
@@ -79,6 +80,7 @@ void	rdline_loop(t_tokens *lexer, t_cmd *cmd_table, t_env_node *env_list,
 		starting_point(in, env_list, lexer, cmd_table);
 	else
 	{
+		free_tokens(&lexer);
 		g_helper.flag = 0;
 		g_helper.exit_status = 0;
 	}
@@ -96,6 +98,7 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
+	// atexit(leak_report);
 	prompt = NULL;
 	lexer = NULL;
 	cmd_table = NULL;
