@@ -6,7 +6,7 @@
 /*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 04:14:46 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/16 04:25:16 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/07/18 00:11:01 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ void	child_process(t_cmd *cmd, t_env_node *env, int *in)
 	{
 		close(cmd->fd[1]);
 		close(cmd->fd[0]);
+	}
+	if (is_builtins(cmd))
+	{
+		execute_builtins(cmd, &env);
+		exit(0);
 	}
 	ft_lunch(cmd, env);
 	exit(0);

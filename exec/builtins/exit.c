@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:17:10 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/16 23:28:55 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/18 00:15:17 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ void	my_exit(t_cmd *cmd)
 {
 	if (cmd->cmd[0] && !cmd->cmd[1])
 	{
-		printf("exit\n");
+		if (!cmd->pipe)
+			printf("exit\n");
 		exit(0);
 	}
 	if (cmd->cmd[1] && !cmd->cmd[2])
