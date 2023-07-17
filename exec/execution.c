@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:36:53 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/17 00:30:53 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/17 18:16:27 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ void	execute(t_cmd *cmd, t_env_node **envl)
 		ft_exec(cmd, *envl);
 }
 
-void	save_fd(int save[2])
-{
-	save[0] = dup(STDIN_FILENO);
-	save[1] = dup(STDOUT_FILENO);
-}
+// void	save_fd(int save[2])
+// {
+// 	save[0] = dup(STDIN_FILENO);
+// 	save[1] = dup(STDOUT_FILENO);
+// }
 
 void	check_dir(char *cmd)
 {

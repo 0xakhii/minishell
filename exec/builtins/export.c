@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:16:05 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/17 01:25:05 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/17 18:15:33 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	check_inputt(char *str)
 
 	i = 0;
 	id = 0;
-	if (str && (!str[0] || str[0] == '+' || str[0] == '='))
+	if (str && (!str[0] || str[0] == '+' || str[0] == '=') || (str[i] >= '0' && str[i] <= '9'))
 		return (msg_er("export: not a valid identifier"));
 	while (str && str[i] != '\0')
 	{
@@ -62,7 +62,10 @@ void	append_to_export(char *key, char *value, t_env_node **env)
 	{
 		existing = find_node(env, key);
 		if (existing && value)
+		{
+			free(existing->value);
 			existing->value = ft_strdup(value);
+		}
 		else
 			add_node(env, key, value);
 	}
@@ -70,13 +73,22 @@ void	append_to_export(char *key, char *value, t_env_node **env)
 
 char	*set_value(t_cmd *cmd, char **equal_sign, int *i, char *value)
 {
+	char	*str;
+
+	str = ft_strchr(cmd->cmd[*i], '=');
 	if (cmd->cmd[*i][0] && cmd->cmd[*i][0] != '=' && equal_sign[1] == NULL
 		&& ft_strchr(cmd->cmd[*i], '='))
+	{
 		value = "\"\"";
+		free(equal_sign[1]);
+	}
 	else if (equal_sign[0] && equal_sign[1] == NULL)
 		value = "";
 	else if (equal_sign[0] && equal_sign[1])
-		value = equal_sign[1];
+	{
+		free(equal_sign[1]);
+		value = ft_substr(str, 1, ft_strlen(str) - 1);
+	}
 	return (value);
 }
 
