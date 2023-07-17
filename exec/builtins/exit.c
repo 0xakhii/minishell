@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:17:10 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/11 19:13:48 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/18 00:10:51 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ void	my_exit(t_cmd *cmd)
 {
 	if (cmd->cmd[0] && !cmd->cmd[1])
 	{
-		printf("exit\n");
+		if (!cmd->pipe)
+			printf("exit\n");
 		exit(0);
 	}
 	if (cmd->cmd[1] && !cmd->cmd[2])
