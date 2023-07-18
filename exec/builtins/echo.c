@@ -6,20 +6,20 @@
 /*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:15:59 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/18 02:29:09 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/07/18 02:32:42 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
 void	print_fd(t_cmd *cmd, char *s)
 {
-	// printf("%d\n", cmd->out_fd);
 	if (cmd->out_fd != -2)
 		ft_putstr_fd(s, cmd->out_fd);
 	else
 		ft_putstr_fd(s, 1);
-
 }
+
 int	check_option(char *s)
 {
 	int	i;
@@ -54,8 +54,7 @@ void	echo_with_option(t_cmd *cmd, char **str, int *i)
 	}
 }
 
-
-void	echo_cmd(t_cmd *cmd ,char **str)
+void	echo_cmd(t_cmd	*cmd, char **str)
 {
 	int	i;
 	int	j;
@@ -71,7 +70,6 @@ void	echo_cmd(t_cmd *cmd ,char **str)
 	{
 		while (str[i])
 		{
-			// ft_putstr_fd(str[i], 0);
 			print_fd(cmd, str[i]);
 			if (str[i + 1])
 				print_fd(cmd, " ");
