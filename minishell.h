@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/17 03:45:10 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/18 02:48:23 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ void					herd_sig(int sig);
 void					herd_wait_sig(int pid, t_cmd *cmd, int pipefd[2]);
 
 //------------------------------exec----------------//
-void					echo_cmd(char **str);
+void					echo_cmd(t_cmd *cmd, char **str);
 void					set_env_value(t_env_node **env, const char *key,
 							const char *value);
 char					**node_to_2d(t_env_node *env);
