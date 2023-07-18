@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/18 18:53:45 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/18 23:53:25 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,32 @@ void	free_env_list(t_env_node *head)
 		current = next;
 	}
 }
+void	print_cmd_table(t_cmd *cmd_t)
+{
+	t_cmd	*cmd;
+	int		i;
+
+	cmd = cmd_t;
+	while (cmd)
+	{
+		i = 1;
+		if (cmd && cmd->cmd)
+		{
+			printf("Command: %s\n", cmd->cmd[0]);
+			while (cmd->cmd && cmd->cmd[i - 1] && cmd->cmd[i])
+			{
+				printf("args: %s\n", cmd->cmd[i]);
+				i++;
+			}
+		}
+		printf("Input fd: %d\n", cmd->in_fd);
+		printf("Output fd: %d\n", cmd->out_fd);
+		if (cmd->pipe)
+			printf("is piped\n");
+		printf("----------------------------\n");
+		cmd = cmd->next;
+	}
+}
 
 void	starting_point(char *in, t_env_node *env_list, t_tokens *lexer,
 		t_cmd *cmd_table)
@@ -53,6 +79,7 @@ void	starting_point(char *in, t_env_node *env_list, t_tokens *lexer,
 		cmd_table = create_command_table(lexer, env_list);
 		if (cmd_table->in_fd == -1 || cmd_table->out_fd == -1)
 			g_helper.exit_status = 1;
+		// print_cmd_table(cmd_table);
 		if (cmd_table->cmd)
 		{
 			signal(SIGINT, SIG_IGN);

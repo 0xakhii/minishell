@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 19:03:01 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/18 18:55:16 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/18 23:52:42 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ t_cmd	*table_init(void)
 	new_cmd = malloc(sizeof(t_cmd));
 	new_cmd->next = NULL;
 	new_cmd->prev = NULL;
-	new_cmd->cmd = NULL;
+	new_cmd->cmd = malloc(sizeof(char *));
+	new_cmd->cmd[0] = NULL;
 	new_cmd->pipe = 0;
 	new_cmd->in_fd = -2;
 	new_cmd->out_fd = -2;
