@@ -6,11 +6,18 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 08:46:30 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/18 18:55:43 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/19 21:44:56 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	print_exit_msg(char *str)
+{
+	ft_putstr_fd("exit\nexit: ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd("numeric arguments required\n", 2);
+}
 
 void	ft_freeeeee(char **av)
 {

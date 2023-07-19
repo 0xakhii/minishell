@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 17:28:27 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/18 23:41:03 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/19 21:35:01 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ t_tokens	*in_files(t_cmd **new_cmd, t_tokens *current_token, t_env_node *env)
 		if ((*new_cmd)->in_fd)
 			close((*new_cmd)->in_fd);
 		create_herdoc(current_token->val, env, *new_cmd);
-		
 		if ((*new_cmd)->in_fd == -1)
 			perror(current_token->val);
 	}

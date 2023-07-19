@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:07:29 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/19 01:07:50 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/19 21:45:53 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
-// # include "Leak_Hunter/leak_hunter.h"
 
 typedef struct s_cmd
 {
@@ -133,7 +132,9 @@ void					herd_sig(int sig);
 void					herd_wait_sig(int pid, t_cmd *cmd, int pipefd[2]);
 
 //------------------------------exec----------------//
+
 void					echo_cmd(t_cmd *cmd, char **str);
+void					print_exit_msg(char *str);
 void					set_env_value(t_env_node **env, const char *key,
 							const char *value);
 char					**node_to_2d(t_env_node *env);
@@ -156,4 +157,5 @@ void					sig_handler(int sig);
 void					ft_lunch(t_cmd *cmd, t_env_node *env_list);
 void					print_export(t_env_node **env);
 void					wait_and_signal(t_cmd *cmd);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:36:53 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/19 21:30:26 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/19 21:54:22 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,6 @@ void	execute(t_cmd *cmd, t_env_node **envl)
 	else
 		ft_exec(cmd, *envl);
 }
-
-// void	save_fd(int save[2])
-// {
-// 	save[0] = dup(STDIN_FILENO);
-// 	save[1] = dup(STDOUT_FILENO);
-// }
 
 void	check_dir(char *cmd)
 {
@@ -91,8 +85,9 @@ void	ft_lunch(t_cmd *cmd, t_env_node *env_list)
 
 	p_name = NULL;
 	env = node_to_2d(env_list);
-	check_dir(cmd->cmd[0]);
-	if (execve(cmd->cmd[0], cmd->cmd, env) < 0)
+	if (cmd->cmd[0])
+		check_dir(cmd->cmd[0]);
+	if (cmd->cmd[0] && execve(cmd->cmd[0], cmd->cmd, env) < 0)
 	{
 		if ((cmd->cmd[0][0] == '.' && cmd->cmd[0][1] == '/')
 			|| cmd->cmd[0][0] == '/')

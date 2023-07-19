@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 00:10:21 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/18 02:22:47 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/07/19 21:53:26 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,11 @@ int	is_builtins(t_cmd *cmd)
 {
 	if (!cmd->cmd)
 		return (0);
-	if (!ft_strcmp(cmd->cmd[0], "echo") || (!ft_strcmp(cmd->cmd[0], "env"))
+	
+	if (cmd->cmd[0] && (!ft_strcmp(cmd->cmd[0], "echo") || (!ft_strcmp(cmd->cmd[0], "env"))
 		|| (!ft_strcmp(cmd->cmd[0], "exit")) || (!ft_strcmp(cmd->cmd[0], "pwd"))
 		|| (!ft_strcmp(cmd->cmd[0], "cd")) || (!ft_strcmp(cmd->cmd[0],
-				"export")) || (!ft_strcmp(cmd->cmd[0], "unset")))
+				"export")) || (!ft_strcmp(cmd->cmd[0], "unset"))))
 		return (1);
 	return (0);
 }
