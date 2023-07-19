@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:36:53 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/18 00:15:07 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/19 00:53:21 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,12 @@ void	norm_check(t_cmd *cmd, t_env_node *env_list)
 	char	*p_name;
 	char	**env;
 
+	p_name = NULL;
 	env = node_to_2d(env_list);
-	p_name = ft_get_path(cmd->cmd[0], env_list);
-	if (p_name != NULL && execve(p_name, cmd->cmd, env) < 0)
+	if (cmd->cmd[0])
+		p_name = ft_get_path(cmd->cmd[0], env_list);
+	if ((p_name != NULL && execve(p_name, cmd->cmd, env) < 0)
+		|| !cmd->cmd[0])
 	{
 		printf("%s: Command not found.\n", cmd->cmd[0]);
 		ft_freeeeee(cmd->cmd);
