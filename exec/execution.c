@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:36:53 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/19 00:53:21 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/19 21:30:26 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,20 @@ void	check_dir(char *cmd)
 	{
 		if (cmd[0] == '.' && !cmd[1])
 		{
-			printf(": filename argument required\n");
+			ft_putstr_fd(". : filename argument required\n", 2);
 			exit(2);
 		}
 		else if (cmd[0] == '.' && cmd[1] == '.' && cmd[2] != '/')
 		{
-			printf(": command not found\n");
+			ft_putstr_fd(cmd, 2);
+			ft_putstr_fd(": Command not found.\n", 2);
 			exit(127);
 		}
 		else
 		{
 			close(tmp);
-			printf("%s: is a directory\n", cmd);
+			ft_putstr_fd(cmd, 2);
+			ft_putstr_fd(": is a directory\n", 2);
 			exit(126);
 		}
 	}
@@ -67,14 +69,16 @@ void	norm_check(t_cmd *cmd, t_env_node *env_list)
 	if ((p_name != NULL && execve(p_name, cmd->cmd, env) < 0)
 		|| !cmd->cmd[0])
 	{
-		printf("%s: Command not found.\n", cmd->cmd[0]);
+		ft_putstr_fd(cmd->cmd[0], 2);
+		ft_putstr_fd(": Command not found.\n", 2);
 		ft_freeeeee(cmd->cmd);
 		exit(127);
 	}
 	else if (p_name == NULL)
 	{
 		check_dir(cmd->cmd[0]);
-		printf("%s: Command not found.\n", cmd->cmd[0]);
+		ft_putstr_fd(cmd->cmd[0], 2);
+		ft_putstr_fd(": Command not found.\n", 2);
 		ft_freeeeee(cmd->cmd);
 		exit(127);
 	}
