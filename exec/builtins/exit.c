@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:17:10 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/18 00:15:17 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/19 01:04:34 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,19 @@ void	check_args_exit(t_cmd *cmd)
 	{
 		if (!is_digit(cmd->cmd[1]))
 		{
-			printf("exit\nexit: %s: numeric argument required\n", cmd->cmd[1]);
+			if (!cmd->pipe)
+				printf("exit\n");
+			printf("exit: %s: numeric argument required\n", cmd->cmd[1]);
 			exit(255);
 		}
 		else
-			printf("exit\nExit: too many arguments!\n");
+		{
+			if (!cmd->pipe)
+				printf("exit\n");	
+			printf("Exit: too many arguments!\n");
+			if (cmd->pipe)
+				exit(1);
+		}
 	}
 }
 
@@ -81,14 +89,16 @@ void	my_exit(t_cmd *cmd)
 	{
 		if (!is_digit(cmd->cmd[1]) || cmd->cmd[1][0] == '\0')
 		{
-			printf("exit\nexit: %s: numeric argument required\n", cmd->cmd[1]);
+			if (!cmd->pipe)
+				printf("exit\nexit: %s: numeric argument required\n", cmd->cmd[1]);
 			exit(255);
 		}
 		if (cmd->cmd[1])
 		{
 			if (is_digit(cmd->cmd[1]))
 			{
-				printf("exit\n");
+				if (!cmd->pipe)
+					printf("exit\n");
 				exit(ft_atoi(cmd->cmd[1]));
 			}
 		}
