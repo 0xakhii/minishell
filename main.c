@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/18 23:53:25 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/20 02:53:38 by ymenyoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ int	main(int ac, char **av, char **env)
 	lexer = NULL;
 	cmd_table = NULL;
 	env_list = create_env_list(env);
+	printf("f1: %p\n", env_list);
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
 	while (1)
@@ -141,6 +142,7 @@ int	main(int ac, char **av, char **env)
 		if (!in)
 			return (printf("exit\n"), 0);
 		rdline_loop(lexer, cmd_table, env_list, in);
+		printf("l1: %p\n", env_list);
 		signal(SIGINT, sig_handler);
 	}
 	free_env_list(env_list);
