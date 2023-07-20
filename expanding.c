@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expanding.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 23:13:04 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/19 23:46:14 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/07/20 22:41:02 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,21 @@
 char	*get_env_val(t_env_node *env, char *str)
 {
 	char	*val;
+	t_env_node *tmp;
 
+	tmp = env;
 	val = NULL;
-	while (env)
+	while (tmp)
 	{
-		if (env->key && str)
+		if (tmp->key && tmp->value && str)
 		{
-			if (!ft_strcmp(env->key, str))
+			if (!ft_strcmp(tmp->key, str))
 			{
-				val = env->value;
+				val = tmp->value;
 				break ;
 			}
 		}
-		env = env->next;
+		tmp = tmp->next;
 	}
 	if (val == NULL)
 		return (ft_strdup(""));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:16:49 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/20 02:53:53 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/07/20 22:31:36 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,10 @@ void	delete_node(t_env_node **head, const char *key)
 	prev = NULL;
 	if (current != NULL && ft_strcmp(current->key, key) == 0)
 	{
-		// printf("[%s]\n",(*head)->value);
-		//*head = current->next;
-		(*head)->value= "FIR3AWN";
-		(*head) = (*head)->next;
-		// free(current->key);
-		// free(current->value);
-		// free(current);
-		// //printf("here\n");
+		*head = current->next;
+		free(current->key);
+		free(current->value);
+		free(current);
 		return ;
 	}
 	while (current != NULL && ft_strcmp(current->key, key) != 0)

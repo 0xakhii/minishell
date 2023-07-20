@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:17:53 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/06/28 08:03:04 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/20 22:30:10 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	print_env(char **cmd, t_env_node *env)
 	{
 		while (tmp)
 		{
-			if (tmp->key && ft_strcmp(tmp->value, "\0"))
+			if (tmp->key && tmp->value && ft_strcmp(tmp->value, "\0"))
 			{
 				ft_putstr_fd(tmp->key, 1);
 				ft_putchar_fd('=', 1);

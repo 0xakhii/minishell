@@ -2,7 +2,7 @@ NAME = minishell
 
 CC = cc 
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3
 
 LIBS = -L ../readline-8.2 -lreadline -L libft -lft  -lcurses -I ../readline-8.2
 
@@ -14,7 +14,6 @@ SRCS = main.c utils.c syntax_check.c expanding.c \
 		exec/utils.c exec/execution.c  exec/execution2.c \
 		exec/builtins/unset.c norm.c\
 		exec/builtins/export.c herdoc.c\
-		# Leak_Hunter/leak_hunter.c Leak_Hunter/list_tools.c
 
 OBJS = $(SRCS:.c=.o)
 

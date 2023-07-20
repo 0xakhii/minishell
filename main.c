@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/20 22:24:13 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/20 22:40:30 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,19 @@ void	free_env_list(t_env_node *head)
 	}
 }
 
-void	starting_point(char *in, t_env_node *env_list, t_tokens *lexer,
+void	starting_point(char *in, t_env_node **env_list, t_tokens *lexer,
 		t_cmd *cmd_table)
 {
 	add_history(in);
 	if (!token_check(lexer) && !syntax_check(lexer))
 	{
-		cmd_table = create_command_table(lexer, env_list);
+		cmd_table = create_command_table(lexer, *env_list);
 		if (cmd_table->in_fd == -1 || cmd_table->out_fd == -1)
 			g_helper.exit_status = 1;
 		if (cmd_table->cmd)
 		{
 			signal(SIGINT, SIG_IGN);
-			execute(cmd_table, &env_list);
+			execute(cmd_table, env_list);
 			free_cmd(&cmd_table);
 		}
 		else
@@ -73,7 +73,7 @@ void	starting_point(char *in, t_env_node *env_list, t_tokens *lexer,
 	}
 }
 
-void	rdline_loop(t_tokens *lexer, t_cmd *cmd_table, t_env_node *env_list,
+void	rdline_loop(t_tokens *lexer, t_cmd *cmd_table, t_env_node **env_list,
 		char *in)
 {
 	g_helper.flag = 0;
@@ -104,7 +104,6 @@ int	main(int ac, char **av, char **env)
 	lexer = NULL;
 	cmd_table = NULL;
 	env_list = create_env_list(env);
-	printf("f1: %p\n", env_list);
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
 	while (1)
@@ -114,8 +113,7 @@ int	main(int ac, char **av, char **env)
 		free(prompt);
 		if (!in)
 			return (printf("exit\n"), 0);
-		rdline_loop(lexer, cmd_table, env_list, in);
-		printf("l1: %p\n", env_list);
+		rdline_loop(lexer, cmd_table, &env_list, in);
 		signal(SIGINT, sig_handler);
 	}
 	free_env_list(env_list);
