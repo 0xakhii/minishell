@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymenyoub <ymenyoub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:16:05 by ymenyoub          #+#    #+#             */
-/*   Updated: 2023/07/20 02:41:05 by ymenyoub         ###   ########.fr       */
+/*   Updated: 2023/07/20 23:18:53 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,28 +24,20 @@ int	check_emptyy(char *cmd)
 	return (0);
 }
 
-
 int	check_inputt(char *str)
 {
 	int	i;
-	int	id;
 
 	i = 0;
-	id = 0;
-	if (str && ((!str[0] || str[0] == '+' || str[0] == '=') || (str[i] >= '0'
-				&& str[i] <= '9')))
+	if (!str || (!ft_isalpha(str[0]) && str[0] != '_'))
 		return (msg_er("export: not a valid identifier1"));
-	while (str && str[i] != '\0')
+	while (str && str[i] != '\0' && str[i] != '=')
 	{
 		if (str && !((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A'
 					&& str[i] <= 'Z') || str[i] == '_'))
 		{
 			if (check_emptyy(str))
 				return (msg_er("export: not a valide identifier2"));
-			if (id && str[i] != '=')
-				return (msg_er("export: not a valid identifier3"));
-			else if (!id)
-				id = 1;
 		}
 		i++;
 	}
@@ -95,24 +87,23 @@ void	export_variable(t_cmd *cmd, t_env_node **env)
 	char	**equal_sign;
 	char	*value;
 	char	*key;
-	int		i;
 
-	i = 0;
+	g_helper.i = 0;
 	equal_sign = NULL;
 	key = NULL;
 	if (!cmd->cmd[1])
 		print_export(env);
 	else
 	{
-		while (cmd->cmd[++i])
+		while (cmd->cmd[++g_helper.i])
 		{
 			value = NULL;
-			if (check_inputt(cmd->cmd[i]))
+			if (check_inputt(cmd->cmd[g_helper.i]))
 				return ;
-			equal_sign = ft_split(cmd->cmd[i], '=');
+			equal_sign = ft_split(cmd->cmd[g_helper.i], '=');
 			if (equal_sign[0])
 				key = equal_sign[0];
-			value = set_value(cmd, equal_sign, &i, value);
+			value = set_value(cmd, equal_sign, &g_helper.i, value);
 			append_to_export(key, value, env);
 			free(value);
 			ft_freeeeee(equal_sign);

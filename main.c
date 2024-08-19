@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:42:56 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/20 22:40:30 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/20 23:21:14 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ void	rdline_loop(t_tokens *lexer, t_cmd *cmd_table, t_env_node **env_list,
 	free(in);
 }
 
+t_helper g_helper = {0, NULL, 0, NULL, NULL, 0, 0};
+
 int	main(int ac, char **av, char **env)
 {
 	t_tokens	*lexer;
@@ -112,7 +114,7 @@ int	main(int ac, char **av, char **env)
 		in = readline(prompt);
 		free(prompt);
 		if (!in)
-			return (printf("exit\n"), 0);
+			return (printf("exit\n"), g_helper.exit_status);
 		rdline_loop(lexer, cmd_table, &env_list, in);
 		signal(SIGINT, sig_handler);
 	}

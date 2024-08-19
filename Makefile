@@ -4,7 +4,7 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3
 
-LIBS = -L ../readline-8.2 -lreadline -L libft -lft  -lcurses -I ../readline-8.2
+LIBS = -L ./readline -lreadline -L libft -lft  -lcurses -I ./readline
 
 SRCS = main.c utils.c syntax_check.c expanding.c \
 		lexer.c env.c  lexer_utils.c syntax_utils.c \
@@ -21,12 +21,11 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@make -C libft
-	@stty -echoctl
 	@$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
 	@echo "\033[1;32mminishell is ready\033[0;0m"
 
 .c.o:
-	@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) -I ../readline-8.2
+	@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) -I $(HOME)/readline-8.2
 
 clean:
 	@make -C libft clean

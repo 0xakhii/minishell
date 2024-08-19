@@ -15,15 +15,16 @@
 
 # include "libft/libft.h"
 # include <fcntl.h>
-# include <history.h>
+# include "./readline/history.h"
 # include <limits.h>
-# include <readline.h>
+# include "./readline/readline.h"
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <signal.h>
 
 typedef struct s_cmd
 {
@@ -58,7 +59,6 @@ typedef struct s_helper
 	int					exit_status;
 	int					flag;
 }						t_helper;
-t_helper				g_helper;
 
 typedef struct s_env_node
 {
@@ -89,6 +89,8 @@ typedef struct s_tokens
 	} e_types;
 	struct s_tokens		*next;
 }						t_tokens;
+
+extern t_helper				g_helper;
 
 char					*get_currdir(t_env_node *env);
 char					*join_str(char *s1, char *s2);

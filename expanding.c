@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 23:13:04 by ojamal            #+#    #+#             */
-/*   Updated: 2023/07/20 22:41:02 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/07/20 22:47:49 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*get_env_val(t_env_node *env, char *str)
 {
-	char	*val;
-	t_env_node *tmp;
+	char		*val;
+	t_env_node	*tmp;
 
 	tmp = env;
 	val = NULL;
